@@ -1,11 +1,15 @@
 # created at 2018-05-11
-# updated at 2018-05-14
-# By TimeStamp
-# cnblogs: http://www.cnblogs.com/AdaminXie
+# updated at 2018-07-26
+
+# By coneypo
+# Blog: http://www.cnblogs.com/AdaminXie
+# GitHub: https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 #   return_128d_features()          获取某张图像的128d特征
 #   write_into_csv()                将某个文件夹中的图像读取特征兵写入csv
 #   compute_the_mean()              从csv中读取128d特征，并计算特征均值
+
+# 增加录入多张人脸的功能
 
 import cv2
 import os
@@ -15,7 +19,7 @@ import csv
 import numpy as np
 import pandas as pd
 
-path_pics = "F:/code/python/P_dlib_face_reco/data/get_from_camera/"
+path_pics = "F:/code/python/P_dlib_face_reco/data/faces_from_camera/"
 path_csv = "F:/code/python/P_dlib_face_reco/data/csvs/"
 
 # detector to find the faces
@@ -45,11 +49,10 @@ def return_128d_features(path_img):
         face_descriptor = 0
         print("no face")
 
-    # print(face_descriptor)
+    print(face_descriptor)
     return face_descriptor
 
-
-# return_128d_features(path_pics+"img_face_13.jpg")
+return_128d_features(path_pics+"/2018-05-21-14-19-05/img_face_2.jpg")
 
 # 将文件夹中照片特征提取出来，写入csv
 # 输入input:
@@ -73,9 +76,9 @@ def write_into_csv(path_pics, path_csv):
                 writer.writerow(features_128d)
 
 
-write_into_csv(path_pics, path_csv + "default_person.csv")
+#write_into_csv(path_pics, path_csv + "default_person.csv")
 
-path_csv_rd = "F:/code/python/P_dlib_face_reco/data/csvs/default_person.csv"
+#path_csv_rd = "F:/code/python/P_dlib_face_reco/data/csvs/default_person.csv"
 
 
 # 从csv中读取数据，计算128d特征的均值
@@ -105,3 +108,44 @@ def compute_the_mean(path_csv_rd):
     return feature_mean
 
 # compute_the_mean(path_csv_rd)
+path_faces = r"F:\code\python\P_dlib_face_reco\data\faces_from_camera"
+
+# 存放所有特征均值的csv的路径
+path_csv_feature_all = "F:/code/python/P_dlib_face_reco/data/csvs/features_all.csv"
+
+
+# 存放人脸的文件夹们
+folder_face = os.listdir(path_faces)
+
+# 存放人脸特征的csv的路径
+path_csv_rd = "F:/code/python/P_dlib_face_reco/data/csvs/faces_rd/"
+
+# 对每个存放人脸的文件夹遍历
+# 计算提取每个文件夹中人脸的特征值存入csv中
+# for i in range(len(folder_face)):
+#     print("########## 分隔符 ############")
+#     print(folder_face[i])
+#
+#     # 单个文件夹下的读取到的照片们
+#     pic_face = os.listdir(path_faces + "/" + folder_face[i])
+#
+#     for j in range(len(pic_face)):
+#         print(pic_face[j])
+#
+#     print('\n', "读取检测人脸获取特征: ")
+#     write_into_csv(path_faces + "/" + folder_face[i]+"/", path_csv_rd+folder_face[i]+".csv")
+#     print("写入的csv: ")
+#     print(path_csv_rd+folder_face[i]+".csv")
+#
+#     print('\n')
+
+# 读取人脸csv的数据，然后对每个csv求均值
+# # 将特征值的均值存入一个csv中
+# with open(path_csv_feature_all, "w", newline="") as csvfile:
+#     writer = csv.writer(csvfile)
+#     csv_rd = os.listdir(path_csv_rd)
+#     print("特征均值: ")
+#     for i in range(len(csv_rd)):
+#         feature_mean = compute_the_mean(path_csv_rd+csv_rd[i])
+#         writer.writerow(feature_mean)
+#

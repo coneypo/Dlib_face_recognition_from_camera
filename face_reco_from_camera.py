@@ -1,83 +1,77 @@
 # created at 2018-05-11
-# updated at 2018-05-14
-# By TimeStamp
-# cnblogs: http://www.cnblogs.com/AdaminXie
 
-import dlib         # 人脸识别的库dlib
+# updated at 2018-08-23
+# support multi-faces now
+
+# By coneypo
+# Blog: http://www.cnblogs.com/AdaminXie
+# GitHub: https://github.com/coneypo/Dlib_face_recognition_from_camera
+
+import dlib  # 人脸识别的库dlib
 import numpy as np  # 数据处理的库numpy
-import cv2          # 图像处理的库OpenCv
+import cv2  # 图像处理的库OpenCv
+import pandas as pd  # 数据处理的库Pandas
 
 # face recognition model, the object maps human faces into 128D vectors
 facerec = dlib.face_recognition_model_v1("dlib_face_recognition_resnet_model_v1.dat")
+
 
 # 计算两个向量间的欧式距离
 def return_euclidean_distance(feature_1, feature_2):
     feature_1 = np.array(feature_1)
     feature_2 = np.array(feature_2)
     dist = np.sqrt(np.sum(np.square(feature_1 - feature_2)))
-    print(dist)
+    print("e_distance: ", dist)
 
     if dist > 0.4:
         return "diff"
     else:
         return "same"
 
-features_mean_default_person = [-0.030892765492592986, 0.13333227054068916, 0.054221574805284799, -0.050820438289328626,
-                                -0.056331159841073189, 0.0039378538311116004, -0.044465327145237675,
-                                -0.13096490031794497, 0.14215188983239627, -0.084465635842398593, 0.34389359700052363,
-                                -0.062936659118062566, -0.24372901571424385, -0.13270603316394905, -0.0472818422866495,
-                                0.15475224742763921, -0.24415240554433121, -0.11213862150907516, 0.032288033417180964,
-                                0.023676671577911628, 0.098508275653186594, -0.010117797634417289,
-                                0.0048202000815715448, -0.014808513420192819, -0.060100053486071135,
-                                -0.34934839135722112, -0.095795629448012301, -0.050788544706608117,
-                                0.032316677762489567, -0.099673464894294739, -0.080181991975558434,
-                                0.096361607705291952, -0.1823408101734362, -0.045472671817007815,
-                                -0.0066827326326778062, 0.047393877549391041, -0.038414973079373964,
-                                -0.039067085930391363, 0.15961966781239761, 0.0092458106136243598, -0.16182226570029007,
-                                0.026322136191945327, -0.0039144184832510193, 0.2492692768573761, 0.19180528427425184,
-                                0.022950534855848866, -0.019220497949342979, -0.15331173021542399, 0.047744840089427795,
-                                -0.17038608616904208, 0.026140184680882254, 0.19366614363695445, 0.066497623724372762,
-                                0.07038829416820877, -0.0549700813073861, -0.11961311768544347, -0.032121153940495695,
-                                0.083507449611237169, -0.14934051350543373, 0.011458799806668571, 0.10686114273573223,
-                                -0.10744074888919529, -0.04377919611962218, -0.11030520381111848, 0.20804878441910996,
-                                0.093076545941202266, -0.11621182490336268, -0.1991656830436305, 0.10751579348978244,
-                                -0.11251544991606161, -0.12237925866716787, 0.058218707869711672, -0.15829276019021085,
-                                -0.17670038891466042, -0.2718416170070046, 0.034569320955166689, 0.30443575821424784,
-                                0.061833358712886512, -0.19622498672259481, 0.011373612000361868, -0.050225612756453063,
-                                -0.036157087079788507, 0.12961127491373764, 0.13962576616751521, -0.0074232793168017737,
-                                0.020964263007044792, -0.11185114399382942, 0.012502493042694894, 0.17834208513561048,
-                                -0.072658227462517586, -0.041312719401168194, 0.25095899873658228,
-                                -0.056628625839948654, 0.10285118379090961, 0.046701753217923012, 0.042323612264896691,
-                                0.0036216247826814651, 0.066720707440062574, -0.16388990533979317, -0.0193739396421925,
-                                0.027835704435251261, -0.086023958105789985, -0.05472404568603164, 0.14802298341926776,
-                                -0.10644183582381199, 0.098863413851512108, 0.00061285014778963834,
-                                0.062096107555063146, 0.051960245755157973, -0.099548895108072383,
-                                -0.058173993112225285, -0.065454461562790375, 0.14721672511414477, -0.25363486848379435,
-                                0.20384312381869868, 0.16890435312923632, 0.097537552447695477, 0.087824966562421697,
-                                0.091438713434495431, 0.093809676797766431, -0.034379941362299417,
-                                -0.085149037210564868, -0.24900743130006289, 0.021165960517368819, 0.076710369830068792,
-                                -0.0061752907196549996, 0.028413473285342519, -0.029983982541843465]
 
-# dlib预测器
+# 处理存放所有人脸特征的csv
+path_features_known_csv = "F:/code/python/P_dlib_face_reco/data/csvs/features_all.csv"
+
+# path_features_known_csv= "/media/con/data/code/python/P_dlib_face_reco/data/csvs/features_all.csv"
+csv_rd = pd.read_csv(path_features_known_csv, header=None)
+
+# 存储的特征人脸个数
+# print(csv_rd.shape[0])
+
+# 用来存放所有录入人脸特征的数组
+features_known_arr = []
+
+for i in range(csv_rd.shape[0]):
+    features_someone_arr = []
+    for j in range(0, len(csv_rd.ix[i, :])):
+        features_someone_arr.append(csv_rd.ix[i, :][j])
+    #    print(features_someone_arr)
+    features_known_arr.append(features_someone_arr)
+print("Faces in Database：", len(features_known_arr))
+
+# Dlib 预测器
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-# 创建cv2摄像头对象
+# 创建 cv2 摄像头对象
 cap = cv2.VideoCapture(0)
 
 # cap.set(propId, value)
 # 设置视频参数，propId设置的视频参数，value设置的参数值
 cap.set(3, 480)
 
-# 返回单张图像的128D特征
+
+# 返回一张图像多张人脸的128D特征
 def get_128d_features(img_gray):
     dets = detector(img_gray, 1)
     if len(dets) != 0:
-        shape = predictor(img_gray, dets[0])
-        face_descriptor = facerec.compute_face_descriptor(img_gray, shape)
+        face_des = []
+        for i in range(len(dets)):
+            shape = predictor(img_gray, dets[i])
+            face_des.append(facerec.compute_face_descriptor(img_gray, shape))
     else:
-        face_descriptor = 0
-    return face_descriptor
+        face_des = []
+    return face_des
 
 
 # cap.isOpened（） 返回true/false 检查初始化是否成功
@@ -95,7 +89,7 @@ while cap.isOpened():
     # 取灰度
     img_gray = cv2.cvtColor(im_rd, cv2.COLOR_RGB2GRAY)
 
-    # 人脸数dets
+    # 人脸数 dets
     dets = detector(img_gray, 0)
 
     # 待会要写的字体
@@ -103,29 +97,52 @@ while cap.isOpened():
 
     cv2.putText(im_rd, "q: quit", (20, 400), font, 0.8, (84, 255, 159), 1, cv2.LINE_AA)
 
+    # 存储人脸名字和位置的两个 list
+    # list 1 (dets): store the name of faces                Jack    unknown unknown Mary
+    # list 2 (pos_namelist): store the positions of faces   12,1    1,21    1,13    31,1
+
+    # 存储所有人脸的名字
+    pos_namelist = []
+    name_namelist = []
+
     if len(dets) != 0:
         # 检测到人脸
 
-        # 将捕获到的人脸提取特征和内置特征进行比对
-        features_rd = get_128d_features(im_rd)
-        compare = return_euclidean_distance(features_rd, features_mean_default_person)
+        # 获取当前捕获到的图像的所有人脸的特征，存储到 features_cap_arr
+        features_cap_arr = []
+        for i in range(len(dets)):
+            shape = predictor(im_rd, dets[i])
+            features_cap_arr.append(facerec.compute_face_descriptor(im_rd, shape))
 
-        # 让人名跟随在矩形框的下方
-        # 确定人名的位置坐标
-        pos_text_1 = tuple([dets[0].left(), int(dets[0].bottom()+(dets[0].bottom()-dets[0].top())/4)])
+        # 遍历捕获到的图像中所有的人脸
+        for k in range(len(dets)):
+            # 让人名跟随在矩形框的下方
+            # 确定人名的位置坐标
+            # 先默认所有人不认识，是 unknown
+            name_namelist.append("unknown")
 
-        im_rd = cv2.putText(im_rd, compare.replace("same", "default_person"), pos_text_1, font, 0.8, (0, 255, 255), 1, cv2.LINE_AA)
+            # 每个捕获人脸的名字坐标
+            pos_namelist.append(tuple([dets[k].left(), int(dets[k].bottom() + (dets[k].bottom() - dets[k].top()) / 4)]))
 
-        # 矩形框
-        for k, d in enumerate(dets):
-            # 绘制矩形框
-            im_rd = cv2.rectangle(im_rd, tuple([d.left(), d.top()]), tuple([d.right(), d.bottom()]), (0, 255, 255), 2)
+            # 对于某张人脸，遍历所有存储的人脸特征
+            for i in range(len(features_known_arr)):
+                # 将某张人脸与存储的所有人脸数据进行比对
+                compare = return_euclidean_distance(features_cap_arr[k], features_known_arr[i])
+                if compare == "same":  # 找到了相似脸
+                    name_namelist[k] = "person_" + str(i)
 
-        cv2.putText(im_rd, "faces: " + str(len(dets)), (20, 50), font, 1, (0, 0, 255), 1, cv2.LINE_AA)
+            # 矩形框
+            for kk, d in enumerate(dets):
+                # 绘制矩形框
+                cv2.rectangle(im_rd, tuple([d.left(), d.top()]), tuple([d.right(), d.bottom()]), (0, 255, 255), 2)
 
-    else:
-        # 没有检测到人脸
-        cv2.putText(im_rd, "no face", (20, 50), font, 1, (0, 0, 255), 1, cv2.LINE_AA)
+        # 写人脸名字
+        for i in range(len(dets)):
+            cv2.putText(im_rd, name_namelist[i], pos_namelist[i], font, 0.8, (0, 255, 255), 1, cv2.LINE_AA)
+
+    print("Name list:", name_namelist, "\n")
+
+    cv2.putText(im_rd, "faces: " + str(len(dets)), (20, 50), font, 1, (0, 0, 255), 1, cv2.LINE_AA)
 
     # 按下q键退出
     if kk == ord('q'):
