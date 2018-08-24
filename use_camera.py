@@ -1,5 +1,9 @@
 # 调用摄像头
 
+# By        coneypo
+# Blog:     http://www.cnblogs.com/AdaminXie
+# GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
+
 import cv2
 
 cap = cv2.VideoCapture(0)

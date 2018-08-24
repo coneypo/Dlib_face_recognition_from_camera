@@ -1,6 +1,10 @@
 # 测试
 # 输出单张照片的128D特征face_descriptor
 
+# By        coneypo
+# Blog:     http://www.cnblogs.com/AdaminXie
+# GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
+
 import cv2
 import dlib
 from skimage import io

@@ -1,9 +1,9 @@
 # created at 2018-05-11
-# updated at 2018-05-21
+# updated at 2018-08-24
 
-# By coneypo
-# Blog: http://www.cnblogs.com/AdaminXie
-# GitHub: https://github.com/coneypo/Dlib_face_recognition_from_camera
+# By        coneypo
+# Blog:     http://www.cnblogs.com/AdaminXie
+# GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 # 进行人脸录入
 # 录入多张人脸
@@ -11,7 +11,7 @@ import dlib         # 人脸识别的库 Dlib
 import numpy as np  # 数据处理的库 Numpy
 import cv2          # 图像处理的库 OpenCv
 import os
-import time
+import shutil
 
 # Dlib 预测器
 detector = dlib.get_frontal_face_detector()
@@ -37,8 +37,10 @@ current_face_dir = 0
 path_save = "F:/code/python/P_dlib_face_reco/data/get_from_camera/"
 path_make_dir = "F:/code/python/P_dlib_face_reco/data/faces_from_camera/"
 
-# cap.isOpened（） 返回 true/false 检查初始化是否成功
+# 人脸种类数目的计数器
+person_cnt = 0
 
+# cap.isOpened（） 返回 true/false 检查初始化是否成功
 while cap.isOpened():
 
     # cap.read()
@@ -56,14 +58,21 @@ while cap.isOpened():
     # 人脸数 rects
     rects = detector(img_gray, 0)
 
-    # print(len(rects))
+    # print(len(rects))q
 
     # 待会要写的字体
     font = cv2.FONT_HERSHEY_SIMPLEX
 
     # 按下 'n' 新建存储人脸的文件夹
     if kk == ord('n'):
-        current_face_dir = path_make_dir + time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
+        person_cnt += 1
+        # current_face_dir = path_make_dir + time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
+        current_face_dir = path_make_dir + "person_" + str(person_cnt)
+        print('\n')
+        for dirs in (os.listdir(path_make_dir)):
+            if current_face_dir == path_make_dir + dirs:
+                shutil.rmtree(current_face_dir)
+                print("删除旧的文件夹:", current_face_dir)
         os.makedirs(current_face_dir)
         print("新建的人脸文件夹: ", current_face_dir)
 
@@ -95,9 +104,6 @@ while cap.isOpened():
                 for ii in range(height):
                     for jj in range(width):
                         im_blank[ii][jj] = im_rd[d.top() + ii][d.left() + jj]
-                # 存储人脸图像文件
-                #cv2.imwrite(path_save + "img_face_" + str(cnt_p) + ".jpg", im_blank)
-                #print("写入本地：", path_save + "img_face_" + str(cnt_p) + ".jpg")
                 cv2.imwrite(current_face_dir + "/img_face_" + str(cnt_p) + ".jpg", im_blank)
                 print("写入本地：", str(current_face_dir) + "/img_face_" + str(cnt_p) + ".jpg")
 

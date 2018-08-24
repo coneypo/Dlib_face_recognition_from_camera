@@ -3,9 +3,9 @@
 # updated at 2018-08-23
 # support multi-faces now
 
-# By coneypo
-# Blog: http://www.cnblogs.com/AdaminXie
-# GitHub: https://github.com/coneypo/Dlib_face_recognition_from_camera
+# By        coneypo
+# Blog:     http://www.cnblogs.com/AdaminXie
+# GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 import dlib  # 人脸识别的库dlib
 import numpy as np  # 数据处理的库numpy
@@ -30,7 +30,7 @@ def return_euclidean_distance(feature_1, feature_2):
 
 
 # 处理存放所有人脸特征的csv
-path_features_known_csv = "F:/code/python/P_dlib_face_reco/data/csvs/features_all.csv"
+path_features_known_csv = "F:/code/python/P_dlib_face_reco/data/features_all.csv"
 
 # path_features_known_csv= "/media/con/data/code/python/P_dlib_face_reco/data/csvs/features_all.csv"
 csv_rd = pd.read_csv(path_features_known_csv, header=None)
