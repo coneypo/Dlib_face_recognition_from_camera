@@ -22,6 +22,7 @@ Three steps:
   	# 将捕获到的人脸数据和之前存的人脸数据进行对比计算欧式距离
   
 For more details, pls refer to my blog (in chinese) or contact me by e-mail:
+	
 	Blog: https://www.cnblogs.com/AdaminXie/p/9010298.html  
 	Mail: coneypo@foxmail.com
 
