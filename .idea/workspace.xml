@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b5dc6717-4a07-48df-8a39-c6930a4d23bc" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/get_faces_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_faces_from_camera.py" afterDir="false" />
-    </list>
+    <list default="true" id="b5dc6717-4a07-48df-8a39-c6930a4d23bc" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +44,7 @@
         <entry file="file://$PROJECT_DIR$/face_reco_from_camera.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="114" column="25" lean-forward="true" selection-start-line="114" selection-start-column="25" selection-end-line="114" selection-end-column="25" />
+              <caret line="114" column="25" selection-start-line="114" selection-start-column="25" selection-end-line="114" selection-end-column="25" />
               <folding>
                 <element signature="e#215#240#0" expanded="true" />
               </folding>
@@ -63,11 +61,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-238">
-              <caret line="62" column="13" lean-forward="true" selection-start-line="62" selection-start-column="13" selection-end-line="63" selection-end-column="35" />
+            <state relative-caret-position="15">
+              <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
               <folding>
                 <element signature="e#206#239#0" expanded="true" />
               </folding>
@@ -96,7 +94,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/get_descriptor_from_face.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
@@ -364,7 +362,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="615" y="44" width="1463" height="1036" extended-state="0" />
+    <frame x="898" y="122" width="1463" height="1036" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
@@ -441,16 +439,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/get_descriptor_from_face.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#176#186#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../.local/lib/python3.6/site-packages/pandas/io/parsers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -461,7 +449,7 @@
     <entry file="file://$PROJECT_DIR$/face_reco_from_camera.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="114" column="25" lean-forward="true" selection-start-line="114" selection-start-column="25" selection-end-line="114" selection-end-column="25" />
+          <caret line="114" column="25" selection-start-line="114" selection-start-column="25" selection-end-line="114" selection-end-column="25" />
           <folding>
             <element signature="e#215#240#0" expanded="true" />
           </folding>
@@ -470,10 +458,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-238">
-          <caret line="62" column="13" lean-forward="true" selection-start-line="62" selection-start-column="13" selection-end-line="63" selection-end-column="35" />
+        <state relative-caret-position="15">
+          <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
           <folding>
             <element signature="e#206#239#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/get_descriptor_from_face.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#176#186#0" expanded="true" />
           </folding>
         </state>
       </provider>
