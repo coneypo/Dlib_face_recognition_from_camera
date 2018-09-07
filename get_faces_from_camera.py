@@ -1,7 +1,7 @@
 # created at 2018-05-11
-# updated at 2018-08-24
+# updated at 2018-09-07
 
-# By        coneypo
+# Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
@@ -34,8 +34,8 @@ cnt_p = 0
 current_face_dir = 0
 
 # 保存
-path_save = "F:/code/python/P_dlib_face_reco/data/get_from_camera/"
-path_make_dir = "F:/code/python/P_dlib_face_reco/data/faces_from_camera/"
+path_save = "data/get_from_camera/"
+path_make_dir = "data/faces_from_camera/"
 
 # 人脸种类数目的计数器
 person_cnt = 0
@@ -61,7 +61,7 @@ while cap.isOpened():
     # print(len(rects))q
 
     # 待会要写的字体
-    font = cv2.FONT_HERSHEY_SIMPLEX
+    font = cv2.FONT_HERSHEY_COMPLEX
 
     # 按下 'n' 新建存储人脸的文件夹
     if kk == ord('n'):
@@ -108,13 +108,13 @@ while cap.isOpened():
                 print("写入本地：", str(current_face_dir) + "/img_face_" + str(cnt_p) + ".jpg")
 
         # 显示人脸数
-    cv2.putText(im_rd, "Faces: " + str(len(rects)), (20, 100), font, 0.8, (0, 0, 255), 1, cv2.LINE_AA)
+    cv2.putText(im_rd, "Faces: " + str(len(rects)), (20, 100), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
 
     # 添加说明
     cv2.putText(im_rd, "Face Register", (20, 40), font, 1, (255, 255, 255), 1, cv2.LINE_AA)
-    cv2.putText(im_rd, "N: new face folder", (20, 350), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
-    cv2.putText(im_rd, "S: save face", (20, 400), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
-    cv2.putText(im_rd, "Q: quit", (20, 450), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
+    cv2.putText(im_rd, "N: New face folder", (20, 350), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
+    cv2.putText(im_rd, "S: Save face", (20, 400), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
+    cv2.putText(im_rd, "Q: Quit", (20, 450), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
 
     # 按下 'q' 键退出
     if kk == ord('q'):

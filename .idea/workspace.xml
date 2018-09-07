@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5dc6717-4a07-48df-8a39-c6930a4d23bc" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/P_dlib_face_reco.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/face_reco_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/face_reco_from_camera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_faces_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_faces_from_camera.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,23 +30,23 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="178" />
+          <entry key="py" value="268" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="178" />
+          <entry key="Python" value="268" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/face_reco_from_camera.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="119" column="53" selection-start-line="119" selection-start-column="53" selection-end-line="119" selection-end-column="53" />
+            <state relative-caret-position="135">
+              <caret line="114" column="25" lean-forward="true" selection-start-line="114" selection-start-column="25" selection-end-line="114" selection-end-column="25" />
               <folding>
                 <element signature="e#215#240#0" expanded="true" />
               </folding>
@@ -68,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1695">
-              <caret line="117" selection-start-line="117" selection-end-line="117" />
+            <state relative-caret-position="-238">
+              <caret line="62" column="13" lean-forward="true" selection-start-line="62" selection-start-column="13" selection-end-line="63" selection-end-column="35" />
               <folding>
                 <element signature="e#206#239#0" expanded="true" />
               </folding>
@@ -144,6 +139,7 @@
       <find>Vshow</find>
       <find>dets</find>
       <find>im_rd</find>
+      <find>red</find>
     </findStrings>
     <replaceStrings>
       <replace>cnt_ss</replace>
@@ -176,18 +172,18 @@
         <option value="$PROJECT_DIR$/get_camera.py" />
         <option value="$PROJECT_DIR$/test_facerec.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/get_faces_from_camera.py" />
         <option value="$PROJECT_DIR$/get_features_into_CSV.py" />
         <option value="$PROJECT_DIR$/use_camera.py" />
         <option value="$PROJECT_DIR$/test_get_face_descriptor.py" />
         <option value="$PROJECT_DIR$/get_descriptor_from_face.py" />
         <option value="$PROJECT_DIR$/face_reco_from_camera.py" />
+        <option value="$PROJECT_DIR$/get_faces_from_camera.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="340" />
-    <option name="y" value="27" />
+    <option name="x" value="898" />
+    <option name="y" value="122" />
     <option name="width" value="1463" />
     <option name="height" value="1036" />
   </component>
@@ -231,7 +227,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.face_reco_from_camera">
+  <component name="RunManager" selected="Python.get_faces_from_camera">
     <configuration name="face_reco_from_camera" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="P_dlib_face_reco" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -274,7 +270,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="get_features_into_CSV" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="get_faces_from_camera" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="P_dlib_face_reco" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -286,7 +282,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/get_features_into_CSV.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/get_faces_from_camera.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -338,19 +334,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.get_features_into_CSV" />
       <item itemvalue="Python.use_camera" />
       <item itemvalue="Python.test_get_face_descriptor" />
       <item itemvalue="Python.get_descriptor_from_face" />
       <item itemvalue="Python.face_reco_from_camera" />
+      <item itemvalue="Python.get_faces_from_camera" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.get_faces_from_camera" />
         <item itemvalue="Python.face_reco_from_camera" />
         <item itemvalue="Python.get_descriptor_from_face" />
         <item itemvalue="Python.test_get_face_descriptor" />
         <item itemvalue="Python.use_camera" />
-        <item itemvalue="Python.get_features_into_CSV" />
       </list>
     </recent_temporary>
   </component>
@@ -368,7 +364,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="922" y="27" width="1463" height="1036" extended-state="0" />
+    <frame x="615" y="44" width="1463" height="1036" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
@@ -411,16 +407,6 @@
     <entry file="file://D:/programfiles/anaconda/Lib/site-packages/skimage/io/_plugins/pil_plugin.py" />
     <entry file="file://D:/programfiles/anaconda/Lib/site-packages/numpy/core/_methods.py" />
     <entry file="file://D:/programfiles/anaconda/Lib/site-packages/numpy/core/fromnumeric.py" />
-    <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1695">
-          <caret line="117" selection-start-line="117" selection-end-line="117" />
-          <folding>
-            <element signature="e#206#239#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/get_features_into_CSV.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="474">
@@ -474,10 +460,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/face_reco_from_camera.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="119" column="53" selection-start-line="119" selection-start-column="53" selection-end-line="119" selection-end-column="53" />
+        <state relative-caret-position="135">
+          <caret line="114" column="25" lean-forward="true" selection-start-line="114" selection-start-column="25" selection-end-line="114" selection-end-column="25" />
           <folding>
             <element signature="e#215#240#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-238">
+          <caret line="62" column="13" lean-forward="true" selection-start-line="62" selection-start-column="13" selection-end-line="63" selection-end-column="35" />
+          <folding>
+            <element signature="e#206#239#0" expanded="true" />
           </folding>
         </state>
       </provider>
