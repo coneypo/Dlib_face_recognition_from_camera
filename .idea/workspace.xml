@@ -159,7 +159,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1145" />
+    <option name="x" value="998" />
     <option name="y" value="33" />
     <option name="width" value="1463" />
     <option name="height" value="1036" />
@@ -204,8 +204,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.get_features_into_CSV">
+  <component name="RunManager" selected="Python.use_camera">
     <configuration name="face_reco_from_camera" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="P_dlib_face_reco" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -216,14 +217,17 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="P_dlib_face_reco" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/face_reco_from_camera.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="get_faces_from_camera" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="P_dlib_face_reco" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -234,14 +238,17 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="P_dlib_face_reco" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/get_faces_from_camera.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="get_features_into_CSV" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="P_dlib_face_reco" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -252,14 +259,17 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="P_dlib_face_reco" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/get_features_into_CSV.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="P_dlib_face_reco" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -270,14 +280,17 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="P_dlib_face_reco" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
-    <configuration name="test_get_face_descriptor" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="use_camera" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="P_dlib_face_reco" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -288,32 +301,31 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="P_dlib_face_reco" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_get_face_descriptor.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/use_camera.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.test_get_face_descriptor" />
-      <item index="1" class="java.lang.String" itemvalue="Python.get_faces_from_camera" />
-      <item index="2" class="java.lang.String" itemvalue="Python.get_features_into_CSV" />
-      <item index="3" class="java.lang.String" itemvalue="Python.test" />
-      <item index="4" class="java.lang.String" itemvalue="Python.face_reco_from_camera" />
+    <list>
+      <item itemvalue="Python.get_faces_from_camera" />
+      <item itemvalue="Python.get_features_into_CSV" />
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.face_reco_from_camera" />
+      <item itemvalue="Python.use_camera" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.get_features_into_CSV" />
-        <item index="1" class="java.lang.String" itemvalue="Python.get_faces_from_camera" />
-        <item index="2" class="java.lang.String" itemvalue="Python.face_reco_from_camera" />
-        <item index="3" class="java.lang.String" itemvalue="Python.test" />
-        <item index="4" class="java.lang.String" itemvalue="Python.test_get_face_descriptor" />
+      <list>
+        <item itemvalue="Python.use_camera" />
+        <item itemvalue="Python.get_features_into_CSV" />
+        <item itemvalue="Python.get_faces_from_camera" />
+        <item itemvalue="Python.face_reco_from_camera" />
+        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />

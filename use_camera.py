@@ -29,15 +29,15 @@ print(cap.isOpened())
           R2：图像的三维矩阵
 """
 while cap.isOpened():
-    ret_flag, Vshow = cap.read()
-    cv2.imshow("camera", Vshow)
+    ret_flag, img_camera = cap.read()
+    cv2.imshow("camera", img_camera)
 
     # 每帧数据延时1ms，延时为0读取的是静态帧
     k = cv2.waitKey(1)
 
     # 保存
     if k == ord('s'):
-        cv2.imwrite("test.jpg", Vshow)
+        cv2.imwrite("test.jpg", img_camera)
 
     # 退出
     if k == ord('q'):
