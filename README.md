@@ -1,6 +1,7 @@
 # Face recognition from camera
 
 Author: coneypo
+
 Last Update: 7 Sep
 
 Using Dlib to detect and recognize faces from camera (support multi-faces) ;
