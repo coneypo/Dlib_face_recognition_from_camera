@@ -1,9 +1,9 @@
 # created at 2018-05-11
 
-# updated at 2018-08-23
+# updated at 2018-09-07
 # support multi-faces now
 
-# By        coneypo
+# Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
@@ -30,9 +30,8 @@ def return_euclidean_distance(feature_1, feature_2):
 
 
 # 处理存放所有人脸特征的csv
-path_features_known_csv = "F:/code/python/P_dlib_face_reco/data/features_all.csv"
+path_features_known_csv = "data/features_all.csv"
 
-# path_features_known_csv= "/media/con/data/code/python/P_dlib_face_reco/data/csvs/features_all.csv"
 csv_rd = pd.read_csv(path_features_known_csv, header=None)
 
 # 存储的特征人脸个数
@@ -95,7 +94,7 @@ while cap.isOpened():
     # 待会要写的字体
     font = cv2.FONT_HERSHEY_SIMPLEX
 
-    cv2.putText(im_rd, "q: quit", (20, 400), font, 0.8, (84, 255, 159), 1, cv2.LINE_AA)
+    cv2.putText(im_rd, "Press 'q': Quit", (20, 400), font, 0.8, (84, 255, 159), 1, cv2.LINE_AA)
 
     # 存储人脸名字和位置的两个 list
     # list 1 (dets): store the name of faces                Jack    unknown unknown Mary
@@ -142,7 +141,7 @@ while cap.isOpened():
 
     print("Name list:", name_namelist, "\n")
 
-    cv2.putText(im_rd, "faces: " + str(len(dets)), (20, 50), font, 1, (0, 0, 255), 1, cv2.LINE_AA)
+    cv2.putText(im_rd, "Faces: " + str(len(dets)), (20, 50), font, 1, (0, 0, 255), 1, cv2.LINE_AA)
 
     # 按下q键退出
     if kk == ord('q'):
