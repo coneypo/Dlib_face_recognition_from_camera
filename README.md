@@ -5,6 +5,7 @@ Author: coneypo
 Last Update: 7 Sep
 
 Using Dlib to detect and recognize faces from camera (support multi-faces) ;
+
 调用摄像头进行人脸识别，支持多张人脸同时识别;
 
 Three steps:
@@ -32,4 +33,4 @@ For more details, pls refer to my blog (in chinese) or contact me by e-mail:
 	Blog: https://www.cnblogs.com/AdaminXie/p/9010298.html  
 	Mail: coneypo@foxmail.com
 
-Thks for your support.
+Thanks for your support.
