@@ -1,6 +1,7 @@
-# Updated on 09.07
-# Author: coneypo
-# Dlib_face_recognition_from_camera
+# Face recognition from camera
+
+Author: coneypo
+Last Update: 7 Sep
 
 using Dlib to detect the faces (support multi-faces) from the camera and recognize face  /调用摄像头进行人脸识别，支持多张人脸同时识别
 
@@ -23,3 +24,5 @@ Three steps:
 For more details, pls refer to my blog (in chinese) or contact me by e-mail:
 	Blog: https://www.cnblogs.com/AdaminXie/p/9010298.html  
 	Mail: coneypo@foxmail.com
+
+Thks for your support.
