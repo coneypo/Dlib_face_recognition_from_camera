@@ -34,8 +34,25 @@ cnt_p = 0
 current_face_dir = 0
 
 # 保存
-path_save = "data/get_from_camera/"
 path_make_dir = "data/faces_from_camera/"
+
+path_csv = "data/csvs_from_camera/"
+
+
+# clear the old folders at first
+def pre_clear():
+    folders_rd = os.listdir(path_make_dir)
+    for i in range(len(folders_rd)):
+        shutil.rmtree(path_make_dir+folders_rd[i])
+
+    csv_rd = os.listdir(path_csv)
+    for i in range(len(csv_rd)):
+        os.remove(path_csv+csv_rd[i])
+
+
+# clear the exist folders of faces and csv
+pre_clear()
+
 
 # 人脸种类数目的计数器
 person_cnt = 0

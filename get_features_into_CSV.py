@@ -20,8 +20,8 @@ import csv
 import numpy as np
 import pandas as pd
 
-path_faces_rd = "F:/code/python/P_dlib_face_reco/data/faces_from_camera/"
-path_csv = "F:/code/python/P_dlib_face_reco/data/csvs_from_camera/"
+path_faces_rd = "data/faces_from_camera/"
+path_csv = "data/csvs_from_camera/"
 
 # detector to find the faces
 detector = dlib.get_frontal_face_detector()
@@ -107,9 +107,9 @@ def compute_the_mean(path_csv_rd):
 
 
 # 存放所有特征均值的 CSV 的路径
-path_csv_feature_all = "F:/code/python/P_dlib_face_reco/data/features_all.csv"
+path_csv_feature_all = "data/features_all.csv"
 # 存放人脸特征的csv的路径
-path_csv_rd = "F:/code/python/P_dlib_face_reco/data/csvs_from_camera/"
+path_csv_rd = "data/csvs_from_camera/"
 
 with open(path_csv_feature_all, "w", newline="") as csvfile:
     writer = csv.writer(csvfile)

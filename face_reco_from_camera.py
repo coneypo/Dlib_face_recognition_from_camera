@@ -1,5 +1,5 @@
 # created at 2018-05-11
-# updated at 2018-09-07
+# updated at 2018-09-08
 # support multi-faces now
 
 # Author:   coneypo
@@ -85,7 +85,7 @@ while cap.isOpened():
     faces = detector(img_gray, 0)
 
     # 待会要写的字体
-    font = cv2.FONT_HERSHEY_SIMPLEX
+    font = cv2.FONT_HERSHEY_COMPLEX
 
     cv2.putText(img_rd, "Press 'q': Quit", (20, 400), font, 0.8, (84, 255, 159), 1, cv2.LINE_AA)
 
@@ -121,7 +121,7 @@ while cap.isOpened():
                 # 将某张人脸与存储的所有人脸数据进行比对
                 compare = return_euclidean_distance(features_cap_arr[k], features_known_arr[i])
                 if compare == "same":  # 找到了相似脸
-                    name_namelist[k] = "person_" + str(i)
+                    name_namelist[k] = "person_" + str(i+1)
 
             # 矩形框
             for kk, d in enumerate(faces):
@@ -134,9 +134,11 @@ while cap.isOpened():
 
     print("Name list now:", name_namelist, "\n")
 
-    cv2.putText(img_rd, "Faces: " + str(len(faces)), (20, 50), font, 1, (0, 0, 255), 1, cv2.LINE_AA)
 
-    # 按下q键退出
+    cv2.putText(img_rd, "Face Register", (20, 40), font, 1, (255, 255, 255), 1, cv2.LINE_AA)
+    cv2.putText(img_rd, "Faces: " + str(len(faces)), (20, 100), font, 1, (0, 0, 255), 1, cv2.LINE_AA)
+
+    # 按下 q 键退出
     if kk == ord('q'):
         break
 
