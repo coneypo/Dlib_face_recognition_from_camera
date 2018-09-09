@@ -1,5 +1,5 @@
 # created at 2018-05-11
-# updated at 2018-09-07
+# updated at 2018-09-09
 
 # Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
@@ -15,7 +15,7 @@ import shutil
 
 # Dlib 预测器
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
+predictor = dlib.shape_predictor('data/dlib_dat/shape_predictor_68_face_landmarks.dat')
 
 # 创建 cv2 摄像头对象
 cap = cv2.VideoCapture(0)
@@ -24,7 +24,7 @@ cap = cv2.VideoCapture(0)
 # 设置视频参数，propId 设置的视频参数，value 设置的参数值
 cap.set(3, 480)
 
-# 截图 screenshoot 的计数器
+# 截图 screen shoot 的计数器n
 cnt_ss = 0
 
 # 人脸截图的计数器
@@ -128,10 +128,10 @@ while cap.isOpened():
     cv2.putText(im_rd, "Faces: " + str(len(rects)), (20, 100), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
 
     # 添加说明
-    cv2.putText(im_rd, "Face Register", (20, 40), font, 1, (255, 255, 255), 1, cv2.LINE_AA)
-    cv2.putText(im_rd, "N: New face folder", (20, 350), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
-    cv2.putText(im_rd, "S: Save face", (20, 400), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
-    cv2.putText(im_rd, "Q: Quit", (20, 450), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
+    cv2.putText(im_rd, "Face Register", (20, 40), font, 1, (0, 0, 0), 1, cv2.LINE_AA)
+    cv2.putText(im_rd, "N: New face folder", (20, 350), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
+    cv2.putText(im_rd, "S: Save face", (20, 400), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
+    cv2.putText(im_rd, "Q: Quit", (20, 450), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
 
     # 按下 'q' 键退出
     if kk == ord('q'):

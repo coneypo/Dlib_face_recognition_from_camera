@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b5dc6717-4a07-48df-8a39-c6930a4d23bc" name="Default" comment="" />
+    <list default="true" id="b5dc6717-4a07-48df-8a39-c6930a4d23bc" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/csvs_from_camera/person_1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/csvs_from_camera/person_1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_11.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_13.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_14.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_15.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_16.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_3.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_4.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_5.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_6.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_6.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/features_all.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/features_all.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dlib_face_recognition_resnet_model_v1.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/double-people_known.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/face_reco_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/face_reco_from_camera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_faces_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_faces_from_camera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_features_into_CSV.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_features_into_CSV.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/introduction.pptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shape_predictor_5_face_landmarks.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shape_predictor_68_face_landmarks.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/single_person_known.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/single_person_unknown.png" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,9 +43,10 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="2" />
-          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -30,12 +61,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="497" />
+          <entry key="py" value="569" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="497" />
+          <entry key="Python" value="569" />
         </counts>
       </usages-collector>
     </session>
@@ -45,8 +76,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/face_reco_from_camera.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="34" lean-forward="true" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+            <state relative-caret-position="15">
+              <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
               <folding>
                 <element signature="e#215#247#0" expanded="true" />
               </folding>
@@ -66,8 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="41">
-              <caret line="123" column="3" selection-start-line="123" selection-start-column="3" selection-end-line="123" selection-end-column="3" />
+            <state relative-caret-position="15">
+              <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
               <folding>
                 <element signature="e#206#239#0" expanded="true" />
               </folding>
@@ -75,14 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/get_features_into_CSV.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-890">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-              <folding>
-                <element signature="e#374#384#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="285">
+              <caret line="19" column="9" lean-forward="true" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -90,17 +118,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../../.local/lib/python3.6/site-packages/numpy/core/fromnumeric.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
+            <state relative-caret-position="44175">
               <caret line="2956" selection-start-line="2956" selection-end-line="2956" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/use_camera.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
-              <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+              <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -138,6 +166,7 @@
       <find>red</find>
       <find>path_save</find>
       <find>path_faces_rd</find>
+      <find>q</find>
     </findStrings>
     <replaceStrings>
       <replace>cnt_ss</replace>
@@ -173,9 +202,9 @@
         <option value="$PROJECT_DIR$/use_camera.py" />
         <option value="$PROJECT_DIR$/test_get_face_descriptor.py" />
         <option value="$PROJECT_DIR$/get_descriptor_from_face.py" />
-        <option value="$PROJECT_DIR$/get_features_into_CSV.py" />
         <option value="$PROJECT_DIR$/face_reco_from_camera.py" />
         <option value="$PROJECT_DIR$/get_faces_from_camera.py" />
+        <option value="$PROJECT_DIR$/get_features_into_CSV.py" />
       </list>
     </option>
   </component>
@@ -191,7 +220,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -203,6 +231,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -228,7 +257,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.get_features_into_CSV">
+  <component name="RunManager" selected="Python.face_reco_from_camera">
     <configuration name="face_reco_from_camera" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Dlib_face_recognition_from_camera" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -343,9 +372,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.face_reco_from_camera" />
         <item itemvalue="Python.get_features_into_CSV" />
         <item itemvalue="Python.get_faces_from_camera" />
-        <item itemvalue="Python.face_reco_from_camera" />
         <item itemvalue="Python.use_camera" />
         <item itemvalue="Python.get_descriptor_from_face" />
       </list>
@@ -365,10 +394,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="889" y="27" width="1200" height="1053" extended-state="0" />
+    <frame x="720" y="27" width="1200" height="1053" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.28887" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32030585" />
       <window_info id="Structure" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="1" show_stripe_button="false" />
@@ -376,7 +406,7 @@
       <window_info anchor="bottom" id="Terminal" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32925472" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.34279475" />
+      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.5251092" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39977604" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -419,15 +449,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../../.local/lib/python3.6/site-packages/numpy/core/fromnumeric.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
+        <state relative-caret-position="44175">
           <caret line="2956" selection-start-line="2956" selection-end-line="2956" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/use_camera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/face_reco_from_camera.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="34" lean-forward="true" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+        <state relative-caret-position="15">
+          <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
           <folding>
             <element signature="e#215#247#0" expanded="true" />
           </folding>
@@ -436,8 +473,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="123" column="3" selection-start-line="123" selection-start-column="3" selection-end-line="123" selection-end-column="3" />
+        <state relative-caret-position="15">
+          <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
           <folding>
             <element signature="e#206#239#0" expanded="true" />
           </folding>
@@ -446,18 +483,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/get_features_into_CSV.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-890">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-          <folding>
-            <element signature="e#374#384#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/use_camera.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+        <state relative-caret-position="285">
+          <caret line="19" column="9" lean-forward="true" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
         </state>
       </provider>
     </entry>

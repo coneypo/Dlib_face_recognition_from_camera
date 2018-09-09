@@ -1,5 +1,5 @@
 # created at 2018-05-11
-# updated at 2018-09-08
+# updated at 2018-09-09
 # support multi-faces now
 
 # Author:   coneypo
@@ -12,7 +12,7 @@ import cv2          # 图像处理的库OpenCv
 import pandas as pd # 数据处理的库Pandas
 
 # face recognition model, the object maps human faces into 128D vectors
-facerec = dlib.face_recognition_model_v1("dlib_face_recognition_resnet_model_v1.dat")
+facerec = dlib.face_recognition_model_v1("data/dlib_dat/dlib_face_recognition_resnet_model_v1.dat")
 
 
 # 计算两个向量间的欧式距离
@@ -49,7 +49,7 @@ print("Faces in Database：", len(features_known_arr))
 
 # Dlib 预测器
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
+predictor = dlib.shape_predictor('data/dlib_dat/shape_predictor_68_face_landmarks.dat')
 
 # 创建 cv2 摄像头对象
 cap = cv2.VideoCapture(0)
@@ -87,7 +87,7 @@ while cap.isOpened():
     # 待会要写的字体
     font = cv2.FONT_HERSHEY_COMPLEX
 
-    cv2.putText(img_rd, "Press 'q': Quit", (20, 400), font, 0.8, (84, 255, 159), 1, cv2.LINE_AA)
+    cv2.putText(img_rd, "Press 'q': Quit", (20, 450), font, 0.8, (84, 255, 159), 1, cv2.LINE_AA)
 
     # 存储人脸名字和位置的两个 list
     # list 1 (faces): store the name of faces               Jack    unknown unknown Mary
@@ -134,8 +134,7 @@ while cap.isOpened():
 
     print("Name list now:", name_namelist, "\n")
 
-
-    cv2.putText(img_rd, "Face Register", (20, 40), font, 1, (255, 255, 255), 1, cv2.LINE_AA)
+    cv2.putText(img_rd, "Face Recognition", (20, 40), font, 1, (0, 0, 0), 1, cv2.LINE_AA)
     cv2.putText(img_rd, "Faces: " + str(len(faces)), (20, 100), font, 1, (0, 0, 255), 1, cv2.LINE_AA)
 
     # 按下 q 键退出

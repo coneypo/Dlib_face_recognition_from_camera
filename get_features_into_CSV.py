@@ -1,9 +1,8 @@
 # created at 2018-05-11
-
-# updated at 2018-08-24
+# updated at 2018-09-09
 # 增加录入多张人脸到CSV的功能
 
-# By        coneypo
+# Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
@@ -27,10 +26,10 @@ path_csv = "data/csvs_from_camera/"
 detector = dlib.get_frontal_face_detector()
 
 # shape predictor to find the face landmarks
-predictor = dlib.shape_predictor("shape_predictor_5_face_landmarks.dat")
+predictor = dlib.shape_predictor("data/dlib_dat/shape_predictor_5_face_landmarks.dat")
 
 # face recognition model, the object maps human faces into 128D vectors
-facerec = dlib.face_recognition_model_v1("dlib_face_recognition_resnet_model_v1.dat")
+facerec = dlib.face_recognition_model_v1("data/dlib_dat/dlib_face_recognition_resnet_model_v1.dat")
 
 
 # 返回单张图像的128D特征
