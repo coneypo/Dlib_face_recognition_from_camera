@@ -108,19 +108,26 @@ while cap.isOpened():
             pos_end = tuple([d.right(), d.bottom()])
 
             # 计算矩形框大小
-            height = d.bottom() - d.top()
-            width = d.right() - d.left()
+            height = (d.bottom() - d.top())
+            width = (d.right() - d.left())
+
+            hh = int(height/2)
+            ww = int(width/2)
+
+            cv2.rectangle(im_rd,
+                          tuple([d.left()-ww, d.top()-hh]),
+                          tuple([d.right()+ww, d.bottom()+hh]),
+                          (0, 255, 255), 2)
 
             # 根据人脸大小生成空的图像
-            cv2.rectangle(im_rd, tuple([d.left(), d.top()]), tuple([d.right(), d.bottom()]), (0, 255, 255), 2)
-            im_blank = np.zeros((height, width, 3), np.uint8)
+            im_blank = np.zeros((height*2, width*2, 3), np.uint8)
 
             # 按下 's' 保存摄像头中的人脸到本地
             if kk == ord('s'):
                 cnt_p += 1
-                for ii in range(height):
-                    for jj in range(width):
-                        im_blank[ii][jj] = im_rd[d.top() + ii][d.left() + jj]
+                for ii in range(height*2):
+                    for jj in range(width*2):
+                        im_blank[ii][jj] = im_rd[d.top()-hh + ii][d.left()-ww + jj]
                 cv2.imwrite(current_face_dir + "/img_face_" + str(cnt_p) + ".jpg", im_blank)
                 print("写入本地：", str(current_face_dir) + "/img_face_" + str(cnt_p) + ".jpg")
 
