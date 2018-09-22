@@ -16,13 +16,11 @@ Three steps:
 	
 	face register / 人脸录入
 </br>
-
 2. get\_features\_into\_CSV.py: 
 	
 	generate the features from the photos you captured and write the datas into CSV / 将图像文件中人脸数据提取出来存入CSV
  	# Will generate a "features_all.csv" ( size: n*128 , n means n people you registered and 128 means 128D features of the face)
 </br>
-
 3. face\_reco\_from\_camera.py: 
 	
 	face recognition from camera (support multi-faces) / 实时进行人脸识别
