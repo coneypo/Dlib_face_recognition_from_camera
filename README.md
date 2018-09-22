@@ -31,7 +31,6 @@ For more details, pls refer to my blog (in chinese) or contact me by e-mail:
 
 Thanks for your support.
 
-
 Author: coneypo
 
 Last Update: 7 Sep
