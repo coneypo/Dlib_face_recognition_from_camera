@@ -33,8 +33,10 @@ For more details, please refer to my blog (in chinese) or contact me by e-mail:
 	Mail: coneypo@foxmail.com
 
 </br>
+
+<br>
+Author: coneypo
+<br>
+
 Thanks for your support.
 
-Author: coneypo
-
-Last Update: 7 Sep
