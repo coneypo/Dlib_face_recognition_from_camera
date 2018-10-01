@@ -4,14 +4,17 @@ Using Dlib to detect and recognize faces from camera (support multi-faces) ;
 
 调用摄像头进行人脸识别，支持多张人脸同时识别;
 
-</br>
+<br>
 Three steps:
 	
 	face register >> generate datebase >> face recognition
 
   	人脸录入 >> 建立人脸数据库 >> 利用摄像头进行人脸识别
 
-</br>
+<br>
+<br>
+Python 源码介绍:
+<br>
 1. get_face_from_camera.py : 
 	
 	face register / 人脸录入
