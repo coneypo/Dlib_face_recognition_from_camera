@@ -12,7 +12,7 @@ Three steps:
   	人脸录入 >> 建立人脸数据库 >> 利用摄像头进行人脸识别
 
 <br>
-Python 源码介绍:
+Python 源码介绍如下
 
 <br>
 
