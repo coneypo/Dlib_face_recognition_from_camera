@@ -12,9 +12,11 @@ Three steps:
   	人脸录入 >> 建立人脸数据库 >> 利用摄像头进行人脸识别
 
 <br>
-<br>
 Python 源码介绍:
+
 <br>
+<br>
+
 1. get_face_from_camera.py : 
 	
 	face register / 人脸录入
