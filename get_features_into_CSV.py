@@ -26,7 +26,7 @@ path_csv = "data/csvs_from_camera/"
 detector = dlib.get_frontal_face_detector()
 
 # shape predictor to find the face landmarks
-predictor do = dlib.shape_predictor("data/dlib_dat/shape_predictor_5_face_landmarks.dat")
+predictor = dlib.shape_predictor("data/dlib_dat/shape_predictor_5_face_landmarks.dat")
 
 # face recognition model, the object maps human faces into 128D vectors
 facerec = dlib.face_recognition_model_v1("data/dlib_dat/dlib_face_recognition_resnet_model_v1.dat")
