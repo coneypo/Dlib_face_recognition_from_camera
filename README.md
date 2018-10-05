@@ -5,7 +5,7 @@ Using Dlib to detect and recognize faces from camera (support multi-faces) ;
 调用摄像头进行人脸识别，支持多张人脸同时识别;
 
 <br>
-Three steps:
+>**Three steps** :
 	
 	Face register >> Generate datebase >> Face recognition
 
