@@ -15,7 +15,7 @@ Three steps:
 
 Python 源码介绍如下:
 
->**get\_face\_fro\_camera.py** : 
+>**get\_face\_from\_camera.py** : 
 	
 	Face register / 人脸录入
 <br>
