@@ -1,16 +1,16 @@
-# created at 2018-05-11
-# updated at 2018-09-09
-# support multi-faces now
-
 # Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
-# GitHub:   https://github.com/coneypo/Dlib_face_recogqnition_from_camera
+# GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
+
+# Created at 2018-05-11
+# Updated at 2018-10-05
 
 import dlib         # 人脸识别的库dlib
 import numpy as np  # 数据处理的库numpy
 import cv2          # 图像处理的库OpenCv
 import pandas as pd # 数据处理的库Pandas
 
+# 人脸识别模型，提取 128D 的特征矢量
 # face recognition model, the object maps human faces into 128D vectors
 facerec = dlib.face_recognition_model_v1("data/dlib_dat/dlib_face_recognition_resnet_model_v1.dat")
 
@@ -38,6 +38,7 @@ csv_rd = pd.read_csv(path_features_known_csv, header=None)
 # 用来存放所有录入人脸特征的数组
 features_known_arr = []
 
+# 读取已知人脸数据
 # known faces
 for i in range(csv_rd.shape[0]):
     features_someone_arr = []
@@ -47,7 +48,7 @@ for i in range(csv_rd.shape[0]):
     features_known_arr.append(features_someone_arr)
 print("Faces in Database：", len(features_known_arr))
 
-# Dlib 预测器
+# Dlib 检测器和预测器
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('data/dlib_dat/shape_predictor_68_face_landmarks.dat')
 
@@ -61,11 +62,11 @@ cap.set(3, 480)
 
 # 返回一张图像多张人脸的 128D 特征
 def get_128d_features(img_gray):
-    dets = detector(img_gray, 1)
-    if len(dets) != 0:
+    faces = detector(img_gray, 1)
+    if len(faces) != 0:
         face_des = []
-        for i in range(len(dets)):
-            shape = predictor(img_gray, dets[i])
+        for i in range(len(faces)):
+            shape = predictor(img_gray, faces[i])
             face_des.append(facerec.compute_face_descriptor(img_gray, shape))
     else:
         face_des = []
@@ -81,7 +82,7 @@ while cap.isOpened():
     # 取灰度
     img_gray = cv2.cvtColor(img_rd, cv2.COLOR_RGB2GRAY)
 
-    # 人脸数 dets
+    # 人脸数 faces
     faces = detector(img_gray, 0)
 
     # 待会要写的字体
@@ -128,7 +129,7 @@ while cap.isOpened():
                 # 绘制矩形框
                 cv2.rectangle(img_rd, tuple([d.left(), d.top()]), tuple([d.right(), d.bottom()]), (0, 255, 255), 2)
 
-        # 写人脸名字
+        # 在人脸框下面写人脸名字
         for i in range(len(faces)):
             cv2.putText(img_rd, name_namelist[i], pos_namelist[i], font, 0.8, (0, 255, 255), 1, cv2.LINE_AA)
 

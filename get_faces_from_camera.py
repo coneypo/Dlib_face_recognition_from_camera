@@ -1,20 +1,24 @@
-# created at 2018-05-11
-# updated at 2018-09-09
-
 # Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
+# Created at 2018-05-11
+# Updated at 2018-10-05
+
 # 进行人脸录入
 # 录入多张人脸
+
 import dlib         # 人脸识别的库 Dlib
 import numpy as np  # 数据处理的库 Numpy
 import cv2          # 图像处理的库 OpenCv
-import os
+
+import os           # 读写文件
 import shutil
 
-# Dlib 预测器
+# Dlib 正向人脸检测器
 detector = dlib.get_frontal_face_detector()
+
+# Dlib 68点特征预测器
 predictor = dlib.shape_predictor('data/dlib_dat/shape_predictor_68_face_landmarks.dat')
 
 # 创建 cv2 摄像头对象
@@ -24,7 +28,7 @@ cap = cv2.VideoCapture(0)
 # 设置视频参数，propId 设置的视频参数，value 设置的参数值
 cap.set(3, 480)
 
-# 截图 screen shoot 的计数器n
+# 截图 screen shoot 的计数器
 cnt_ss = 0
 
 # 人脸截图的计数器
@@ -33,13 +37,14 @@ cnt_p = 0
 # 存储人脸的文件夹
 current_face_dir = 0
 
-# 保存
+# 保存的路径
 path_make_dir = "data/faces_from_camera/"
 
 path_csv = "data/csvs_from_camera/"
 
 
 # clear the old folders at first
+# 删除之前存的人脸数据文件夹
 def pre_clear():
     folders_rd = os.listdir(path_make_dir)
     for i in range(len(folders_rd)):
@@ -72,10 +77,10 @@ while cap.isOpened():
     # 取灰度
     img_gray = cv2.cvtColor(im_rd, cv2.COLOR_RGB2GRAY)
 
-    # 人脸数 rects
-    rects = detector(img_gray, 0)
+    # 人脸数 faces
+    faces = detector(img_gray, 0)
 
-    # print(len(rects))q
+    # print(len(faces))
 
     # 待会要写的字体
     font = cv2.FONT_HERSHEY_COMPLEX
@@ -83,7 +88,6 @@ while cap.isOpened():
     # 按下 'n' 新建存储人脸的文件夹
     if kk == ord('n'):
         person_cnt += 1
-        # current_face_dir = path_make_dir + time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
         current_face_dir = path_make_dir + "person_" + str(person_cnt)
         print('\n')
         for dirs in (os.listdir(path_make_dir)):
@@ -96,11 +100,11 @@ while cap.isOpened():
         # 将人脸计数器清零
         cnt_p = 0
 
-    if len(rects) != 0:
+    if len(faces) != 0:
         # 检测到人脸
 
         # 矩形框
-        for k, d in enumerate(rects):
+        for k, d in enumerate(faces):
 
             # 计算矩形大小
             # (x,y), (宽度width, 高度height)
@@ -132,7 +136,7 @@ while cap.isOpened():
                 print("写入本地：", str(current_face_dir) + "/img_face_" + str(cnt_p) + ".jpg")
 
         # 显示人脸数
-    cv2.putText(im_rd, "Faces: " + str(len(rects)), (20, 100), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
+    cv2.putText(im_rd, "Faces: " + str(len(faces)), (20, 100), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
 
     # 添加说明
     cv2.putText(im_rd, "Face Register", (20, 40), font, 1, (0, 0, 0), 1, cv2.LINE_AA)

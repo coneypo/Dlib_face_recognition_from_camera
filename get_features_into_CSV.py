@@ -1,15 +1,15 @@
-# created at 2018-05-11
-# updated at 2018-09-09
-# 增加录入多张人脸到CSV的功能
-
 # Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
-#   return_128d_features()          获取某张图像的128d特征
-#   write_into_csv()                将某个文件夹中的图像读取特征并写入csv
-#   compute_the_mean()              从csv中读取128d特征，并计算特征均值
+# Created at 2018-05-11
+# Updated at 2018-10-05
 
+# 增加录入多张人脸到 CSV 的功能
+
+#   return_128d_features()          获取某张图像的 128D 特征
+#   write_into_csv()                获取某个路径下所有图像的特征，并写入 CSV
+#   compute_the_mean()              从 CSV　中读取　128D 特征，并计算特征均值
 
 import cv2
 import os
@@ -22,28 +22,29 @@ import pandas as pd
 path_faces_rd = "data/faces_from_camera/"
 path_csv = "data/csvs_from_camera/"
 
-# detector to find the faces
+# Dlib 正向人脸检测器
 detector = dlib.get_frontal_face_detector()
 
-# shape predictor to find the face landmarks
+# Dlib 人脸预测器
 predictor = dlib.shape_predictor("data/dlib_dat/shape_predictor_5_face_landmarks.dat")
 
+# Dlib 人脸识别模型
 # face recognition model, the object maps human faces into 128D vectors
 facerec = dlib.face_recognition_model_v1("data/dlib_dat/dlib_face_recognition_resnet_model_v1.dat")
 
 
-# 返回单张图像的128D特征
+# 返回单张图像的 128D 特征
 def return_128d_features(path_img):
     img = io.imread(path_img)
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    dets = detector(img_gray, 1)
+    faces = detector(img_gray, 1)
 
     print("检测的人脸图像：", path_img, "\n")
 
     # 因为有可能截下来的人脸再去检测，检测不出来人脸了
     # 所以要确保是 检测到人脸的人脸图像 拿去算特征
-    if len(dets) != 0:
-        shape = predictor(img_gray, dets[0])
+    if len(faces) != 0:
+        shape = predictor(img_gray, faces[0])
         face_descriptor = facerec.compute_face_descriptor(img_gray, shape)
     else:
         face_descriptor = 0
@@ -53,10 +54,9 @@ def return_128d_features(path_img):
     return face_descriptor
 
 
-# 将文件夹中照片特征提取出来，写入csv
-# 输入input:
+# 将文件夹中照片特征提取出来，写入 CSV
 #   path_faces_personX:     图像文件夹的路径
-#   path_csv:               要生成的csv路径
+#   path_csv:               要生成的 CSV 路径
 
 def write_into_csv(path_faces_personX, path_csv):
     dir_pics = os.listdir(path_faces_personX)
@@ -86,8 +86,8 @@ def compute_the_mean(path_csv_rd):
     column_names = []
 
     # 128列特征
-    for i in range(128):
-        column_names.append("features_" + str(i + 1))
+    for feature_num in range(128):
+        column_names.append("features_" + str(feature_num + 1))
 
     # 利用pandas读取csv
     rd = pd.read_csv(path_csv_rd, names=column_names)
@@ -95,8 +95,8 @@ def compute_the_mean(path_csv_rd):
     # 存放128维特征的均值
     feature_mean = []
 
-    for i in range(128):
-        tmp_arr = rd["features_" + str(i + 1)]
+    for feature_num in range(128):
+        tmp_arr = rd["features_" + str(feature_num + 1)]
         tmp_arr = np.array(tmp_arr)
 
         # 计算某一个特征的均值
@@ -113,7 +113,8 @@ path_csv_rd = "data/csvs_from_camera/"
 with open(path_csv_feature_all, "w", newline="") as csvfile:
     writer = csv.writer(csvfile)
     csv_rd = os.listdir(path_csv_rd)
-    print("特征均值: ")
+    print("得到的特征均值 / The generated average values of features: ")
+
     for i in range(len(csv_rd)):
         feature_mean = compute_the_mean(path_csv_rd + csv_rd[i])
         # print(feature_mean)

@@ -1,6 +1,6 @@
-# 调用摄像头
+# OpenCv 如何调用摄像头
 
-# By        coneypo
+# Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
