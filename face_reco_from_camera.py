@@ -3,12 +3,12 @@
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 # Created at 2018-05-11
-# Updated at 2018-10-05
+# Updated at 2018-10-09
 
-import dlib         # 人脸识别的库dlib
-import numpy as np  # 数据处理的库numpy
-import cv2          # 图像处理的库OpenCv
-import pandas as pd # 数据处理的库Pandas
+import dlib         # 人脸识别的库 Dlib
+import numpy as np  # 数据处理的库 numpy
+import cv2          # 图像处理的库 OpenCv
+import pandas as pd # 数据处理的库 Pandas
 
 # 人脸识别模型，提取 128D 的特征矢量
 # face recognition model, the object maps human faces into 128D vectors
@@ -73,7 +73,7 @@ def get_128d_features(img_gray):
     return face_des
 
 
-# cap.isOpened（） 返回true/false 检查初始化是否成功
+# cap.isOpened() 返回 true/false 检查初始化是否成功
 while cap.isOpened():
 
     flag, img_rd = cap.read()
@@ -98,49 +98,49 @@ while cap.isOpened():
     pos_namelist = []
     name_namelist = []
 
-    # 检测到人脸
-    if len(faces) != 0:
-        # 获取当前捕获到的图像的所有人脸的特征，存储到 features_cap_arr
-        features_cap_arr = []
-        for i in range(len(faces)):
-            shape = predictor(img_rd, faces[i])
-            features_cap_arr.append(facerec.compute_face_descriptor(img_rd, shape))
+    # 按下 q 键退出
+    if kk == ord('q'):
+        break
+    else:
+        # 检测到人脸
+        if len(faces) != 0:
+            # 获取当前捕获到的图像的所有人脸的特征，存储到 features_cap_arr
+            features_cap_arr = []
+            for i in range(len(faces)):
+                shape = predictor(img_rd, faces[i])
+                features_cap_arr.append(facerec.compute_face_descriptor(img_rd, shape))
 
-        # 遍历捕获到的图像中所有的人脸
-        for k in range(len(faces)):
-            # 让人名跟随在矩形框的下方
-            # 确定人名的位置坐标
-            # 先默认所有人不认识，是 unknown
-            name_namelist.append("unknown")
+            # 遍历捕获到的图像中所有的人脸
+            for k in range(len(faces)):
+                # 让人名跟随在矩形框的下方
+                # 确定人名的位置坐标
+                # 先默认所有人不认识，是 unknown
+                name_namelist.append("unknown")
 
-            # 每个捕获人脸的名字坐标
-            pos_namelist.append(tuple([faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
+                # 每个捕获人脸的名字坐标
+                pos_namelist.append(tuple([faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
 
-            # 对于某张人脸，遍历所有存储的人脸特征
-            for i in range(len(features_known_arr)):
-                print("with person_", str(i+1), "the ", end='')
-                # 将某张人脸与存储的所有人脸数据进行比对
-                compare = return_euclidean_distance(features_cap_arr[k], features_known_arr[i])
-                if compare == "same":  # 找到了相似脸
-                    name_namelist[k] = "person_" + str(i+1)
+                # 对于某张人脸，遍历所有存储的人脸特征
+                for i in range(len(features_known_arr)):
+                    print("with person_", str(i+1), "the ", end='')
+                    # 将某张人脸与存储的所有人脸数据进行比对
+                    compare = return_euclidean_distance(features_cap_arr[k], features_known_arr[i])
+                    if compare == "same":  # 找到了相似脸
+                        name_namelist[k] = "person_" + str(i+1)
 
-            # 矩形框
-            for kk, d in enumerate(faces):
-                # 绘制矩形框
-                cv2.rectangle(img_rd, tuple([d.left(), d.top()]), tuple([d.right(), d.bottom()]), (0, 255, 255), 2)
+                # 矩形框
+                for kk, d in enumerate(faces):
+                    # 绘制矩形框
+                    cv2.rectangle(img_rd, tuple([d.left(), d.top()]), tuple([d.right(), d.bottom()]), (0, 255, 255), 2)
 
-        # 在人脸框下面写人脸名字
-        for i in range(len(faces)):
-            cv2.putText(img_rd, name_namelist[i], pos_namelist[i], font, 0.8, (0, 255, 255), 1, cv2.LINE_AA)
+            # 在人脸框下面写人脸名字
+            for i in range(len(faces)):
+                cv2.putText(img_rd, name_namelist[i], pos_namelist[i], font, 0.8, (0, 255, 255), 1, cv2.LINE_AA)
 
     print("Name list now:", name_namelist, "\n")
 
     cv2.putText(img_rd, "Face Recognition", (20, 40), font, 1, (0, 0, 0), 1, cv2.LINE_AA)
     cv2.putText(img_rd, "Faces: " + str(len(faces)), (20, 100), font, 1, (0, 0, 255), 1, cv2.LINE_AA)
-
-    # 按下 q 键退出
-    if kk == ord('q'):
-        break
 
     # 窗口显示
     cv2.imshow("camera", img_rd)

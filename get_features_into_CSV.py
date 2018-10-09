@@ -3,13 +3,13 @@
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 # Created at 2018-05-11
-# Updated at 2018-10-05
+# Updated at 2018-10-09
 
 # 增加录入多张人脸到 CSV 的功能
 
-#   return_128d_features()          获取某张图像的 128D 特征
-#   write_into_csv()                获取某个路径下所有图像的特征，并写入 CSV
-#   compute_the_mean()              从 CSV　中读取　128D 特征，并计算特征均值
+# return_128d_features()          获取某张图像的 128D 特征
+# write_into_csv()                获取某个路径下所有图像的特征，并写入 CSV
+# compute_the_mean()              从 CSV　中读取　128D 特征，并计算特征均值
 
 import cv2
 import os
@@ -29,7 +29,7 @@ detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("data/dlib_dat/shape_predictor_5_face_landmarks.dat")
 
 # Dlib 人脸识别模型
-# face recognition model, the object maps human faces into 128D vectors
+# Face recognition model, the object maps human faces into 128D vectors
 facerec = dlib.face_recognition_model_v1("data/dlib_dat/dlib_face_recognition_resnet_model_v1.dat")
 
 
@@ -74,14 +74,14 @@ def write_into_csv(path_faces_personX, path_csv):
                 writer.writerow(features_128d)
 
 
-# 读取 某人 所有的人脸图像的数据，写入 person_X.csv
+# 读取某人所有的人脸图像的数据，写入 person_X.csv
 faces = os.listdir(path_faces_rd)
 for person in faces:
     print(path_csv + person + ".csv")
     write_into_csv(path_faces_rd + person, path_csv + person + ".csv")
 
 
-# 从csv中读取数据，计算128d特征的均值
+# 从 CSV 中读取数据，计算 128D 特征的均值
 def compute_the_mean(path_csv_rd):
     column_names = []
 
@@ -107,7 +107,8 @@ def compute_the_mean(path_csv_rd):
 
 # 存放所有特征均值的 CSV 的路径
 path_csv_feature_all = "data/features_all.csv"
-# 存放人脸特征的csv的路径
+
+# 存放人脸特征的 CSV 的路径
 path_csv_rd = "data/csvs_from_camera/"
 
 with open(path_csv_feature_all, "w", newline="") as csvfile:

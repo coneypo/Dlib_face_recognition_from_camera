@@ -18,21 +18,18 @@ import shutil
 # Dlib 正向人脸检测器
 detector = dlib.get_frontal_face_detector()
 
-# Dlib 68点特征预测器
+# Dlib 68 点特征预测器
 predictor = dlib.shape_predictor('data/dlib_dat/shape_predictor_68_face_landmarks.dat')
 
 # 创建 cv2 摄像头对象
 cap = cv2.VideoCapture(0)
 
 # cap.set(propId, value)
-# 设置视频参数，propId 设置的视频参数，value 设置的参数值
+# 设置视频参数, propId 设置的视频参数, value 设置的参数值
 cap.set(3, 480)
 
-# 截图 screen shoot 的计数器
-cnt_ss = 0
-
 # 人脸截图的计数器
-cnt_p = 0
+cnt_ss = 0
 
 # 存储人脸的文件夹
 current_face_dir = 0
@@ -43,7 +40,6 @@ path_make_dir = "data/faces_from_camera/"
 path_csv = "data/csvs_from_camera/"
 
 
-# clear the old folders at first
 # 删除之前存的人脸数据文件夹
 def pre_clear():
     folders_rd = os.listdir(path_make_dir)
@@ -55,23 +51,22 @@ def pre_clear():
         os.remove(path_csv+csv_rd[i])
 
 
-# clear the exist folders of faces and csv
 pre_clear()
 
 
 # 人脸种类数目的计数器
 person_cnt = 0
 
-# cap.isOpened（） 返回 true/false 检查初始化是否成功
+# cap.isOpened() 返回 true/false 检查初始化是否成功
 while cap.isOpened():
 
     # cap.read()
     # 返回两个值：
-    #    一个布尔值 true/false，用来判断读取视频是否成功/是否到视频末尾
-    #    图像对象，图像的三维矩阵q
+    #    一个布尔值 true/false, 用来判断读取视频是否成功/是否到视频末尾
+    #    图像对象, 图像的三维矩阵
     flag, im_rd = cap.read()
 
-    # 每帧数据延时 1ms，延时为 0 读取的是静态帧
+    # 每帧数据延时 1ms, 延时为 0 读取的是静态帧
     kk = cv2.waitKey(1)
 
     # 取灰度
@@ -98,7 +93,7 @@ while cap.isOpened():
         print("新建的人脸文件夹: ", current_face_dir)
 
         # 将人脸计数器清零
-        cnt_p = 0
+        cnt_ss = 0
 
     if len(faces) != 0:
         # 检测到人脸
@@ -128,12 +123,12 @@ while cap.isOpened():
 
             # 按下 's' 保存摄像头中的人脸到本地
             if kk == ord('s'):
-                cnt_p += 1
+                cnt_ss += 1
                 for ii in range(height*2):
                     for jj in range(width*2):
                         im_blank[ii][jj] = im_rd[d.top()-hh + ii][d.left()-ww + jj]
-                cv2.imwrite(current_face_dir + "/img_face_" + str(cnt_p) + ".jpg", im_blank)
-                print("写入本地：", str(current_face_dir) + "/img_face_" + str(cnt_p) + ".jpg")
+                cv2.imwrite(current_face_dir + "/img_face_" + str(cnt_ss) + ".jpg", im_blank)
+                print("写入本地：", str(current_face_dir) + "/img_face_" + str(cnt_ss) + ".jpg")
 
         # 显示人脸数
     cv2.putText(im_rd, "Faces: " + str(len(faces)), (20, 100), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
