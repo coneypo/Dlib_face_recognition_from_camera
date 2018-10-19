@@ -19,6 +19,7 @@ Python 源码介绍如下:
 >**get\_face\_from\_camera.py** : 
 	
 	Face register / 人脸录入
+	请注意存储人脸图片时，矩形框不要超出摄像头范围，要不然无法保存到本地
 <br>
 
 >**get\_features\_into\_CSV.py**: 
@@ -39,9 +40,9 @@ For more details, please refer to my blog (in chinese) or contact me by e-mail:
 	> Mail: coneypo@foxmail.com
 
 <br>
-Author: coneypo
+Author : coneypo
 <br><br>
-Last Update: 19, OCT
+Last Update : 19, OCT
 <br><br>
 Thanks for your support.
 
