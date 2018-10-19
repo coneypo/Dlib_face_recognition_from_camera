@@ -19,18 +19,18 @@ import csv
 import numpy as np
 import pandas as pd
 
-path_faces_rd = "data/faces_from_camera/"
-path_csv = "data/csvs_from_camera/"
+path_faces_rd = "data/data_faces_from_camera/"
+path_csv = "data/data_csvs_from_camera/"
 
-# Dlib 正向人脸检测器
+# Dlib 正向人脸检测
 detector = dlib.get_frontal_face_detector()
 
 # Dlib 人脸预测器
-predictor = dlib.shape_predictor("data/dlib_dat/shape_predictor_5_face_landmarks.dat")
+predictor = dlib.shape_predictor("data/data_dlib/shape_predictor_5_face_landmarks.dat")
 
 # Dlib 人脸识别模型
 # Face recognition model, the object maps human faces into 128D vectors
-facerec = dlib.face_recognition_model_v1("data/dlib_dat/dlib_face_recognition_resnet_model_v1.dat")
+facerec = dlib.face_recognition_model_v1("data/data_dlib/dlib_face_recognition_resnet_model_v1.dat")
 
 
 # 返回单张图像的 128D 特征
@@ -109,12 +109,12 @@ def compute_the_mean(path_csv_rd):
 path_csv_feature_all = "data/features_all.csv"
 
 # 存放人脸特征的 CSV 的路径
-path_csv_rd = "data/csvs_from_camera/"
+path_csv_rd = "data/data_csvs_from_camera/"
 
 with open(path_csv_feature_all, "w", newline="") as csvfile:
     writer = csv.writer(csvfile)
     csv_rd = os.listdir(path_csv_rd)
-    print("得到的特征均值 / The generated average values of features: ")
+    print("得到的特征均值 / The generated average values of features stored in: ")
 
     for i in range(len(csv_rd)):
         feature_mean = compute_the_mean(path_csv_rd + csv_rd[i])

@@ -2,20 +2,79 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="39c25e36-24e3-48b8-a41f-0d53e408e855" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/data/csvs_from_camera/person_1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/csvs_from_camera/person_1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_3.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_4.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_5.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/csvs_from_camera/person_1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dlib_dat/dlib_face_recognition_resnet_model_v1.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dlib_dat/shape_predictor_5_face_landmarks.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dlib_dat/shape_predictor_68_face_landmarks.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Salley/000179_02159509.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Salley/000183_02159543.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Salley/000186_02159346.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Salley/000189_02159361.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Salley/000190_02159501.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Salley/000192_02159531.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Salley/000194_02159572.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Salley/000197_02159322.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Salley/000197_02159525.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Salley/000198_02159470.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Salley/000200_02159354.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Savage/000264_01099001.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Savage/000274_01099061.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Savage/000277_01099000.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Savage/000289_01099139.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Savage/000290_01099067.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Savage/000290_01099090.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Savage/000291_01099023.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Savage/000291_01099214.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Savage/000293_01099081.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Savage/000296_01099007.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Savage/000299_01099008.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Schneider/000288_00925786.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Schneider/000302_00925785.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Schneider/000307_00925823.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Schneider/000325_00925954.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Schneider/000326_00925765.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Schneider/000326_00926089.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Schneider/000326_00926128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Schneider/000326_00926139.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Schneider/000329_00925859.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Schneider/000329_00925963.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Schneider/000331_00926012.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Shimkus/000373_03228153.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Shimkus/000375_03227651.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Shimkus/000376_02340068.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Shimkus/000378_02340151.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Shimkus/000378_03227610.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Shimkus/000383_03227939.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Shimkus/000385_03227766.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Shimkus/000388_03227773.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Shimkus/000390_03227666.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Shimkus/000394_02340150.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Shimkus/000396_03227722.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Simm/000288_00470387.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Simm/000297_00470170.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Simm/000300_00470148.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Simm/000304_00470122.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Simm/000305_00470162.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Simm/000305_00470717.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Simm/000306_00470222.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Simm/000306_00470223.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Simm/000309_00470287.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Simm/000310_00470421.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_Simm/000310_00470511.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_test/000183_02159543.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_test/000297_00470170.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_demo/John_test/000376_02340068.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/faces_from_camera/person_1/img_face_5.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/features_all.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/features_all.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/face_reco_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/face_reco_from_camera.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/get_faces_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_faces_from_camera.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/get_features_into_CSV.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_features_into_CSV.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/how_to_use_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/how_to_use_camera.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,28 +86,36 @@
     <session id="622932160">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.6" value="2" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="41" />
+          <entry key="py" value="464" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="41" />
+          <entry key="Python" value="464" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="patch" value="1" />
+          <entry key="png" value="1" />
           <entry key="py" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="Image" value="1" />
+          <entry key="PLAIN_TEXT" value="1" />
           <entry key="Python" value="1" />
         </counts>
       </usages-collector>
@@ -56,25 +123,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/face_reco_from_camera.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="35" lean-forward="true" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
-              <folding>
-                <element signature="e#188#220#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="105">
+              <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/get_features_into_CSV.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-330">
-              <caret line="11" column="45" lean-forward="true" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+            <state relative-caret-position="104">
+              <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
               <folding>
-                <element signature="e#383#393#0" expanded="true" />
+                <element signature="e#377#387#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -82,7 +146,20 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/how_to_use_camera.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="735">
+              <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/patch">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4065">
+              <caret line="271" column="24" selection-start-line="271" selection-start-column="24" selection-end-line="271" selection-end-column="24" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -98,13 +175,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="153" column="23" selection-start-line="153" selection-start-column="23" selection-end-line="153" selection-end-column="23" />
-              <folding>
-                <element signature="e#207#240#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="150">
+              <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="26" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/introduction/face_reco_from_camera_two_faces.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
     </leaf>
@@ -112,17 +191,20 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>rects</find>
-      <find>predictor</find>
       <find>i</find>
       <find>dets</find>
       <find>cnt_p</find>
       <find>，</find>
+      <find>person_cnt</find>
+      <find>im_rd</find>
+      <find>predictor</find>
     </findStrings>
     <replaceStrings>
       <replace>feature_num</replace>
       <replace>faces</replace>
       <replace>cnt_ss</replace>
       <replace>,</replace>
+      <replace>img_rd</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -132,16 +214,17 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/use_camera.py" />
-        <option value="$PROJECT_DIR$/face_reco_from_camera.py" />
-        <option value="$PROJECT_DIR$/get_faces_from_camera.py" />
         <option value="$PROJECT_DIR$/get_features_into_CSV.py" />
+        <option value="$PROJECT_DIR$/how_to_use_camera.py" />
+        <option value="$PROJECT_DIR$/get_faces_from_camera.py" />
+        <option value="$PROJECT_DIR$/face_reco_from_camera.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="382" />
-    <option name="y" value="27" />
-    <option name="width" value="1538" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="683" />
+    <option name="y" value="84" />
+    <option name="width" value="1717" />
     <option name="height" value="996" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -150,7 +233,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -163,10 +245,16 @@
               <item name="Dlib_face_recognition_from_camera" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Dlib_face_recognition_from_camera" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Dlib_face_recognition_from_camera" type="462c0819:PsiDirectoryNode" />
+              <item name="introduction" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -306,15 +394,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="382" y="27" width="1538" height="996" extended-state="0" />
+    <frame x="0" y="27" width="1920" height="996" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28609097" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22854134" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3148148" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33564815" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39930555" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -330,8 +418,33 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/use_camera.py" />
+    <entry file="file://$PROJECT_DIR$/how_to_use_camera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/patch">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4065">
+          <caret line="271" column="24" selection-start-line="271" selection-start-column="24" selection-end-line="271" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
@@ -341,36 +454,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/face_reco_from_camera.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="35" lean-forward="true" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
-          <folding>
-            <element signature="e#188#220#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/how_to_use_camera.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="153" column="23" selection-start-line="153" selection-start-column="23" selection-end-line="153" selection-end-column="23" />
-          <folding>
-            <element signature="e#207#240#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/introduction/face_reco_from_camera_two_faces.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/get_features_into_CSV.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-330">
-          <caret line="11" column="45" lean-forward="true" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+        <state relative-caret-position="104">
+          <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
           <folding>
-            <element signature="e#383#393#0" expanded="true" />
+            <element signature="e#377#387#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/face_reco_from_camera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
         </state>
       </provider>
     </entry>

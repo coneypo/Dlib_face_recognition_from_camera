@@ -5,14 +5,14 @@
 # Created at 2018-05-11
 # Updated at 2018-10-09
 
-import dlib         # 人脸识别的库 Dlib
+import dlib         # 人脸处理的库 Dlib
 import numpy as np  # 数据处理的库 numpy
 import cv2          # 图像处理的库 OpenCv
 import pandas as pd # 数据处理的库 Pandas
 
 # 人脸识别模型，提取 128D 的特征矢量
 # face recognition model, the object maps human faces into 128D vectors
-facerec = dlib.face_recognition_model_v1("data/dlib_dat/dlib_face_recognition_resnet_model_v1.dat")
+facerec = dlib.face_recognition_model_v1("data/data_dlib/dlib_face_recognition_resnet_model_v1.dat")
 
 
 # 计算两个向量间的欧式距离
@@ -50,7 +50,7 @@ print("Faces in Database：", len(features_known_arr))
 
 # Dlib 检测器和预测器
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor('data/dlib_dat/shape_predictor_68_face_landmarks.dat')
+predictor = dlib.shape_predictor('data/data_dlib/shape_predictor_68_face_landmarks.dat')
 
 # 创建 cv2 摄像头对象
 cap = cv2.VideoCapture(0)
