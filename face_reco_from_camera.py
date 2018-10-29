@@ -1,9 +1,11 @@
+# 摄像头实时人脸识别
+
 # Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 # Created at 2018-05-11
-# Updated at 2018-10-09
+# Updated at 2018-10-29
 
 import dlib         # 人脸处理的库 Dlib
 import numpy as np  # 数据处理的库 numpy

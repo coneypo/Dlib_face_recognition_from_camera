@@ -1,9 +1,12 @@
+# 从人脸图像文件中提取人脸特征存入 CSV
+
 # Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
+# Mail:     coneypo@foxmail.com
 
 # Created at 2018-05-11
-# Updated at 2018-10-09
+# Updated at 2018-10-29
 
 # 增加录入多张人脸到 CSV 的功能
 
@@ -22,7 +25,7 @@ import pandas as pd
 path_faces_rd = "data/data_faces_from_camera/"
 path_csv = "data/data_csvs_from_camera/"
 
-# Dlib 正向人脸检测
+# Dlib 正向人脸检测器
 detector = dlib.get_frontal_face_detector()
 
 # Dlib 人脸预测器

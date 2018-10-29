@@ -1,19 +1,20 @@
+# 进行人脸录入 / face register
+# 录入多张人脸 / support multi-faces
+
 # Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
+# Mail:     coneypo@foxmail.com
 
 # Created at 2018-05-11
-# Updated at 2018-10-19
-
-# 进行人脸录入
-# 录入多张人脸
+# Updated at 2018-10-29
 
 import dlib         # 人脸处理的库 Dlib
 import numpy as np  # 数据处理的库 Numpy
 import cv2          # 图像处理的库 OpenCv
 
 import os           # 读写文件
-import shutil
+import shutil       # 读写文件
 
 # Dlib 正向人脸检测器
 detector = dlib.get_frontal_face_detector()
@@ -21,11 +22,10 @@ detector = dlib.get_frontal_face_detector()
 # Dlib 68 点特征预测器
 predictor = dlib.shape_predictor('data/data_dlib/shape_predictor_68_face_landmarks.dat')
 
-# 创建 cv2 摄像头对象
+# OpenCv 调用摄像头
 cap = cv2.VideoCapture(0)
 
-# cap.set(propId, value)
-# 设置视频参数, propId 设置的视频参数, value 设置的参数值
+# 设置视频参数
 cap.set(3, 480)
 
 # 人脸截图的计数器
@@ -39,7 +39,7 @@ path_make_dir = "data/data_faces_from_camera/"
 path_csv = "data/data_csvs_from_camera/"
 
 
-# 删除之前存的人脸数据文件夹
+# (optional) 删除之前存的人脸数据文件夹
 def pre_clear():
     folders_rd = os.listdir(path_make_dir)
     for i in range(len(folders_rd)):
@@ -50,6 +50,7 @@ def pre_clear():
         os.remove(path_csv+csv_rd[i])
 
 
+# 每次程序录入之前，删掉之前存的人脸数据
 pre_clear()
 
 
@@ -102,7 +103,7 @@ while cap.isOpened():
             hh = int(height/2)
             ww = int(width/2)
 
-            # The color of rectangle of faces detected
+            # 设置颜色 / The color of rectangle of faces detected
             color_rectangle = (255, 255, 255)
             if (d.right()+ww) > 640 or (d.bottom()+hh>480) or (d.left()-ww < 0) or ( d.top()-hh < 0):
                 cv2.putText(img_rd, "OUT OF RANGE", (20, 300), font, 0.8, (0, 0, 255), 1, cv2.LINE_AA)
