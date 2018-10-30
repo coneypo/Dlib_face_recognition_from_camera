@@ -46,9 +46,5 @@ Description: 	Fix the issue when the face's rectangle is out of range you may ca
 
 
 <br>
-Author : coneypo
-<br><br>
-Last Update : 19, OCT
-<br><br>
+Author : coneypo<br>
 Thanks for your support.
-
