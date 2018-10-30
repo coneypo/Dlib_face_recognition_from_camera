@@ -42,7 +42,7 @@ def return_128d_features(path_img):
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     faces = detector(img_gray, 1)
 
-    print("检测的人脸图像：", path_img, "\n")
+    print("检测到人脸的图像：", path_img, "\n")
 
     # 因为有可能截下来的人脸再去检测，检测不出来人脸了
     # 所以要确保是 检测到人脸的人脸图像 拿去算特征
@@ -80,6 +80,7 @@ def write_into_csv(path_faces_personX, path_csv):
 # 读取某人所有的人脸图像的数据，写入 person_X.csv
 faces = os.listdir(path_faces_rd)
 for person in faces:
+    print("##### " + person + " #####")
     print(path_csv + person + ".csv")
     write_into_csv(path_faces_rd + person, path_csv + person + ".csv")
 
@@ -117,7 +118,7 @@ path_csv_rd = "data/data_csvs_from_camera/"
 with open(path_csv_feature_all, "w", newline="") as csvfile:
     writer = csv.writer(csvfile)
     csv_rd = os.listdir(path_csv_rd)
-    print("得到的特征均值 / The generated average values of features stored in: ")
+    print("##### 得到的特征均值 / The generated average values of features stored in: #####")
 
     for i in range(len(csv_rd)):
         feature_mean = compute_the_mean(path_csv_rd + csv_rd[i])
