@@ -39,9 +39,11 @@ For more details, please refer to my blog (in chinese) or contact me by e-mail:
 	> Blog: https://www.cnblogs.com/AdaminXie/p/9010298.html  
 	> Mail: coneypo@foxmail.com
 
-Update date: 30, Oct
-Version: Face recognizer V2.5
-Description: Fix the issue when the face's rectangle is out of range you may cannot save the image of faces.
+<br>
+Update date: 	30, Oct<br>
+Version: 	Face recognizer V2.5<br>
+Description: 	Fix the issue when the face's rectangle is out of range you may cannot save the image of faces.<br>
+
 
 <br>
 Author : coneypo
