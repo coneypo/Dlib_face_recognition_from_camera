@@ -45,9 +45,12 @@ For more details, please refer to my blog (in chinese) or contact me by e-mail:
 <br>
 Update date: 	30, Oct<br>
 Description: 	Fix the issue when the face's rectangle is out of range you may cannot save the image of faces. <br>
-		当人脸录入时，由于人脸特征矩形框有时超出摄像头范围，会导致程序退出，V2.5 新增了范围超出提醒，而且超出范围时不可以进行人脸录入无法保存照片；<br>
+		当人脸录入时，由于人脸特征矩形框有时超出摄像头范围，会导致程序退出，
+		<br>
+		V2.5 新增了范围超出提醒，而且超出范围时不可以进行人脸录入无法保存照片；
+		<br>
 
 
-<br>
+<br><br>
 Author : coneypo<br>
 Thanks for your support.
