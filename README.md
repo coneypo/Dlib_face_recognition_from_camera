@@ -34,7 +34,8 @@ Python 源码介绍如下:
   	 Compare the faces captured from camera with the faces you have registered which are saved in "features_all.csv"
   	 将捕获到的人脸数据和之前存的人脸数据进行对比计算欧式距离
 <br>
-For more details, please refer to my blog (in chinese) or contact me by e-mail:
+For more details, please refer to my blog (in chinese) or contact me by e-mail /<br>
+请访问我的博客获取本项目的更详细介绍，如有问题欢迎邮件联系我:
 	
 	> Blog: https://www.cnblogs.com/AdaminXie/p/9010298.html  
 	> Mail: coneypo@foxmail.com
