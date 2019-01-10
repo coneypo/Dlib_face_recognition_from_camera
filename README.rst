@@ -12,7 +12,7 @@ Detect and recognize single/multi-faces from camera by Dlib;
 #. Face register / 人脸录入 
 
    .. image:: introduction/get_face_from_camera.png
-      align: center
+      :align: center
 
 #. Generate database / 建立人脸数据库 
 #. Face recognizer / 利用摄像头进行人脸识别
@@ -65,6 +65,9 @@ Python 源码介绍如下:
    由此判断是否是同一个人;
 
 
+More
+****
+
 For more details, please refer to my blog (in chinese) or contact me by e-mail;
 
 可以访问我的博客获取本项目的更详细介绍，如有问题欢迎邮件联系我:
@@ -76,5 +79,6 @@ For more details, please refer to my blog (in chinese) or contact me by e-mail;
 
 仅限于交流学习, 商业合作勿扰；
 
-Author : coneypo
+Author: coneypo
+
 Thanks for your support.
