@@ -34,42 +34,50 @@ cnt_ss = 0
 # 存储人脸的文件夹
 current_face_dir = 0
 
-# 保存的路径
-path_make_dir = "data/data_faces_from_camera/"
-path_csv = "data/data_csvs_from_camera/"
+# 保存 photos/csv 的路径
+path_photos_from_camera = "data/data_faces_from_camera/"
+path_csv_from_photos = "data/data_csvs_from_camera/"
 
 
-# 新建文件夹, 删除之前存的人脸数据文件夹
-def pre_work():
+# 新建保存人脸图像文件和数据CSV文件夹
+def pre_work_mkdir():
 
     # 新建文件夹
-    if os.path.isdir(path_make_dir):
+    if os.path.isdir(path_photos_from_camera):
         pass
     else:
-        os.mkdir(path_make_dir)
-    if os.path.isdir(path_csv):
+        os.mkdir(path_photos_from_camera)
+    if os.path.isdir(path_csv_from_photos):
         pass
     else:
-        os.mkdir(path_csv)
+        os.mkdir(path_csv_from_photos)
 
+
+pre_work_mkdir()
+
+
+# 删除之前存的人脸数据文件夹
+def pre_work_deldir():
     # 删除之前存的人脸数据文件夹
-    folders_rd = os.listdir(path_make_dir)
+    # 删除 "/data_faces_from_camera/person_x/"...
+    folders_rd = os.listdir(path_photos_from_camera)
     for i in range(len(folders_rd)):
-        shutil.rmtree(path_make_dir+folders_rd[i])
+        shutil.rmtree(path_photos_from_camera+folders_rd[i])
 
-    csv_rd = os.listdir(path_csv)
+    csv_rd = os.listdir(path_csv_from_photos)
     for i in range(len(csv_rd)):
-        os.remove(path_csv+csv_rd[i])
+        os.remove(path_csv_from_photos+csv_rd[i])
 
 
-# 每次程序录入之前，删掉之前存的人脸数据
-pre_work()
-
+# 可选
+# 这里在每次程序录入之前, 删掉之前存的人脸数据
+# 如果这里打开，每次进行人脸录入的时候都会删掉之前的人脸图像文件夹
+pre_work_deldir()
 
 # 人脸种类数目的计数器
 person_cnt = 0
 
-# The flag of if u can save images
+# 之后用来控制是否保存图像的 flag
 save_flag = 1
 
 while cap.isOpened():
@@ -88,10 +96,10 @@ while cap.isOpened():
     # 按下 'n' 新建存储人脸的文件夹
     if kk == ord('n'):
         person_cnt += 1
-        current_face_dir = path_make_dir + "person_" + str(person_cnt)
+        current_face_dir = path_photos_from_camera + "person_" + str(person_cnt)
         print('\n')
-        for dirs in (os.listdir(path_make_dir)):
-            if current_face_dir == path_make_dir + dirs:
+        for dirs in (os.listdir(path_photos_from_camera)):
+            if current_face_dir == path_photos_from_camera + dirs:
                 shutil.rmtree(current_face_dir)
                 print("删除旧的文件夹:", current_face_dir)
         os.makedirs(current_face_dir)
@@ -100,12 +108,10 @@ while cap.isOpened():
         # 将人脸计数器清零
         cnt_ss = 0
 
+    # 检测到人脸
     if len(faces) != 0:
-        # 检测到人脸
-
         # 矩形框
         for k, d in enumerate(faces):
-
             # 计算矩形大小
             # (x,y), (宽度width, 高度height)
             pos_start = tuple([d.left(), d.top()])
@@ -146,13 +152,13 @@ while cap.isOpened():
                     cv2.imwrite(current_face_dir + "/img_face_" + str(cnt_ss) + ".jpg", im_blank)
                     print("写入本地：", str(current_face_dir) + "/img_face_" + str(cnt_ss) + ".jpg")
 
-        # 显示人脸数
+    # 显示人脸数
     cv2.putText(img_rd, "Faces: " + str(len(faces)), (20, 100), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
 
     # 添加说明
     cv2.putText(img_rd, "Face Register", (20, 40), font, 1, (0, 0, 0), 1, cv2.LINE_AA)
     cv2.putText(img_rd, "N: New face folder", (20, 350), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
-    cv2.putText(img_rd, "S: Save face", (20, 400), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
+    cv2.putText(img_rd, "S: Save current face", (20, 400), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
     cv2.putText(img_rd, "Q: Quit", (20, 450), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
 
     # 按下 'q' 键退出

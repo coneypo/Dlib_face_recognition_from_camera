@@ -22,8 +22,10 @@ import csv
 import numpy as np
 import pandas as pd
 
-path_faces_rd = "data/data_faces_from_camera/"
-path_csv = "data/data_csvs_from_camera/"
+# 要读取人脸图像文件的路径
+path_photos_from_camera = "data/data_faces_from_camera/"
+# 储存人脸特征 csv 的路径
+path_csv_from_photos = "data/data_csvs_from_camera/"
 
 # Dlib 正向人脸检测器
 detector = dlib.get_frontal_face_detector()
@@ -57,71 +59,75 @@ def return_128d_features(path_img):
     return face_descriptor
 
 
-# 将文件夹中照片特征提取出来，写入 CSV
+# 将文件夹中照片特征提取出来, 写入 CSV
 #   path_faces_personX:     图像文件夹的路径
-#   path_csv:               要生成的 CSV 路径
+#   path_csv_from_photos:   要生成的 CSV 路径
 
-def write_into_csv(path_faces_personX, path_csv):
-    dir_pics = os.listdir(path_faces_personX)
-    with open(path_csv, "w", newline="") as csvfile:
+def write_into_csv(path_faces_personX, path_csv_from_photos):
+    photos_list = os.listdir(path_faces_personX)
+    with open(path_csv_from_photos, "w", newline="") as csvfile:
         writer = csv.writer(csvfile)
-        for i in range(len(dir_pics)):
-            # 调用return_128d_features()得到128d特征
-            print("正在读的人脸图像：", path_faces_personX + "/" + dir_pics[i])
-            features_128d = return_128d_features(path_faces_personX + "/" + dir_pics[i])
-            #  print(features_128d)
-            # 遇到没有检测出人脸的图片跳过
-            if features_128d == 0:
-                i += 1
-            else:
-                writer.writerow(features_128d)
+        if photos_list:
+            for i in range(len(photos_list)):
+                # 调用return_128d_features()得到128d特征
+                print("正在读的人脸图像：", path_faces_personX + "/" + photos_list[i])
+                features_128d = return_128d_features(path_faces_personX + "/" + photos_list[i])
+                #  print(features_128d)
+                # 遇到没有检测出人脸的图片跳过
+                if features_128d == 0:
+                    i += 1
+                else:
+                    writer.writerow(features_128d)
+        else:
+            print("Warning: Empty photos in "+path_faces_personX+'/')
+            writer.writerow("")
 
 
 # 读取某人所有的人脸图像的数据，写入 person_X.csv
-faces = os.listdir(path_faces_rd)
+faces = os.listdir(path_photos_from_camera)
 for person in faces:
     print("##### " + person + " #####")
-    print(path_csv + person + ".csv")
-    write_into_csv(path_faces_rd + person, path_csv + person + ".csv")
+    print(path_csv_from_photos + person + ".csv")
+    write_into_csv(path_photos_from_camera + person, path_csv_from_photos + person + ".csv")
+print('\n')
 
 
 # 从 CSV 中读取数据，计算 128D 特征的均值
-def compute_the_mean(path_csv_rd):
+def compute_the_mean(path_csv_from_photos):
     column_names = []
 
-    # 128列特征
+    # 128D 特征
     for feature_num in range(128):
         column_names.append("features_" + str(feature_num + 1))
 
-    # 利用pandas读取csv
-    rd = pd.read_csv(path_csv_rd, names=column_names)
+    # 利用 pandas 读取 csv
+    rd = pd.read_csv(path_csv_from_photos, names=column_names)
 
-    # 存放128维特征的均值
-    feature_mean = []
+    if rd.size != 0:
+        # 存放 128D 特征的均值
+        feature_mean_list = []
 
-    for feature_num in range(128):
-        tmp_arr = rd["features_" + str(feature_num + 1)]
-        tmp_arr = np.array(tmp_arr)
-
-        # 计算某一个特征的均值
-        tmp_mean = np.mean(tmp_arr)
-        feature_mean.append(tmp_mean)
-    return feature_mean
-
+        for feature_num in range(128):
+            tmp_arr = rd["features_" + str(feature_num + 1)]
+            tmp_arr = np.array(tmp_arr)
+            # 计算某一个特征的均值
+            tmp_mean = np.mean(tmp_arr)
+            feature_mean_list.append(tmp_mean)
+    else:
+        feature_mean_list = []
+    return feature_mean_list
 
 # 存放所有特征均值的 CSV 的路径
-path_csv_feature_all = "data/features_all.csv"
+path_csv_from_photos_feature_all = "data/features_all.csv"
 
 # 存放人脸特征的 CSV 的路径
-path_csv_rd = "data/data_csvs_from_camera/"
+path_csv_from_photos = "data/data_csvs_from_camera/"
 
-with open(path_csv_feature_all, "w", newline="") as csvfile:
+with open(path_csv_from_photos_feature_all, "w", newline="") as csvfile:
     writer = csv.writer(csvfile)
-    csv_rd = os.listdir(path_csv_rd)
+    csv_rd = os.listdir(path_csv_from_photos)
     print("##### 得到的特征均值 / The generated average values of features stored in: #####")
-
     for i in range(len(csv_rd)):
-        feature_mean = compute_the_mean(path_csv_rd + csv_rd[i])
-        # print(feature_mean)
-        print(path_csv_rd + csv_rd[i])
-        writer.writerow(feature_mean)
+        feature_mean_list = compute_the_mean(path_csv_from_photos + csv_rd[i])
+        print(path_csv_from_photos + csv_rd[i])
+        writer.writerow(feature_mean_list)
