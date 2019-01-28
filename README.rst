@@ -4,17 +4,17 @@ Face recognition from camera
 Introduction
 ************
 
-Detect and recognize single/multi-faces from camera by Dlib;
+Detect and recognize single/multi-faces from camera;
 
 调用摄像头进行人脸识别，支持多张人脸同时识别;
 
 
-#. Face register / 人脸录入 
+#. Face register / 摄像头人脸录入 
 
    .. image:: introduction/get_face_from_camera.png
       :align: center
 
-#. Generate database / 建立人脸数据库 
+#. Generate database / 提取特征建立人脸数据库 
 #. Face recognizer / 利用摄像头进行人脸识别
    
    当单张人脸:
@@ -35,7 +35,6 @@ Python 源码介绍如下:
 
 #. get_face_from_camera.py: 
 
-   
    进行 Face register / 人脸信息采集录入
 
    请注意存储人脸图片时，矩形框不要超出摄像头范围，要不然无法保存到本地;
@@ -68,17 +67,22 @@ Python 源码介绍如下:
 More
 ****
 
-For more details, please refer to my blog (in chinese) or contact me by e-mail;
+1. Windows下建议不要把代码放到 ``C:\``, 可能会出现权限读取问题
 
-可以访问我的博客获取本项目的更详细介绍，如有问题欢迎邮件联系我:
+2. 代码最好不要有中文路径
 
-  Blog: https://www.cnblogs.com/AdaminXie/p/9010298.html  
+3. 人脸录入的时候先建文件夹再保存图片, 先 ``N`` 再 ``S``
+
+
+For more details, please refer to my blog (in chinese) or mail to me /
+
+可以访问我的博客获取本项目的更详细介绍，如有问题可以邮件联系我:
+
+Blog: https://www.cnblogs.com/AdaminXie/p/9010298.html  
   
-  Mail: coneypo@foxmail.com
+Mail: coneypo@foxmail.com
 
 
-仅限于交流学习, 商业合作勿扰；
-
-Author: coneypo
+仅限于交流学习, 商业合作勿扰;
 
 Thanks for your support.
