@@ -5,7 +5,7 @@
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 # Created at 2018-05-11
-# Updated at 2018-10-29
+# Updated at 2019-02-21
 
 import dlib         # 人脸处理的库 Dlib
 import numpy as np  # 数据处理的库 numpy
@@ -128,8 +128,16 @@ while cap.isOpened():
                     # 将某张人脸与存储的所有人脸数据进行比对
                     compare = return_euclidean_distance(features_cap_arr[k], features_known_arr[i])
                     if compare == "same":  # 找到了相似脸
-                        name_namelist[k] = "person_" + str(i+1)
-
+                        # 在这里修改 person_0, person_1 ... 的名字
+                        # 这里只写了前三个
+                        # Here you can modify the names shown on the camera
+                        if i == 0:
+                            name_namelist[k] = "Person_1"
+                        elif i == 1:
+                            name_namelist[k] = "Person_2"
+                        elif i == 2:
+                            name_namelist[k] = "Person_3"
+                            
                 # 矩形框
                 for kk, d in enumerate(faces):
                     # 绘制矩形框
