@@ -79,7 +79,11 @@ def pre_work_deldir():
 # 在之前 person_x 的序号按照 person_x+1 开始录入
 if os.listdir("data/data_faces_from_camera/"):
     # 获取已录入的最后一个人脸序号
-    person_cnt = int(str(os.listdir("data/data_faces_from_camera/")[-1]).split("_")[-1])
+    person_list = os.listdir("data/data_faces_from_camera/")
+    person_list.sort()
+    person_num_latest = int(str(person_list[-1]).split("_")[-1])
+    person_cnt = person_num_latest
+
 # 如果第一次存储或者没有之前录入的人脸, 按照 person_1 开始录入
 else:
     person_cnt = 0
@@ -104,12 +108,8 @@ while cap.isOpened():
     if kk == ord('n'):
         person_cnt += 1
         current_face_dir = path_photos_from_camera + "person_" + str(person_cnt)
-        print('\n')
-        for dirs in (os.listdir(path_photos_from_camera)):
-            if current_face_dir == path_photos_from_camera + dirs:
-                shutil.rmtree(current_face_dir)
-                print("删除旧的文件夹:", current_face_dir)
         os.makedirs(current_face_dir)
+        print('\n')
         print("新建的人脸文件夹: ", current_face_dir)
 
         # 将人脸计数器清零
@@ -152,12 +152,15 @@ while cap.isOpened():
             if save_flag:
                 # 按下 's' 保存摄像头中的人脸到本地
                 if kk == ord('s'):
-                    cnt_ss += 1
-                    for ii in range(height*2):
-                        for jj in range(width*2):
-                            im_blank[ii][jj] = img_rd[d.top()-hh + ii][d.left()-ww + jj]
-                    cv2.imwrite(current_face_dir + "/img_face_" + str(cnt_ss) + ".jpg", im_blank)
-                    print("写入本地：", str(current_face_dir) + "/img_face_" + str(cnt_ss) + ".jpg")
+                    if os.path.isdir(current_face_dir):
+                        cnt_ss += 1
+                        for ii in range(height*2):
+                            for jj in range(width*2):
+                                im_blank[ii][jj] = img_rd[d.top()-hh + ii][d.left()-ww + jj]
+                        cv2.imwrite(current_face_dir + "/img_face_" + str(cnt_ss) + ".jpg", im_blank)
+                        print("写入本地：", str(current_face_dir) + "/img_face_" + str(cnt_ss) + ".jpg")
+                    else:
+                        print("请在按 'S' 之前先按 'N' 来建文件夹 / Please press 'N' before 'S'")
 
     # 显示人脸数
     cv2.putText(img_rd, "Faces: " + str(len(faces)), (20, 100), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)

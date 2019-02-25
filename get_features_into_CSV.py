@@ -1,4 +1,5 @@
 # 从人脸图像文件中提取人脸特征存入 CSV
+# Get features from images and save into features_all.csv
 
 # Author:   coneypo
 # Blog:     http://www.cnblogs.com/AdaminXie
@@ -6,13 +7,13 @@
 # Mail:     coneypo@foxmail.com
 
 # Created at 2018-05-11
-# Updated at 2018-10-29
+# Updated at 2019-02-25
 
 # 增加录入多张人脸到 CSV 的功能
 
 # return_128d_features()          获取某张图像的 128D 特征
 # write_into_csv()                获取某个路径下所有图像的特征，并写入 CSV
-# compute_the_mean()              从 CSV　中读取　128D 特征，并计算特征均值
+# compute_the_mean()              从 CSV 中读取 128D 特征，并计算特征均值
 
 import cv2
 import os
@@ -85,6 +86,7 @@ def write_into_csv(path_faces_personX, path_csv_from_photos):
 
 # 读取某人所有的人脸图像的数据，写入 person_X.csv
 faces = os.listdir(path_photos_from_camera)
+faces.sort()
 for person in faces:
     print("##### " + person + " #####")
     print(path_csv_from_photos + person + ".csv")
@@ -117,6 +119,7 @@ def compute_the_mean(path_csv_from_photos):
         feature_mean_list = []
     return feature_mean_list
 
+
 # 存放所有特征均值的 CSV 的路径
 path_csv_from_photos_feature_all = "data/features_all.csv"
 
@@ -126,6 +129,7 @@ path_csv_from_photos = "data/data_csvs_from_camera/"
 with open(path_csv_from_photos_feature_all, "w", newline="") as csvfile:
     writer = csv.writer(csvfile)
     csv_rd = os.listdir(path_csv_from_photos)
+    csv_rd.sort()
     print("##### 得到的特征均值 / The generated average values of features stored in: #####")
     for i in range(len(csv_rd)):
         feature_mean_list = compute_the_mean(path_csv_from_photos + csv_rd[i])

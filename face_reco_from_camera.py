@@ -132,11 +132,11 @@ while cap.isOpened():
                         # 这里只写了前三个
                         # Here you can modify the names shown on the camera
                         if i == 0:
-                            name_namelist[k] = "Person_1"
+                            name_namelist[k] = "Person 1"
                         elif i == 1:
-                            name_namelist[k] = "Person_2"
+                            name_namelist[k] = "Person 2"
                         elif i == 2:
-                            name_namelist[k] = "Person_3"
+                            name_namelist[k] = "Person 3"
                             
                 # 矩形框
                 for kk, d in enumerate(faces):
