@@ -5,19 +5,19 @@
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 # Created at 2018-05-11
-# Updated at 2019-02-21
+# Updated at 2019-02-26
 
-import dlib         # 人脸处理的库 Dlib
-import numpy as np  # 数据处理的库 numpy
-import cv2          # 图像处理的库 OpenCv
-import pandas as pd # 数据处理的库 Pandas
+import dlib          # 人脸处理的库 Dlib
+import numpy as np   # 数据处理的库 numpy
+import cv2           # 图像处理的库 OpenCv
+import pandas as pd  # 数据处理的库 Pandas
 
-# 人脸识别模型，提取 128D 的特征矢量
+# 人脸识别模型，提取128D的特征矢量
 # face recognition model, the object maps human faces into 128D vectors
 facerec = dlib.face_recognition_model_v1("data/data_dlib/dlib_face_recognition_resnet_model_v1.dat")
 
 
-# 计算两个向量间的欧式距离
+# 计算两个128D向量间的欧式距离
 def return_euclidean_distance(feature_1, feature_2):
     feature_1 = np.array(feature_1)
     feature_2 = np.array(feature_2)
@@ -30,7 +30,7 @@ def return_euclidean_distance(feature_1, feature_2):
         return "same"
 
 
-# 处理存放所有人脸特征的 CSV
+# 处理存放所有人脸特征的 csv
 path_features_known_csv = "data/features_all.csv"
 csv_rd = pd.read_csv(path_features_known_csv, header=None)
 
@@ -46,7 +46,6 @@ for i in range(csv_rd.shape[0]):
     features_someone_arr = []
     for j in range(0, len(csv_rd.ix[i, :])):
         features_someone_arr.append(csv_rd.ix[i, :][j])
-    #    print(features_someone_arr)
     features_known_arr.append(features_someone_arr)
 print("Faces in Database：", len(features_known_arr))
 
@@ -90,13 +89,7 @@ while cap.isOpened():
     # 待会要写的字体
     font = cv2.FONT_HERSHEY_COMPLEX
 
-    cv2.putText(img_rd, "Press 'q': Quit", (20, 450), font, 0.8, (84, 255, 159), 1, cv2.LINE_AA)
-
-    # 存储人脸名字和位置的两个 list
-    # list 1 (faces): store the name of faces               Jack    unknown unknown Mary
-    # list 2 (pos_namelist): store the positions of faces   12,1    1,21    1,13    31,1
-
-    # 存储所有人脸的名字
+    # 存储当前摄像头中捕获到的所有人脸的坐标/名字
     pos_namelist = []
     name_namelist = []
 
@@ -120,7 +113,7 @@ while cap.isOpened():
                 name_namelist.append("unknown")
 
                 # 每个捕获人脸的名字坐标
-                pos_namelist.append(tuple([faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
+                pos_namelist.append(tuple([faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top())/4)]))
 
                 # 对于某张人脸，遍历所有存储的人脸特征
                 for i in range(len(features_known_arr)):
@@ -128,8 +121,9 @@ while cap.isOpened():
                     # 将某张人脸与存储的所有人脸数据进行比对
                     compare = return_euclidean_distance(features_cap_arr[k], features_known_arr[i])
                     if compare == "same":  # 找到了相似脸
-                        # 在这里修改 person_0, person_1 ... 的名字
+                        # 在这里修改 person_1, person_2 ... 的名字
                         # 这里只写了前三个
+                        # 可以在这里改称 Jack, Tom and others
                         # Here you can modify the names shown on the camera
                         if i == 0:
                             name_namelist[k] = "Person 1"
@@ -149,6 +143,7 @@ while cap.isOpened():
 
     print("Name list now:", name_namelist, "\n")
 
+    cv2.putText(img_rd, "Press 'q': Quit", (20, 450), font, 0.8, (84, 255, 159), 1, cv2.LINE_AA)
     cv2.putText(img_rd, "Face Recognition", (20, 40), font, 1, (0, 0, 0), 1, cv2.LINE_AA)
     cv2.putText(img_rd, "Faces: " + str(len(faces)), (20, 100), font, 1, (0, 0, 255), 1, cv2.LINE_AA)
 
