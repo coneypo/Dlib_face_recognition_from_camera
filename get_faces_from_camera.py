@@ -194,7 +194,7 @@ while cap.isOpened():
 
     # 窗口显示
     # cv2.namedWindow("camera", 0) # 如果需要摄像头窗口大小可调
-    # cv2.imshow("camera", img_rd)
+    cv2.imshow("camera", img_rd)
 
 # 释放摄像头
 # release camera
