@@ -45,7 +45,7 @@ def return_128d_features(path_img):
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     faces = detector(img_gray, 1)
 
-    print("检测到人脸的图像：", path_img, "\n")
+    print("%-40s %-20s" % ("检测到人脸的图像 / image with faces detected:", path_img), '\n')
 
     # 因为有可能截下来的人脸再去检测，检测不出来人脸了
     # 所以要确保是 检测到人脸的人脸图像 拿去算特征
@@ -71,7 +71,7 @@ def write_into_csv(path_faces_personX, path_csv_from_photos):
         if photos_list:
             for i in range(len(photos_list)):
                 # 调用return_128d_features()得到128d特征
-                print("正在读的人脸图像：", path_faces_personX + "/" + photos_list[i])
+                print("%-40s %-20s" % ("正在读的人脸图像 / image to read:", path_faces_personX + "/" + photos_list[i]))
                 features_128d = return_128d_features(path_faces_personX + "/" + photos_list[i])
                 #  print(features_128d)
                 # 遇到没有检测出人脸的图片跳过
@@ -80,7 +80,7 @@ def write_into_csv(path_faces_personX, path_csv_from_photos):
                 else:
                     writer.writerow(features_128d)
         else:
-            print("Warning: Empty photos in "+path_faces_personX+'/')
+            print("文件夹内图像文件为空 / Warning: Empty photos in " + path_faces_personX + '/', '\n')
             writer.writerow("")
 
 

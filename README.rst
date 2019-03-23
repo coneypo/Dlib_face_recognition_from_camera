@@ -22,6 +22,12 @@ Detect and recognize single/multi-faces from camera;
    .. image:: introduction/face_reco_single_person.png
       :align: center
 
+   请不要离摄像头过近，人脸超出摄像头范围时会有 "OUT OF RANGE" 提醒 /
+   Please do not too close to the camera, or you can't save faces with "OUT OF RANGE" warning;
+
+   .. image:: introduction/get_face_from_camera_out_of_range.png
+      :align: center
+
    当多张人脸 / When multi-faces:
    
    .. image:: introduction/face_reco_two_people.png
@@ -31,25 +37,38 @@ Detect and recognize single/multi-faces from camera;
 
 * When using a distance threshold of ``0.6``, the dlib model obtains an accuracy of ``99.38%`` on the standard LFW face recognition benchmark.
 
+Overview
+********
+
+此项目中人脸识别的实现流程 / The design of this repo:
+
+   .. image:: introduction/overview.png
+      :align: center
 
 Steps
 *****
 
+#. 下载源码 / Download from website or via GitHub Desktop in windows, or clone repo in Ubuntu
+
+   .. code-block:: bash
+
+      git clone https://github.com/coneypo/Dlib_face_recognition_from_camera
+
 #. 进行 face register / 人脸信息采集录入
 
-   .. code-block:: python
+   .. code-block:: bash
 
       python3 get_face_from_camera.py
 
 #. 提取所有录入人脸数据存入 features_all.csv
 
-   .. code-block:: python
+   .. code-block:: bash
 
       python3 get_features_into_CSV.py
 
 #. 调用摄像头进行实时人脸识别
 
-   .. code-block:: python
+   .. code-block:: bash
 
       python3 face_reco_from_camera.py
 
