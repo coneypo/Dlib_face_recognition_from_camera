@@ -14,18 +14,18 @@ Detect and recognize single/multi-faces from camera;
    .. image:: introduction/get_face_from_camera.png
       :align: center
 
+   请不要离摄像头过近，人脸超出摄像头范围时会有 "OUT OF RANGE" 提醒 /
+   Please do not too close to the camera, or you can't save faces with "OUT OF RANGE" warning;
+
+   .. image:: introduction/get_face_from_camera_out_of_range.png
+      :align: center
+
 #. 提取特征建立人脸数据库 / Generate database from images captured
 #. 利用摄像头进行人脸识别 / Face recognizer
    
    当单张人脸 / When single-face:
    
    .. image:: introduction/face_reco_single_person.png
-      :align: center
-
-   请不要离摄像头过近，人脸超出摄像头范围时会有 "OUT OF RANGE" 提醒 /
-   Please do not too close to the camera, or you can't save faces with "OUT OF RANGE" warning;
-
-   .. image:: introduction/get_face_from_camera_out_of_range.png
       :align: center
 
    当多张人脸 / When multi-faces:
@@ -42,8 +42,8 @@ Overview
 
 此项目中人脸识别的实现流程 / The design of this repo:
 
-   .. image:: introduction/overview.png
-      :align: center
+.. image:: introduction/overview.png
+   :align: center
 
 Steps
 *****

@@ -1,0 +1,5 @@
+dlib==19.17.0
+numpy==1.15.1
+opencv-python==4.0.0.21
+pandas==0.23.4
+scikit-image==0.14.0
