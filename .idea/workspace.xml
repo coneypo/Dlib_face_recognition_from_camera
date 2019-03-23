@@ -4,7 +4,7 @@
     <list default="true" id="e58b655a-3a9b-4001-b4da-39e07ab46629" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.rst" beforeDir="false" afterPath="$PROJECT_DIR$/README.rst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/introduction/face_reco_single_person_custmize_name.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,8 +74,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="392" />
-    <option name="y" value="66" />
+    <option name="x" value="336" />
+    <option name="y" value="27" />
     <option name="width" value="1717" />
     <option name="height" value="987" />
   </component>
@@ -97,6 +97,11 @@
               <item name="Dlib_face_recognition_from_camera" type="b2602c69:ProjectViewProjectNode" />
               <item name="Dlib_face_recognition_from_camera" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Dlib_face_recognition_from_camera" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Dlib_face_recognition_from_camera" type="462c0819:PsiDirectoryNode" />
+              <item name="introduction" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -130,10 +135,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="392" y="66" width="1717" height="987" extended-state="0" />
+    <frame x="101" y="57" width="1717" height="987" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1162928" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.07910272" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -212,6 +217,9 @@
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/introduction/face_reco_single_person_custmize_name.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/README.rst">
       <provider selected="true" editor-type-id="restructured-text-editor" />

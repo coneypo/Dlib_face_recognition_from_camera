@@ -101,9 +101,12 @@ Python 源码介绍如下:
    * Compare the faces captured from camera with the faces you have registered which are saved in "features_all.csv"
    
    * 将捕获到的人脸数据和之前存的人脸数据进行对比计算欧式距离, 由此判断是否是同一个人;
-   
-   If you want customize the names shown, please refer to this patch and modify the code: https://github.com/coneypo/Dlib_face_recognition_from_camera/commit/58466ce87bf3a42ac5ef855b791bf8c658d408df?diff=unified
 
+修改显示的人名 / If you want customize the names shown, please refer to this patch and modify the code: https://github.com/coneypo/Dlib_face_recognition_from_camera/commit/58466ce87bf3a42ac5ef855b791bf8c658d408df?diff=unified
+face_reco_single_person_custmize_name.png
+
+.. image:: introduction/face_reco_single_person_customize_name.png
+   :align: center
 
 More
 ****
