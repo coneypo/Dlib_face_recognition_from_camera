@@ -29,8 +29,15 @@ Detect and recognize single/multi-faces from camera;
       :align: center
 
    当多张人脸 / When multi-faces:
-   
+
+   一张已录入人脸 + 未录入 unknown 人脸:
+
    .. image:: introduction/face_reco_two_people.png
+      :align: center
+
+   同时识别多张已录入人脸:
+
+   .. image:: introduction/face_reco_two_people_in_database.png
       :align: center
 
 ** 关于精度 / About accuracy:
