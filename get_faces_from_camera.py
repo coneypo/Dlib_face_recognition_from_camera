@@ -101,6 +101,8 @@ press_n_flag = 0
 while cap.isOpened():
     # 480 height * 640 width
     flag, img_rd = cap.read()
+    print(img_rd.shape) # print (480, 640, 3)
+    
     kk = cv2.waitKey(1)
 
     img_gray = cv2.cvtColor(img_rd, cv2.COLOR_RGB2GRAY)
