@@ -101,8 +101,6 @@ press_n_flag = 0
 while cap.isOpened():
     # 480 height * 640 width
     flag, img_rd = cap.read()
-    print(img_rd.shape) # print (480, 640, 3)
-    
     kk = cv2.waitKey(1)
 
     img_gray = cv2.cvtColor(img_rd, cv2.COLOR_RGB2GRAY)
@@ -159,7 +157,8 @@ while cap.isOpened():
 
             # 根据人脸大小生成空的图像 / create blank image according to the size of face detected
             im_blank = np.zeros((int(height*2), width*2, 3), np.uint8)
-
+            
+            save_flag = 1;
             if save_flag:
                 # 按下 's' 保存摄像头中的人脸到本地 / press 's' to save faces into local images
                 if kk == ord('s'):
