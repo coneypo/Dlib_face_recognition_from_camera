@@ -114,20 +114,21 @@ while cap.isOpened():
                 # 对于某张人脸，遍历所有存储的人脸特征
                 # for every faces detected, compare the faces in the database
                 for i in range(len(features_known_arr)):
-                    print("with person_", str(i+1), "the ", end='')
-                    # 将某张人脸与存储的所有人脸数据进行比对
-                    compare = return_euclidean_distance(features_cap_arr[k], features_known_arr[i])
-                    if compare == "same":  # 找到了相似脸
-                        # 在这里修改 person_1, person_2 ... 的名字
-                        # 这里只写了前三个
-                        # 可以在这里改称 Jack, Tom and others
-                        # Here you can modify the names shown on the camera
-                        if i == 0:
-                            name_namelist[k] = "Person 1"
-                        elif i == 1:
-                            name_namelist[k] = "Person 2"
-                        elif i == 2:
-                            name_namelist[k] = "Person 3"
+                    # 如果 person_X 数据不为空
+                    if str(features_known_arr[i][0]) != '0.0':
+                        print("with person_", str(i + 1), "the ", end='')
+                        compare = return_euclidean_distance(features_cap_arr[k], features_known_arr[i])
+                        if compare == "same":  # 找到了相似脸
+                            # 在这里修改 person_1, person_2 ... 的名字
+                            # 这里只写了前三个
+                            # 可以在这里改称 Jack, Tom and others
+                            # Here you can modify the names shown on the camera
+                            if i == 0:
+                                name_namelist[k] = "Person 1"
+                            elif i == 1:
+                                name_namelist[k] = "Person 2"
+                            elif i == 2:
+                                name_namelist[k] = "Person 3"
                             
                 # 矩形框
                 # draw rectangle

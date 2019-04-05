@@ -34,9 +34,8 @@ cnt_ss = 0
 # 存储人脸的文件夹 the folder to save faces
 current_face_dir = ""
 
-# 保存 photos/csv 的路径 the directory to save photos/csv
+# 保存 faces images 的路径 the directory to save images of faces
 path_photos_from_camera = "data/data_faces_from_camera/"
-path_csv_from_photos = "data/data_csvs_from_camera/"
 
 
 # 新建保存人脸图像文件和数据CSV文件夹
@@ -48,10 +47,6 @@ def pre_work_mkdir():
         pass
     else:
         os.mkdir(path_photos_from_camera)
-    if os.path.isdir(path_csv_from_photos):
-        pass
-    else:
-        os.mkdir(path_csv_from_photos)
 
 
 pre_work_mkdir()
@@ -67,13 +62,12 @@ def pre_work_del_old_face_folders():
     for i in range(len(folders_rd)):
         shutil.rmtree(path_photos_from_camera+folders_rd[i])
 
-    csv_rd = os.listdir(path_csv_from_photos)
-    for i in range(len(csv_rd)):
-        os.remove(path_csv_from_photos+csv_rd[i])
+    if os.path.isfile("data/features_all.csv"):
+        os.remove("data/features_all.csv")
 
 # 这里在每次程序录入之前, 删掉之前存的人脸数据
-# 如果这里打开，每次进行人脸录入的时候都会删掉之前的人脸图像文件夹
-# pre_work_del_old_face_folders()
+# 如果这里打开，每次进行人脸录入的时候都会删掉之前的人脸图像文件夹 /person_1/,/person_2/,/person_3/...
+pre_work_del_old_face_folders()
 ##################################
 
 
@@ -99,8 +93,10 @@ save_flag = 1
 press_n_flag = 0
 
 while cap.isOpened():
-    # 480 height * 640 width
     flag, img_rd = cap.read()
+    # print(img_rd.shape)
+    # It should be 480 height * 640 width
+
     kk = cv2.waitKey(1)
 
     img_gray = cv2.cvtColor(img_rd, cv2.COLOR_RGB2GRAY)
@@ -124,8 +120,7 @@ while cap.isOpened():
 
     # 检测到人脸 / if face detected
     if len(faces) != 0:
-        # 矩形框
-        # show the rectangle box
+        # 矩形框 / show the rectangle box
         for k, d in enumerate(faces):
             # 计算矩形大小
             # we need to compute the width and height of the box
@@ -142,10 +137,14 @@ while cap.isOpened():
 
             # 设置颜色 / the color of rectangle of faces detected
             color_rectangle = (255, 255, 255)
+
+            # 判断人脸矩形框是否超出 480x640
             if (d.right()+ww) > 640 or (d.bottom()+hh > 480) or (d.left()-ww < 0) or (d.top()-hh < 0):
                 cv2.putText(img_rd, "OUT OF RANGE", (20, 300), font, 0.8, (0, 0, 255), 1, cv2.LINE_AA)
                 color_rectangle = (0, 0, 255)
                 save_flag = 0
+                if kk == ord('s'):
+                    print("请调整位置 / Please adjust your position")
             else:
                 color_rectangle = (255, 255, 255)
                 save_flag = 1

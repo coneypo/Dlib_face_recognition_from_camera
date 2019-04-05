@@ -1,5 +1,5 @@
-Face recognition from camera
-############################
+Face recognition from camera with Dlib
+######################################
 
 Introduction
 ************
@@ -30,12 +30,12 @@ Detect and recognize single/multi-faces from camera;
 
    当多张人脸 / When multi-faces:
 
-   一张已录入人脸 + 未录入 unknown 人脸:
+   一张已录入人脸 + 未录入 unknown 人脸 / 1x known face + 1x unknown face:
 
    .. image:: introduction/face_reco_two_people.png
       :align: center
 
-   同时识别多张已录入人脸:
+   同时识别多张已录入人脸 / multi-faces recognition at the same time:
 
    .. image:: introduction/face_reco_two_people_in_database.png
       :align: center
@@ -55,7 +55,7 @@ Overview
 Steps
 *****
 
-#. 下载源码 / Download from website or via GitHub Desktop in windows, or clone repo in Ubuntu
+#. 下载源码 / Download zip from website or via GitHub Desktop in windows, or git clone in Ubuntu
 
    .. code-block:: bash
 
@@ -67,13 +67,13 @@ Steps
 
       python3 get_face_from_camera.py
 
-#. 提取所有录入人脸数据存入 features_all.csv
+#. 提取所有录入人脸数据存入 features_all.csv / Features extraction and save into features_all.csv
 
    .. code-block:: bash
 
-      python3 get_features_into_CSV.py
+      python3 features_extraction_to_csv.py
 
-#. 调用摄像头进行实时人脸识别
+#. 调用摄像头进行实时人脸识别 / Real-time face recognition
 
    .. code-block:: bash
 
@@ -82,6 +82,40 @@ Steps
 
 About Source Code
 *****************
+
+Repo 的 tree / 树状图:
+
+::
+
+    .
+    ├── get_faces_from_camera.py        # Step1. Faces register
+    ├── features_extraction_to_csv.py   # Step2. Features extraction
+    ├── face_reco_from_camera.py        # Step3. Faces recognition
+    ├── how_to_use_camera.py            # Use the default camera by opencv
+    ├── data
+    │   ├── data_dlib                   # Dlib's model
+    │   │   ├── dlib_face_recognition_resnet_model_v1.dat
+    │   │   ├── shape_predictor_5_face_landmarks.dat
+    │   │   └── shape_predictor_68_face_landmarks.dat
+    │   ├── data_faces_from_camera      # Face images captured from camera (will generate after step 1)
+    │   │   ├── person_1
+    │   │   │   ├── img_face_1.jpg
+    │   │   │   └── img_face_2.jpg
+    │   │   └── person_2
+    │   │       └── img_face_1.jpg
+    │   │       └── img_face_2.jpg
+    │   └── features_all.csv            # CSV to save all the features of known faces (will generate after step 2)
+    ├── introduction                    # Some files for readme.rst
+    │   ├── Dlib_Face_recognition_by_coneypo.pptx
+    │   ├── face_reco_single_person_customize_name.png
+    │   ├── face_reco_single_person.png
+    │   ├── face_reco_two_people_in_database.png
+    │   ├── face_reco_two_people.png
+    │   ├── get_face_from_camera_out_of_range.png
+    │   ├── get_face_from_camera.png
+    │   └── overview.png
+    ├── README.rst
+    └── requirements.txt            # Some python packages needed
 
 Python 源码介绍如下:
 
@@ -93,7 +127,7 @@ Python 源码介绍如下:
    * 超出会有 "out of range" 的提醒;
 
 
-#. get_features_into_CSV.py: 
+#. features_extraction_to_csv.py:
      
    从上一步存下来的图像文件中，提取人脸数据存入CSV;
   
@@ -120,15 +154,17 @@ More
 
 Tips:
 
-1. Windows下建议不要把代码放到 ``C:\``, 可能会出现权限读取问题
+1. 如果希望详细了解 dlib 的用法，请参考 Dlib 官方 Python api 的网站 / You can refer to this link for more information of how to use dlib: http://dlib.net/python/index.html
 
-2. 代码最好不要有中文路径
+2. Windows下建议不要把代码放到 ``C:\``, 可能会出现权限读取问题 /
+In windows, we will not recommend that running this repo in dir ``C:\``
 
-3. 人脸录入的时候先建文件夹再保存图片, 先 ``N`` 再 ``S``
+3. 代码最好不要有中文路径 / No chinese characters in your code directory
 
-For more details, please refer to my blog (in chinese) or mail to me /
+4. 人脸录入的时候先建文件夹再保存图片, 先 ``N`` 再 ``S`` / Press ``N`` before ``S``
 
-可以访问我的博客获取本项目的更详细介绍，如有问题可以邮件联系我:
+可以访问我的博客获取本项目的更详细介绍，如有问题可以邮件联系我 /
+For more details, please refer to my blog (in chinese) or mail to me :
 
 * Blog: https://www.cnblogs.com/AdaminXie/p/9010298.html
   
