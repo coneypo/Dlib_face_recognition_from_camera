@@ -6,7 +6,7 @@
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 # Created at 2018-05-11
-# Updated at 2019-03-23
+# Updated at 2019-04-09
 
 import dlib          # 人脸处理的库 Dlib
 import numpy as np   # 数据处理的库 numpy
@@ -25,12 +25,7 @@ def return_euclidean_distance(feature_1, feature_2):
     feature_1 = np.array(feature_1)
     feature_2 = np.array(feature_2)
     dist = np.sqrt(np.sum(np.square(feature_1 - feature_2)))
-    print("e_distance: ", dist)
-
-    if dist > 0.4:
-        return "diff"
-    else:
-        return "same"
+    return dist
 
 
 # 处理存放所有人脸特征的 csv
@@ -102,6 +97,7 @@ while cap.isOpened():
             # 遍历捕获到的图像中所有的人脸
             # traversal all the faces in the database
             for k in range(len(faces)):
+                print("##### camera person", k+1, "#####")
                 # 让人名跟随在矩形框的下方
                 # 确定人名的位置坐标
                 # 先默认所有人不认识，是 unknown
@@ -113,28 +109,36 @@ while cap.isOpened():
 
                 # 对于某张人脸，遍历所有存储的人脸特征
                 # for every faces detected, compare the faces in the database
+                e_distance_list = []
                 for i in range(len(features_known_arr)):
                     # 如果 person_X 数据不为空
                     if str(features_known_arr[i][0]) != '0.0':
-                        print("with person_", str(i + 1), "the ", end='')
-                        compare = return_euclidean_distance(features_cap_arr[k], features_known_arr[i])
-                        if compare == "same":  # 找到了相似脸
-                            # 在这里修改 person_1, person_2 ... 的名字
-                            # 这里只写了前三个
-                            # 可以在这里改称 Jack, Tom and others
-                            # Here you can modify the names shown on the camera
-                            if i == 0:
-                                name_namelist[k] = "Person 1"
-                            elif i == 1:
-                                name_namelist[k] = "Person 2"
-                            elif i == 2:
-                                name_namelist[k] = "Person 3"
-                            
+                        print("with person", str(i + 1), "the e distance: ", end='')
+                        e_distance_tmp = return_euclidean_distance(features_cap_arr[k], features_known_arr[i])
+                        print(e_distance_tmp)
+                        e_distance_list.append(e_distance_tmp)
+                    else:
+                        # 空数据 person_X
+                        e_distance_list.append(999999999)
+                # Find the one with minimum e distance
+                similar_person_num = e_distance_list.index(min(e_distance_list))
+                print("Minimum e distance with person", int(similar_person_num)+1)
+
+                if min(e_distance_list) < 0.4:
+                    # 在这里修改 person_1, person_2 ... 的名字
+                    # 可以在这里改称 Jack, Tom and others
+                    # Here you can modify the names shown on the camera
+                    name_namelist[k] = "Person "+str(int(similar_person_num)+1)
+                    print("May be person "+str(int(similar_person_num)+1))
+                else:
+                    print("Unknown person")
+
                 # 矩形框
                 # draw rectangle
                 for kk, d in enumerate(faces):
                     # 绘制矩形框
                     cv2.rectangle(img_rd, tuple([d.left(), d.top()]), tuple([d.right(), d.bottom()]), (0, 255, 255), 2)
+                print('\n')
 
             # 在人脸框下面写人脸名字
             # write names under rectangle

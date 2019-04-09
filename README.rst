@@ -117,6 +117,33 @@ Repo 的 tree / 树状图:
     ├── README.rst
     └── requirements.txt            # Some python packages needed
 
+用到的 Dlib 相关模型函数:
+
+#. Dlib 正向人脸检测器 (based on HOG), output: <class 'dlib.dlib.rectangles'>
+
+
+   .. code-block:: python
+
+      detector = dlib.get_frontal_face_detector()
+      faces = detector(img_gray, 0)
+
+	  
+#. Dlib 人脸预测器, output: <class 'dlib.dlib.full_object_detection'>
+
+   .. code-block:: python
+
+      predictor = dlib.shape_predictor("data/data_dlib/shape_predictor_5_face_landmarks.dat")
+      shape = predictor(img_rd, faces[i])
+
+	  
+#. 特征描述子 Face recognition model, the object maps human faces into 128D vectors
+
+
+   .. code-block:: python
+
+      face_rec = dlib.face_recognition_model_v1("data/data_dlib/dlib_face_recognition_resnet_model_v1.dat")
+
+
 Python 源码介绍如下:
 
 #. get_face_from_camera.py: 
@@ -142,33 +169,27 @@ Python 源码介绍如下:
    * Compare the faces captured from camera with the faces you have registered which are saved in "features_all.csv"
    
    * 将捕获到的人脸数据和之前存的人脸数据进行对比计算欧式距离, 由此判断是否是同一个人;
-
-修改显示的人名 / If you want customize the names shown, please refer to this patch and modify the code: https://github.com/coneypo/Dlib_face_recognition_from_camera/commit/58466ce87bf3a42ac5ef855b791bf8c658d408df?diff=unified
-
-
-.. image:: introduction/face_reco_single_person_customize_name.png
-   :align: center
+   
 
 More
 ****
 
 Tips:
 
-1. 如果希望详细了解 dlib 的用法，请参考 Dlib 官方 Python api 的网站 / You can refer to this link for more information of how to use dlib: http://dlib.net/python/index.html
+#. 如果希望详细了解 dlib 的用法，请参考 Dlib 官方 Python api 的网站 / You can refer to this link for more information of how to use dlib: http://dlib.net/python/index.html
 
-2. Windows下建议不要把代码放到 ``C:\``, 可能会出现权限读取问题 /
-In windows, we will not recommend that running this repo in dir ``C:\``
+#. Windows下建议不要把代码放到 ``C:\``, 可能会出现权限读取问题 / In windows, we will not recommend that running this repo in dir ``C:\``
 
-3. 代码最好不要有中文路径 / No chinese characters in your code directory
+#. 代码最好不要有中文路径 / No chinese characters in your code directory
 
-4. 人脸录入的时候先建文件夹再保存图片, 先 ``N`` 再 ``S`` / Press ``N`` before ``S``
+#. 人脸录入的时候先建文件夹再保存图片, 先 ``N`` 再 ``S`` / Press ``N`` before ``S``
 
 可以访问我的博客获取本项目的更详细介绍，如有问题可以邮件联系我 /
 For more details, please refer to my blog (in chinese) or mail to me :
 
 * Blog: https://www.cnblogs.com/AdaminXie/p/9010298.html
   
-* Mail: coneypo@foxmail.com
+* Mail: coneypo@foxmail.com ( Dlib 相关 repo 问题请联系 @foxmail 而不是 @intel )
 
 
 仅限于交流学习, 商业合作勿扰;

@@ -9,9 +9,6 @@
 # Created at 2018-05-11
 # Updated at 2019-04-04
 
-# return_128d_features()          获取某张图像的128D特征
-# compute_the_mean()              计算128D特征均值
-
 import cv2
 import os
 import dlib
@@ -72,7 +69,7 @@ def return_features_mean_personX(path_faces_personX):
         print("文件夹内图像文件为空 / Warning: No images in " + path_faces_personX + '/', '\n')
 
     # 计算 128D 特征的均值
-    # N x 128D -> 1 x 128D
+    # personX 的 N 张图像 x 128D -> 1 x 128D
     if features_list_personX:
         features_mean_personX = np.array(features_list_personX).mean(axis=0)
     else:
