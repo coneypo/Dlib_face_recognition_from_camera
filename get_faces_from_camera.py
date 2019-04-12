@@ -72,15 +72,15 @@ def pre_work_del_old_face_folders():
 ##################################
 
 
-# 如果有之前录入的人脸
-# 在之前 person_x 的序号按照 person_x+1 开始录入
-# if old face exists, start from person_x+1
+# 如果有之前录入的人脸 / if the old folders exists
+# 在之前 person_x 的序号按照 person_x+1 开始录入 / start from person_x+1
 if os.listdir("data/data_faces_from_camera/"):
-    # 获取已录入的最后一个人脸序号
+    # 获取已录入的最后一个人脸序号 / get the num of latest person
     person_list = os.listdir("data/data_faces_from_camera/")
-    person_list.sort()
-    person_num_latest = int(str(person_list[-1]).split("_")[-1])
-    person_cnt = person_num_latest
+    person_num_list = []
+    for person in person_list:
+        person_num_list.append(int(person.split('_')[-1]))
+    person_cnt = max(person_num_list)
 
 # 如果第一次存储或者没有之前录入的人脸, 按照 person_1 开始录入
 # start from person_1
