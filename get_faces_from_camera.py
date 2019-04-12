@@ -7,7 +7,7 @@
 # Mail:     coneypo@foxmail.com
 
 # Created at 2018-05-11
-# Updated at 2019-03-23
+# Updated at 2019-04-12
 
 import dlib         # 人脸处理的库 Dlib
 import numpy as np  # 数据处理的库 Numpy
@@ -66,8 +66,9 @@ def pre_work_del_old_face_folders():
         os.remove("data/features_all.csv")
 
 # 这里在每次程序录入之前, 删掉之前存的人脸数据
-# 如果这里打开，每次进行人脸录入的时候都会删掉之前的人脸图像文件夹 /person_1/,/person_2/,/person_3/...
-pre_work_del_old_face_folders()
+# 如果这里打开，每次进行人脸录入的时候都会删掉之前的人脸图像文件夹 person_1/,person_2/,person_3/...
+# If enable this function, it will delete all the old data in dir person_1/,person_2/,/person_3/...
+# pre_work_del_old_face_folders()
 ##################################
 
 
