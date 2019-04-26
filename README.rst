@@ -15,7 +15,7 @@ Detect and recognize single/multi-faces from camera;
       :align: center
 
    请不要离摄像头过近，人脸超出摄像头范围时会有 "OUT OF RANGE" 提醒 /
-   Please do not too close to the camera, or you can't save faces with "OUT OF RANGE" warning;
+   Please do not be too close to the camera, or you can't save faces with "OUT OF RANGE" warning;
 
    .. image:: introduction/get_face_from_camera_out_of_range.png
       :align: center
@@ -43,6 +43,14 @@ Detect and recognize single/multi-faces from camera;
 ** 关于精度 / About accuracy:
 
 * When using a distance threshold of ``0.6``, the dlib model obtains an accuracy of ``99.38%`` on the standard LFW face recognition benchmark.
+
+** 关于算法 / About algorithm
+
+* 基于 Residual Neural Network / 残差网络的 CNN 模型;
+
+* This model is a ResNet network with 29 conv layers. It's essentially a version of the ResNet-34 network from the paper Deep Residual Learning for Image Recognition by He, Zhang, Ren, and Sun with a few layers removed and the number of filters per layer reduced by half.
+
+If you are interested in the algorithm of face recognition in dlib, please visit http://blog.dlib.net/2017/02/high-quality-face-recognition-with-deep.html for more information.
 
 Overview
 ********
@@ -115,7 +123,7 @@ Repo 的 tree / 树状图:
     │   ├── get_face_from_camera.png
     │   └── overview.png
     ├── README.rst
-    └── requirements.txt            # Some python packages needed
+    └── requirements.txt                # Some python packages needed
 
 用到的 Dlib 相关模型函数:
 
@@ -183,6 +191,8 @@ Tips:
 #. 代码最好不要有中文路径 / No chinese characters in your code directory
 
 #. 人脸录入的时候先建文件夹再保存图片, 先 ``N`` 再 ``S`` / Press ``N`` before ``S``
+
+#. 修改显示人脸姓名, 参考这个 patch 修改代码 / If you want to customize the names shown instead of "Person 1", "Person 2"..., please apply this patch: https://github.com/coneypo/Dlib_face_recognition_from_camera/commit/0351cc0f1a1c3a106102c0671dd19edd5866fa93
 
 可以访问我的博客获取本项目的更详细介绍，如有问题可以邮件联系我 /
 For more details, please refer to my blog (in chinese) or mail to me :
