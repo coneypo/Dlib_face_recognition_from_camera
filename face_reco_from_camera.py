@@ -48,7 +48,7 @@ print("Faces in Database：", len(features_known_arr))
 # Dlib 检测器和预测器
 # The detector and predictor will be used
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor('data/data_dlib/shape_predictor_68_face_landmarks.dat')
+predictor = dlib.shape_predictor('data/data_dlib/shape_predictor_5_face_landmarks.dat')
 
 # 创建 cv2 摄像头对象
 # cv2.VideoCapture(0) to use the default camera of PC,
