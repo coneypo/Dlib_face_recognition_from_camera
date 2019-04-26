@@ -128,8 +128,13 @@ while cap.isOpened():
                     # 在这里修改 person_1, person_2 ... 的名字
                     # 可以在这里改称 Jack, Tom and others
                     # Here you can modify the names shown on the camera
-                    name_namelist[k] = "Person "+str(int(similar_person_num)+1)
-                    print("May be person "+str(int(similar_person_num)+1))
+                    name_namelist[k] = str("Person "+str(int(similar_person_num)+1))\
+                        .replace("Person 1", "Sherry")\
+                        .replace("Person 2", "Jack")\
+                        .replace("Person 3", "Ronnie")\
+                        .replace("Person 4", "Terry")\
+                        .replace("Person 5", "Wilson")
+                    # print("May be person "+str(int(similar_person_num)+1))
                 else:
                     print("Unknown person")
 
