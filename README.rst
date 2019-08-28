@@ -63,19 +63,27 @@ Overview
 Steps
 *****
 
-#. 下载源码 / Download zip from website or via GitHub Desktop in windows, or git clone in Ubuntu
+#. 安装依赖库 / Install some python packages if needed
+
+   .. code-block:: bash
+
+      pip3 install opencv-python
+      pip3 install scikit-image
+      pip3 install dlib
+
+#. 下载源码 / Download zip from website or via GitHub Desktop in windows, or git clone repo in Ubuntu
 
    .. code-block:: bash
 
       git clone https://github.com/coneypo/Dlib_face_recognition_from_camera
 
-#. 进行 face register / 人脸信息采集录入
+#. 进行人脸信息采集录入 / Register faces 
 
    .. code-block:: bash
 
       python3 get_face_from_camera.py
 
-#. 提取所有录入人脸数据存入 features_all.csv / Features extraction and save into features_all.csv
+#. 提取所有录入人脸数据存入 "features_all.csv" / Features extraction and save into "features_all.csv"
 
    .. code-block:: bash
 
