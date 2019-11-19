@@ -95,7 +95,7 @@ press_n_flag = 0
 
 while cap.isOpened():
     flag, img_rd = cap.read()
-    # print(img_rd.shape)
+    print(img_rd.shape)
     # It should be 480 height * 640 width
 
     kk = cv2.waitKey(1)
