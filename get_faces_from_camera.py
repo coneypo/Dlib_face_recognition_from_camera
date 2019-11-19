@@ -7,7 +7,7 @@
 # Mail:     coneypo@foxmail.com
 
 # Created at 2018-05-11
-# Updated at 2019-04-12
+# Updated at 2019-11-19
 
 import dlib         # 人脸处理的库 Dlib
 import numpy as np  # 数据处理的库 Numpy
@@ -95,7 +95,7 @@ press_n_flag = 0
 
 while cap.isOpened():
     flag, img_rd = cap.read()
-    print(img_rd.shape)
+    # print(img_rd.shape)
     # It should be 480 height * 640 width
 
     kk = cv2.waitKey(1)
