@@ -18,9 +18,6 @@ import shutil       # 读写文件
 # Dlib 正向人脸检测器 / frontal face detector
 detector = dlib.get_frontal_face_detector()
 
-# Dlib 68 点特征预测器 / 68 points features predictor
-predictor = dlib.shape_predictor('data/data_dlib/shape_predictor_68_face_landmarks.dat')
-
 # OpenCv 调用摄像头 / Use camera
 cap = cv2.VideoCapture(0)
 
@@ -175,7 +172,7 @@ while cap.isOpened():
 
     # 添加说明 / Add some statements
     cv2.putText(img_rd, "Face Register", (20, 40), font, 1, (0, 0, 0), 1, cv2.LINE_AA)
-    cv2.putText(img_rd, "N: New face folder", (20, 350), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
+    cv2.putText(img_rd, "N: Create face folder", (20, 350), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
     cv2.putText(img_rd, "S: Save current face", (20, 400), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
     cv2.putText(img_rd, "Q: Quit", (20, 450), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
 

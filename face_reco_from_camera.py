@@ -52,10 +52,6 @@ if os.path.exists("data/features_all.csv"):
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor('data/data_dlib/shape_predictor_68_face_landmarks.dat')
 
-    # Use "shape_predictor_5_face_landmarks.dat" instead of "shape_predictor_68_face_landmarks.dat"
-    # if you meet the issue "Runtime Error:The full_object_detection must use the iBUG 300W 68 points face landmark style.."
-    # predictor = dlib.shape_predictor('data/data_dlib/shape_predictor_5_face_landmarks.dat')
-
     # 创建 cv2 摄像头对象
     cap = cv2.VideoCapture(0)
 

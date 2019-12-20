@@ -30,9 +30,9 @@ Detect and recognize single/multi-faces from camera;
 
    当多张人脸 / When multi-faces:
 
-   一张已录入人脸 + 未录入 unknown 人脸 / 1x known face + 1x unknown face:
+   一张已录入人脸 + 未录入 unknown 人脸 / 1x known face + 2x unknown face:
 
-   .. image:: introduction/face_reco_two_people.png
+   .. image:: introduction/face_reco_multi_people.png
       :align: center
 
    同时识别多张已录入人脸 / multi-faces recognition at the same time:
@@ -49,8 +49,6 @@ Detect and recognize single/multi-faces from camera;
 * 基于 Residual Neural Network / 残差网络的 CNN 模型;
 
 * This model is a ResNet network with 29 conv layers. It's essentially a version of the ResNet-34 network from the paper Deep Residual Learning for Image Recognition by He, Zhang, Ren, and Sun with a few layers removed and the number of filters per layer reduced by half.
-
-If you are interested in the algorithm of face recognition in dlib, please visit http://blog.dlib.net/2017/02/high-quality-face-recognition-with-deep.html for more information.
 
 Overview
 ********
@@ -144,11 +142,18 @@ Repo 的 tree / 树状图:
       faces = detector(img_gray, 0)
 
 	  
-#. Dlib 人脸预测器, output: <class 'dlib.dlib.full_object_detection'>
+#. Dlib 人脸预测器, output: <class 'dlib.dlib.full_object_detection'>,
+   will use shape_predictor_68_face_landmarks.dat
 
    .. code-block:: python
 
-      predictor = dlib.shape_predictor("data/data_dlib/shape_predictor_5_face_landmarks.dat")
+      # This is trained on the ibug 300-W dataset (https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/)
+      # Also note that this model file is designed for use with dlib's HOG face detector.
+      # That is, it expects the bounding boxes from the face detector to be aligned a certain way, the way dlib's HOG face detector does it.
+      # It won't work as well when used with a face detector that produces differently aligned boxes,
+      # such as the CNN based mmod_human_face_detector.dat face detector.
+
+      predictor = dlib.shape_predictor("data/data_dlib/shape_predictor_68_face_landmarks.dat")
       shape = predictor(img_rd, faces[i])
 
 	  

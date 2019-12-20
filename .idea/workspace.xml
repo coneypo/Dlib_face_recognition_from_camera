@@ -2,14 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e58b655a-3a9b-4001-b4da-39e07ab46629" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cap_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Dlib_face_recognition_from_camera.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Dlib_face_recognition_from_camera.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.rst" beforeDir="false" afterPath="$PROJECT_DIR$/README.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/data_dlib/shape_predictor_5_face_landmarks.dat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/face_reco_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/face_reco_from_camera.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/features_extraction_to_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/features_extraction_to_csv.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/get_faces_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_faces_from_camera.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/how_to_use_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/how_to_use_camera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/introduction/face_reco_single_person.png" beforeDir="false" afterPath="$PROJECT_DIR$/introduction/face_reco_single_person.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/introduction/face_reco_single_person_customize_name.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/introduction/face_reco_two_people.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/introduction/face_reco_two_people_in_database.png" beforeDir="false" afterPath="$PROJECT_DIR$/introduction/face_reco_two_people_in_database.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/introduction/get_face_from_camera.png" beforeDir="false" afterPath="$PROJECT_DIR$/introduction/get_face_from_camera.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/introduction/get_face_from_camera_out_of_range.png" beforeDir="false" afterPath="$PROJECT_DIR$/introduction/get_face_from_camera_out_of_range.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,7 +35,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Dlib_face_detection_from_camera" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">

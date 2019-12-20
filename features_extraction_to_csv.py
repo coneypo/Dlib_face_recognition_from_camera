@@ -23,7 +23,7 @@ path_images_from_camera = "data/data_faces_from_camera/"
 detector = dlib.get_frontal_face_detector()
 
 # Dlib 人脸预测器
-predictor = dlib.shape_predictor("data/data_dlib/shape_predictor_5_face_landmarks.dat")
+predictor = dlib.shape_predictor("data/data_dlib/shape_predictor_68_face_landmarks.dat")
 
 # Dlib 人脸识别模型
 # Face recognition model, the object maps human faces into 128D vectors
