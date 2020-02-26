@@ -6,7 +6,7 @@
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 # Created at 2018-05-11
-# Updated at 2019-04-09
+# Updated at 2020-02-27
 
 import dlib          # 人脸处理的库 Dlib
 import numpy as np   # 数据处理的库 numpy
@@ -42,8 +42,8 @@ if os.path.exists("data/features_all.csv"):
     # Print known faces
     for i in range(csv_rd.shape[0]):
         features_someone_arr = []
-        for j in range(0, len(csv_rd.ix[i, :])):
-            features_someone_arr.append(csv_rd.ix[i, :][j])
+        for j in range(0, len(csv_rd.iloc[i])):
+            features_someone_arr.append(csv_rd.iloc[i][j])
         features_known_arr.append(features_someone_arr)
     print("Faces in Database：", len(features_known_arr))
 
