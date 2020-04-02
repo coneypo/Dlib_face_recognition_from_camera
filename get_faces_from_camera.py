@@ -7,7 +7,7 @@
 # Mail:     coneypo@foxmail.com
 
 # Created at 2018-05-11
-# Updated at 2019-11-19
+# Updated at 2020-04-02
 
 import dlib         # 人脸处理的库 Dlib
 import numpy as np  # 数据处理的库 Numpy
@@ -95,10 +95,8 @@ while cap.isOpened():
 
     kk = cv2.waitKey(1)
 
-    img_gray = cv2.cvtColor(img_rd, cv2.COLOR_RGB2GRAY)
-    
     # 人脸 / Faces
-    faces = detector(img_gray, 0)
+    faces = detector(img_rd, 0)
 
     # 待会要写的字体 / Font to write
     font = cv2.FONT_ITALIC
@@ -151,7 +149,7 @@ while cap.isOpened():
                           color_rectangle, 2)
 
             # 根据人脸大小生成空的图像 / Create blank image according to the shape of face detected
-            im_blank = np.zeros((int(height*2), width*2, 3), np.uint8)
+            img_blank = np.zeros((int(height*2), width*2, 3), np.uint8)
 
             if save_flag:
                 # 5. 按下 's' 保存摄像头中的人脸到本地 / Press 's' to save faces into local images
@@ -161,8 +159,8 @@ while cap.isOpened():
                         cnt_ss += 1
                         for ii in range(height*2):
                             for jj in range(width*2):
-                                im_blank[ii][jj] = img_rd[d.top()-hh + ii][d.left()-ww + jj]
-                        cv2.imwrite(current_face_dir + "/img_face_" + str(cnt_ss) + ".jpg", im_blank)
+                                img_blank[ii][jj] = img_rd[d.top()-hh + ii][d.left()-ww + jj]
+                        cv2.imwrite(current_face_dir + "/img_face_" + str(cnt_ss) + ".jpg", img_blank)
                         print("写入本地 / Save into：", str(current_face_dir) + "/img_face_" + str(cnt_ss) + ".jpg")
                     else:
                         print("请在按 'S' 之前先按 'N' 来建文件夹 / Please press 'N' before 'S'")

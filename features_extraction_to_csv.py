@@ -7,7 +7,7 @@
 # Mail:     coneypo@foxmail.com
 
 # Created at 2018-05-11
-# Updated at 2019-04-04
+# Updated at 2020-04-02
 
 import cv2
 import os
@@ -33,16 +33,15 @@ face_rec = dlib.face_recognition_model_v1("data/data_dlib/dlib_face_recognition_
 # 返回单张图像的 128D 特征
 def return_128d_features(path_img):
     img_rd = io.imread(path_img)
-    img_gray = cv2.cvtColor(img_rd, cv2.COLOR_BGR2RGB)
-    faces = detector(img_gray, 1)
+    faces = detector(img_rd, 1)
 
     print("%-40s %-20s" % ("检测到人脸的图像 / image with faces detected:", path_img), '\n')
 
     # 因为有可能截下来的人脸再去检测，检测不出来人脸了
     # 所以要确保是 检测到人脸的人脸图像 拿去算特征
     if len(faces) != 0:
-        shape = predictor(img_gray, faces[0])
-        face_descriptor = face_rec.compute_face_descriptor(img_gray, shape)
+        shape = predictor(img_rd, faces[0])
+        face_descriptor = face_rec.compute_face_descriptor(img_rd, shape)
     else:
         face_descriptor = 0
         print("no face")

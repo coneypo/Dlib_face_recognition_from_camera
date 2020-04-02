@@ -6,7 +6,7 @@
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 # Created at 2018-05-11
-# Updated at 2020-02-27
+# Updated at 2020-04-02
 
 import dlib          # 人脸处理的库 Dlib
 import numpy as np   # 数据处理的库 numpy
@@ -59,8 +59,7 @@ if os.path.exists("data/features_all.csv"):
     while cap.isOpened():
 
         flag, img_rd = cap.read()
-        img_gray = cv2.cvtColor(img_rd, cv2.COLOR_RGB2GRAY)
-        faces = detector(img_gray, 0)
+        faces = detector(img_rd, 0)
 
         # 待会要写的字体 font to write later
         font = cv2.FONT_ITALIC
