@@ -51,12 +51,14 @@ class Face_Recognizer:
         if os.path.exists("data/features_all.csv"):
             path_features_known_csv = "data/features_all.csv"
             csv_rd = pd.read_csv(path_features_known_csv, header=None)
-
             # 2. 读取已知人脸数据 / Print known faces
             for i in range(csv_rd.shape[0]):
                 features_someone_arr = []
-                for j in range(0, len(csv_rd.iloc[i])):
-                    features_someone_arr.append(csv_rd.iloc[i][j])
+                for j in range(0, 128):
+                    if csv_rd.iloc[i][j] == '':
+                        features_someone_arr.append('0')
+                    else:
+                        features_someone_arr.append(csv_rd.iloc[i][j])
                 self.features_known_list.append(features_someone_arr)
                 self.name_known_list.append("Person_"+str(i+1))
             self.name_known_cnt = len(self.name_known_list)
@@ -88,10 +90,11 @@ class Face_Recognizer:
 
     def draw_note(self, img_rd):
         font = cv2.FONT_ITALIC
-        cv2.putText(img_rd, "Press 'q': Quit", (20, 450), font, 0.8, (84, 255, 159), 1, cv2.LINE_AA)
-        cv2.putText(img_rd, "Face Recognizer", (20, 40), font, 1, (0, 0, 0), 1, cv2.LINE_AA)
-        cv2.putText(img_rd, "Faces: " + str(self.faces_cnt), (20, 100), font, 1, (255, 255, 255), 1, cv2.LINE_AA)
-        cv2.putText(img_rd, "FPS:   " + str(self.fps.__round__(2)), (20, 160), font, 1, (0, 255, 255), 1, cv2.LINE_AA)
+
+        cv2.putText(img_rd, "Face Recognizer", (20, 40), font, 1, (255, 255, 255), 1, cv2.LINE_AA)
+        cv2.putText(img_rd, "FPS:   " + str(self.fps.__round__(2)), (20, 100), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
+        cv2.putText(img_rd, "Faces: " + str(self.faces_cnt), (20, 140), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
+        cv2.putText(img_rd, "Q: Quit", (20, 450), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
 
     def draw_name(self, img_rd):
         # 在人脸框下面写人脸名字 / Write names under rectangle
@@ -102,11 +105,12 @@ class Face_Recognizer:
     # 修改显示人名
     def modify_name_camera_list(self):
         # Default known name: person_1, person_2, person_3
-        self.name_known_list[0] ='JACK'
-        self.name_known_list[1] ='TOM'
+        self.name_known_list[0] ='coneypo'
+        # self.name_known_list[1] ='TOM'
         # self.name_known_list[2] ='TOM'
         # self.name_known_list[3] ='TOM'
 
+    # 处理获取的视频流，进行人脸识别 / Input video stream and face reco process
     def process(self, stream):
         # 1. 读取存放所有人脸特征的 csv
         if self.get_face_database():
@@ -145,7 +149,7 @@ class Face_Recognizer:
                             self.pos_camera_list.append(tuple(
                                 [faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
 
-                            # 对于某张人脸，遍历所有存储的人脸特征
+                            # 5. 对于某张人脸，遍历所有存储的人脸特征
                             # For every faces detected, compare the faces in the database
                             e_distance_list = []
                             for i in range(len(self.features_known_list)):
@@ -159,7 +163,7 @@ class Face_Recognizer:
                                 else:
                                     # 空数据 person_X
                                     e_distance_list.append(999999999)
-                            # Find the one with minimum e distance
+                            # 6. 寻找出最小的欧式距离匹配 / Find the one with minimum e distance
                             similar_person_num = e_distance_list.index(min(e_distance_list))
                             print("Minimum e distance with person", self.name_known_list[similar_person_num])
 
@@ -177,16 +181,16 @@ class Face_Recognizer:
                             print('\n')
 
                         self.faces_cnt = len(faces)
-                        # 5. Modify name if needed
+                        # 7. 在这里更改显示的人名 / Modify name if needed
                         # self.modify_name_camera_list()
-                        # 5. 写名字 / Draw name
+                        # 8. 写名字 / Draw name
                         self.draw_name(img_rd)
 
                 print("Faces in camera now:", self.name_camera_list, "\n")
 
                 cv2.imshow("camera", img_rd)
 
-                # 6. 更新 FPS / Update stream FPS
+                # 9. 更新 FPS / Update stream FPS
                 self.update_fps()
 
     # OpenCV 调用摄像头并进行 process

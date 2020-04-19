@@ -71,34 +71,41 @@ class Face_Register:
         else:
             self.existing_faces_cnt = 0
 
+    # 获取处理之后 stream 的帧数 / Get the fps of video stream
     def update_fps(self):
         now = time.time()
         self.frame_time = now - self.frame_start_time
         self.fps = 1.0 / self.frame_time
         self.frame_start_time = now
 
+    # 生成的 cv2 window 上面添加说明文字 / putText on cv2 window
     def draw_note(self, img_rd):
         # 添加说明 / Add some statements
-        cv2.putText(img_rd, "Face Register", (20, 40), self.font, 1, (0, 0, 0), 1, cv2.LINE_AA)
-        cv2.putText(img_rd, "FPS: " + str(self.fps.__round__(2)), (20, 100), self.font, 0.8, (255, 255, 255), 1,
+        cv2.putText(img_rd, "Face Register", (20, 40), self.font, 1, (255, 255, 255), 1, cv2.LINE_AA)
+        cv2.putText(img_rd, "FPS:   " + str(self.fps.__round__(2)), (20, 100), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
         cv2.putText(img_rd, "Faces: " + str(self.faces_cnt), (20, 140), self.font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
+        cv2.putText(img_rd, "N: Create face folder", (20, 350), self.font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
+        cv2.putText(img_rd, "S: Save current face", (20, 400), self.font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
+        cv2.putText(img_rd, "Q: Quit", (20, 450), self.font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
 
-        cv2.putText(img_rd, "N: Create face folder", (20, 350), self.font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
-        cv2.putText(img_rd, "S: Save current face", (20, 400), self.font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
-        cv2.putText(img_rd, "Q: Quit", (20, 450), self.font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
-
+    # 获取人脸
     def process(self, stream):
-        # self.pre_work_mkdir()                 # 1. Uncomment if you need mkdir
-        # self.pre_work_del_old_face_folders()  # 2. Uncomment if want to delete the old faces
-        self.check_existing_faces_cnt()         # 2. Check order
+        # 1. 新建储存人脸图像文件目录 / Uncomment if you need mkdir
+        # self.pre_work_mkdir()
+
+        # 2. 删除 "/data/data_faces_from_camera" 中已有人脸图像文件 / Uncomment if want to delete the old faces
+        # self.pre_work_del_old_face_folders()
+
+        # 3. 检查 "/data/data_faces_from_camera" 中已有人脸文件
+        self.check_existing_faces_cnt()
 
         while stream.isOpened():
             flag, img_rd = stream.read()        # Get camera video stream
             kk = cv2.waitKey(1)
             faces = detector(img_rd, 0)         # Use dlib face detector
 
-            # 3. 按下 'n' 新建存储人脸的文件夹 / Press 'n' to create the folders for saving faces
+            # 4. 按下 'n' 新建存储人脸的文件夹 / Press 'n' to create the folders for saving faces
             if kk == ord('n'):
                 self.existing_faces_cnt += 1
                 current_face_dir = self.path_photos_from_camera + "person_" + str(self.existing_faces_cnt)
@@ -109,7 +116,7 @@ class Face_Register:
                 self.ss_cnt = 0              # 将人脸计数器清零 / clear the cnt of faces
                 self.press_n_flag = 1        # 已经按下 'n' / have pressed 'n'
 
-            # 检测到人脸 / Face detected
+            # 5. 检测到人脸 / Face detected
             if len(faces) != 0:
                 # 矩形框 / Show the HOG of faces
                 for k, d in enumerate(faces):
@@ -119,7 +126,7 @@ class Face_Register:
                     hh = int(height/2)
                     ww = int(width/2)
 
-                    # 4. 判断人脸矩形框是否超出 480x640
+                    # 6. 判断人脸矩形框是否超出 480x640
                     if (d.right()+ww) > 640 or (d.bottom()+hh > 480) or (d.left()-ww < 0) or (d.top()-hh < 0):
                         cv2.putText(img_rd, "OUT OF RANGE", (20, 300), self.font, 0.8, (0, 0, 255), 1, cv2.LINE_AA)
                         color_rectangle = (0, 0, 255)
@@ -135,13 +142,13 @@ class Face_Register:
                                   tuple([d.right() + ww, d.bottom() + hh]),
                                   color_rectangle, 2)
 
-                    # 5. 根据人脸大小生成空的图像 / Create blank image according to the shape of face detected
+                    # 7. 根据人脸大小生成空的图像 / Create blank image according to the shape of face detected
                     img_blank = np.zeros((int(height*2), width*2, 3), np.uint8)
 
                     if save_flag:
-                        # 6. 按下 's' 保存摄像头中的人脸到本地 / Press 's' to save faces into local images
+                        # 8. 按下 's' 保存摄像头中的人脸到本地 / Press 's' to save faces into local images
                         if kk == ord('s'):
-                            # 检查有没有先按'n'新建文件夹 / check if you have pressed 'n'
+                            # 检查有没有先按'n'新建文件夹 / Check if you have pressed 'n'
                             if self.press_n_flag:
                                 self.ss_cnt += 1
                                 for ii in range(height*2):
@@ -153,9 +160,10 @@ class Face_Register:
                                 print("请先按 'N' 来建文件夹, 按 'S' / Please press 'N' and press 'S'")
                 self.faces_cnt = len(faces)
 
-                self.draw_note(img_rd)
+            # 9. 生成的窗口添加说明文字 / Add note on cv2 window
+            self.draw_note(img_rd)
 
-            # 7. 按下 'q' 键退出 / Press 'q' to exit
+            # 10. 按下 'q' 键退出 / Press 'q' to exit
             if kk == ord('q'):
                 break
 

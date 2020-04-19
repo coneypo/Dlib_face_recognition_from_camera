@@ -33,7 +33,7 @@ def return_128d_features(path_img):
     img_rd = io.imread(path_img)
     faces = detector(img_rd, 1)
 
-    print("%-40s %-20s" % ("检测到人脸的图像 / image with faces detected:", path_img), '\n')
+    print("%-40s %-20s" % ("检测到人脸的图像 / Image with faces detected:", path_img), '\n')
 
     # 因为有可能截下来的人脸再去检测，检测不出来人脸了
     # 所以要确保是 检测到人脸的人脸图像 拿去算特征
@@ -54,7 +54,7 @@ def return_features_mean_personX(path_faces_personX):
     if photos_list:
         for i in range(len(photos_list)):
             # 调用return_128d_features()得到128d特征
-            print("%-40s %-20s" % ("正在读的人脸图像 / image to read:", path_faces_personX + "/" + photos_list[i]))
+            print("%-40s %-20s" % ("正在读的人脸图像 / Image to read:", path_faces_personX + "/" + photos_list[i]))
             features_128d = return_128d_features(path_faces_personX + "/" + photos_list[i])
             #  print(features_128d)
             # 遇到没有检测出人脸的图片跳过
@@ -70,7 +70,7 @@ def return_features_mean_personX(path_faces_personX):
     if features_list_personX:
         features_mean_personX = np.array(features_list_personX).mean(axis=0)
     else:
-        features_mean_personX = '0'
+        features_mean_personX = np.zeros(128, dtype=int, order='C')
 
     return features_mean_personX
 
@@ -86,8 +86,8 @@ with open("data/features_all.csv", "w", newline="") as csvfile:
     writer = csv.writer(csvfile)
     for person in range(person_cnt):
         # Get the mean/average features of face/personX, it will be a list with a length of 128D
-        print(path_images_from_camera + "person_"+str(person+1))
-        features_mean_personX = return_features_mean_personX(path_images_from_camera + "person_"+str(person+1))
+        print(path_images_from_camera + "person_" + str(person + 1))
+        features_mean_personX = return_features_mean_personX(path_images_from_camera + "person_" + str(person + 1))
         writer.writerow(features_mean_personX)
         print("特征均值 / The mean of features:", list(features_mean_personX))
         print('\n')

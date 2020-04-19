@@ -50,11 +50,11 @@ class Face_Descriptor:
                     face_desc = face_reco_model.compute_face_descriptor(img_rd, face_shape)
 
             # 添加说明
-            cv2.putText(img_rd, "Face Descriptor", (20, 40), font, 1, (0, 0, 0), 1, cv2.LINE_AA)
-            cv2.putText(img_rd, "FPS: " + str(self.fps.__round__(2)), (20, 100), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
+            cv2.putText(img_rd, "Face Descriptor", (20, 40), font, 1, (255, 255, 255), 1, cv2.LINE_AA)
+            cv2.putText(img_rd, "FPS:   " + str(self.fps.__round__(2)), (20, 100), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
             cv2.putText(img_rd, "Faces: " + str(len(faces)), (20, 140), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
-            cv2.putText(img_rd, "S: Save current face", (20, 400), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
-            cv2.putText(img_rd, "Q: Quit", (20, 450), font, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
+            cv2.putText(img_rd, "S: Save current face", (20, 400), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
+            cv2.putText(img_rd, "Q: Quit", (20, 450), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
 
             # 按下 'q' 键退出
             if k == ord('q'):

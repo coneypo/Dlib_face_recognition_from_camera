@@ -35,9 +35,14 @@ Detect and recognize single/multi-faces from camera;
    .. image:: introduction/face_reco_multi_people.png
       :align: center
 
-   同时识别多张已录入人脸 / multi-faces recognition at the same time:
+   同时识别多张已录入人脸 / Multi-faces recognition at the same time:
 
    .. image:: introduction/face_reco_two_people_in_database.png
+      :align: center
+
+   实时人脸特征描述子计算 / Real-time face descriptor computation:
+
+   .. image:: introduction/face_descriptor_single_person.png
       :align: center
 
 ** 关于精度 / About accuracy:
