@@ -1,4 +1,4 @@
-# OpenCv 调用摄像头
+# OpenCV 调用摄像头
 # 默认调用笔记本摄像头
 
 # Author:   coneypo

@@ -102,14 +102,14 @@ Repo 的 tree / 树状图:
 ::
 
     .
-    ├── get_faces_from_camera.py        # Step1. Faces register
-    ├── features_extraction_to_csv.py   # Step2. Features extraction
-    ├── face_reco_from_camera.py        # Step3. Faces recognition
+    ├── get_faces_from_camera.py        # Step1. Face register
+    ├── features_extraction_to_csv.py   # Step2. Feature extraction
+    ├── face_reco_from_camera.py        # Step3. Face recognizer
+    ├── face_descriptor_from_camera.py  # Face descriptor computation
     ├── how_to_use_camera.py            # Use the default camera by opencv
     ├── data
     │   ├── data_dlib                   # Dlib's model
     │   │   ├── dlib_face_recognition_resnet_model_v1.dat
-    │   │   ├── shape_predictor_5_face_landmarks.dat
     │   │   └── shape_predictor_68_face_landmarks.dat
     │   ├── data_faces_from_camera      # Face images captured from camera (will generate after step 1)
     │   │   ├── person_1
@@ -142,7 +142,7 @@ Repo 的 tree / 树状图:
       faces = detector(img_gray, 0)
 
 	  
-#. Dlib 人脸预测器, output: <class 'dlib.dlib.full_object_detection'>,
+#. Dlib 人脸 landmark 特征点检测器, output: <class 'dlib.dlib.full_object_detection'>,
    will use shape_predictor_68_face_landmarks.dat
 
    .. code-block:: python
@@ -157,7 +157,7 @@ Repo 的 tree / 树状图:
       shape = predictor(img_rd, faces[i])
 
 	  
-#. 特征描述子 Face recognition model, the object maps human faces into 128D vectors
+#. Dlib 特征描述子 Face recognition model, the object maps human faces into 128D vectors
 
 
    .. code-block:: python
@@ -190,7 +190,10 @@ Python 源码介绍如下:
    * Compare the faces captured from camera with the faces you have registered which are saved in "features_all.csv"
    
    * 将捕获到的人脸数据和之前存的人脸数据进行对比计算欧式距离, 由此判断是否是同一个人;
-   
+
+#. (optional) face_descriptor_from_camera.py
+
+   调用摄像头进行实时特征描述子计算; / Real-time face descriptor computation;
 
 More
 ****
@@ -205,7 +208,8 @@ Tips:
 
 #. 人脸录入的时候先建文件夹再保存图片, 先 ``N`` 再 ``S`` / Press ``N`` before ``S``
 
-#. 修改显示人脸姓名, 参考这个 patch 修改代码 / If you want to customize the names shown instead of "Person 1", "Person 2"..., please apply this patch: https://github.com/coneypo/Dlib_face_recognition_from_camera/commit/0351cc0f1a1c3a106102c0671dd19edd5866fa93
+#. 关于人脸识别卡顿 FPS 低问题, 不做 compare 的时候, 光跑 face_descriptor_from_camera.py 中 face_reco_model.compute_face_descriptor
+   在 CPU: i7-8700K FPS: 5~6, 所以主要提取特征时候耗资源
 
 可以访问我的博客获取本项目的更详细介绍，如有问题可以邮件联系我 /
 For more details, please refer to my blog (in chinese) or mail to me :
