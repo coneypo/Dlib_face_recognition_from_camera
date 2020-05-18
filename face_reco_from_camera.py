@@ -14,7 +14,6 @@ import cv2          # 图像处理的库 OpenCV
 import pandas as pd # 数据处理的库 Pandas
 import os
 import time
-from PIL import Image, ImageDraw, ImageFont # ImageDraw 润饰已存在的图像 # ImageFont 可以使用Truetype的字体
 
 # 1. Dlib 正向人脸检测器
 detector = dlib.get_frontal_face_detector()
@@ -99,21 +98,14 @@ class Face_Recognizer:
 
     def draw_name(self, img_rd):
         # 在人脸框下面写人脸名字 / Write names under rectangle
-        image = Image.fromarray(cv2.cvtColor(img_rd,cv2.COLOR_BGR2RGB))
-        draw = ImageDraw.Draw(image)
-        # 在/usr/share/fonts/手动添加了simsun.ttc
-        # font = ImageFont.truetype("/usr/share/fonts/simsun.ttc", 40, encoding="utf-8")
-        # 下面改成Ubuntu自带字体
-        font = ImageFont.truetype('LiberationSans-Regular.ttf', 60)
+        font = cv2.FONT_ITALIC
         for i in range(self.faces_cnt):
-            #cv2.putText(img_rd, self.name_camera_list[i], self.pos_camera_list[i], font, 0.8, (0, 255, 255), 1, cv2.LINE_AA)
-            draw.text(self.pos_camera_list[i],self.name_camera_list[i],font=font,fill=(0,255,255))
-            cvt_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
-        return cvt_image
+            cv2.putText(img_rd, self.name_camera_list[i], self.pos_camera_list[i], font, 0.8, (0, 255, 255), 1, cv2.LINE_AA)
+
     # 修改显示人名
     def modify_name_camera_list(self):
         # Default known name: person_1, person_2, person_3
-        self.name_known_list[0] ='张三' # 支持中文
+        self.name_known_list[0] ='coneypo'
         # self.name_known_list[1] ='TOM'
         # self.name_known_list[2] ='TOM'
         # self.name_known_list[3] ='TOM'
@@ -190,14 +182,13 @@ class Face_Recognizer:
 
                         self.faces_cnt = len(faces)
                         # 7. 在这里更改显示的人名 / Modify name if needed
-                        self.modify_name_camera_list()
+                        # self.modify_name_camera_list()
                         # 8. 写名字 / Draw name
-                        # self.draw_name(img_rd)
-                        cvt_image = self.draw_name(img_rd) # 将生成的带中文标签的图片输出 / Output Chinese title in picture
+                        self.draw_name(img_rd)
 
                 print("Faces in camera now:", self.name_camera_list, "\n")
 
-                cv2.imshow("camera", cvt_image) # 将赋值后的cvt_image输出 / Output cvt_image assaigned new value
+                cv2.imshow("camera", img_rd)
 
                 # 9. 更新 FPS / Update stream FPS
                 self.update_fps()
