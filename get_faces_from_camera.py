@@ -95,7 +95,7 @@ class Face_Register:
         # self.pre_work_mkdir()
 
         # 2. 删除 "/data/data_faces_from_camera" 中已有人脸图像文件 / Uncomment if want to delete the old faces
-        # self.pre_work_del_old_face_folders()
+        self.pre_work_del_old_face_folders()
 
         # 3. 检查 "/data/data_faces_from_camera" 中已有人脸文件
         self.check_existing_faces_cnt()

@@ -6,7 +6,7 @@
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 # Created at 2018-05-11
-# Updated at 2020-04-19
+# Updated at 2020-05-29
 
 import dlib         # 人脸处理的库 Dlib
 import numpy as np  # 数据处理的库 Numpy
@@ -14,6 +14,7 @@ import cv2          # 图像处理的库 OpenCV
 import pandas as pd # 数据处理的库 Pandas
 import os
 import time
+from PIL import Image, ImageDraw, ImageFont
 
 # 1. Dlib 正向人脸检测器
 detector = dlib.get_frontal_face_detector()
@@ -98,17 +99,23 @@ class Face_Recognizer:
 
     def draw_name(self, img_rd):
         # 在人脸框下面写人脸名字 / Write names under rectangle
-        font = cv2.FONT_ITALIC
+        font = ImageFont.truetype("simsun.ttc", 30)
+        img = Image.fromarray(cv2.cvtColor(img_rd, cv2.COLOR_BGR2RGB))
+        draw = ImageDraw.Draw(img)
         for i in range(self.faces_cnt):
-            cv2.putText(img_rd, self.name_camera_list[i], self.pos_camera_list[i], font, 0.8, (0, 255, 255), 1, cv2.LINE_AA)
+            # cv2.putText(img_rd, self.name_camera_list[i], self.pos_camera_list[i], font, 0.8, (0, 255, 255), 1, cv2.LINE_AA)
+            draw.text(xy=self.pos_camera_list[i], text=self.name_camera_list[i], font=font)
+            img_with_name = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        return img_with_name
 
     # 修改显示人名
     def modify_name_camera_list(self):
         # Default known name: person_1, person_2, person_3
-        self.name_known_list[0] ='coneypo'
-        # self.name_known_list[1] ='TOM'
-        # self.name_known_list[2] ='TOM'
-        # self.name_known_list[3] ='TOM'
+        self.name_known_list[0] ='张三'.encode('utf-8').decode()
+        self.name_known_list[1] ='李四'.encode('utf-8').decode()
+        # self.name_known_list[2] ='xx'.encode('utf-8').decode()
+        # self.name_known_list[3] ='xx'.encode('utf-8').decode()
+        # self.name_known_list[4] ='xx'.encode('utf-8').decode()
 
     # 处理获取的视频流，进行人脸识别 / Input video stream and face reco process
     def process(self, stream):
@@ -169,7 +176,7 @@ class Face_Recognizer:
 
                             if min(e_distance_list) < 0.4:
                                 self.name_camera_list[k] = self.name_known_list[similar_person_num]
-                                print("May be person " + self.name_known_list[similar_person_num])
+                                print("May be person " + str(self.name_known_list[similar_person_num]))
                             else:
                                 print("Unknown person")
 
@@ -182,13 +189,16 @@ class Face_Recognizer:
 
                         self.faces_cnt = len(faces)
                         # 7. 在这里更改显示的人名 / Modify name if needed
-                        # self.modify_name_camera_list()
+                        self.modify_name_camera_list()
                         # 8. 写名字 / Draw name
-                        self.draw_name(img_rd)
+                        # self.draw_name(img_rd)
+                        img_with_name = self.draw_name(img_rd)
+                    else:
+                        img_with_name = img_rd
 
                 print("Faces in camera now:", self.name_camera_list, "\n")
 
-                cv2.imshow("camera", img_rd)
+                cv2.imshow("camera", img_with_name)
 
                 # 9. 更新 FPS / Update stream FPS
                 self.update_fps()

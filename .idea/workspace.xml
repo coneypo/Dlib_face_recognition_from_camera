@@ -2,130 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e58b655a-3a9b-4001-b4da-39e07ab46629" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.rst" beforeDir="false" afterPath="$PROJECT_DIR$/README.rst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/face_descriptor_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/face_descriptor_from_camera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Dlib_face_recognition_from_camera.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Dlib_face_recognition_from_camera.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/face_reco_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/face_reco_from_camera.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features_extraction_to_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/features_extraction_to_csv.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/get_faces_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_faces_from_camera.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/introduction/face_reco_multi_people.png" beforeDir="false" afterPath="$PROJECT_DIR$/introduction/face_reco_multi_people.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/introduction/face_reco_single_person.png" beforeDir="false" afterPath="$PROJECT_DIR$/introduction/face_reco_single_person.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/introduction/face_reco_single_person_with_name.png" beforeDir="false" afterPath="$PROJECT_DIR$/introduction/face_reco_single_person_with_name.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/introduction/face_reco_two_people_in_database.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/introduction/get_face_from_camera.png" beforeDir="false" afterPath="$PROJECT_DIR$/introduction/get_face_from_camera.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/introduction/get_face_from_camera_out_of_range.png" beforeDir="false" afterPath="$PROJECT_DIR$/introduction/get_face_from_camera_out_of_range.png" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="2127136746">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="3" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="csv" value="2" />
-          <entry key="jpg" value="8" />
-          <entry key="py" value="8" />
-          <entry key="rst" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="Image" value="8" />
-          <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="8" />
-          <entry key="ReST" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="py" value="678" />
-          <entry key="rst" value="65" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="Python" value="678" />
-          <entry key="ReST" value="65" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="97" column="10" selection-start-line="97" selection-start-column="10" selection-end-line="97" selection-end-column="10" />
-              <folding>
-                <element signature="e#277#310#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/features_extraction_to_csv.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="608">
-              <caret line="72" column="67" lean-forward="true" selection-start-line="72" selection-start-column="67" selection-end-line="72" selection-end-column="67" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/face_reco_from_camera.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-143">
-              <caret line="65" column="20" lean-forward="true" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/features_all.csv">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.rst">
-          <provider selected="true" editor-type-id="restructured-text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/how_to_use_camera.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://D:/programs/anaconda/Lib/site-packages/pandas/io/parsers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="1847" selection-start-line="1847" selection-end-line="1847" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/face_descriptor_from_camera.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -134,69 +21,11 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>face_reco_single_person.png</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/README.rst" />
-        <option value="$PROJECT_DIR$/face_descriptor_from_camera.py" />
-        <option value="$PROJECT_DIR$/get_faces_from_camera.py" />
-        <option value="$PROJECT_DIR$/features_extraction_to_csv.py" />
-        <option value="$PROJECT_DIR$/face_reco_from_camera.py" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2275" />
-    <option name="y" value="610" />
-    <option name="width" value="2421" />
-    <option name="height" value="1770" />
-  </component>
   <component name="ProjectId" id="1Tq7xXTTl7R3HeMqxP7UMMKZMeC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Dlib_face_recognition_from_camera" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dlib_face_recognition_from_camera" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Dlib_face_recognition_from_camera" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dlib_face_recognition_from_camera" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Dlib_face_recognition_from_camera" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dlib_face_recognition_from_camera" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="data_dlib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Dlib_face_recognition_from_camera" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dlib_face_recognition_from_camera" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="data_faces_from_camera" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -219,7 +48,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.face_reco_from_camera">
+  <component name="RunManager" selected="Python.face_descriptor_from_camera">
     <configuration name="face_descriptor_compute" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Dlib_face_recognition_from_camera" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -326,18 +155,18 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.features_extraction_to_csv" />
-      <item itemvalue="Python.get_faces_from_camera" />
       <item itemvalue="Python.face_descriptor_compute" />
       <item itemvalue="Python.face_descriptor_from_camera" />
       <item itemvalue="Python.face_reco_from_camera" />
+      <item itemvalue="Python.features_extraction_to_csv" />
+      <item itemvalue="Python.get_faces_from_camera" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.face_descriptor_from_camera" />
         <item itemvalue="Python.face_reco_from_camera" />
         <item itemvalue="Python.features_extraction_to_csv" />
         <item itemvalue="Python.get_faces_from_camera" />
-        <item itemvalue="Python.face_descriptor_from_camera" />
         <item itemvalue="Python.face_descriptor_compute" />
       </list>
     </recent_temporary>
@@ -355,50 +184,18 @@
     </task>
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="2575" height="1415" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16226861" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.39937598" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32925835" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="WindowStateProjectService">
     <state width="1897" height="194" key="GridCell.Tab.0.bottom" timestamp="1587297625581">
@@ -448,78 +245,5 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/data/data_faces_from_camera/person_2/img_face_1.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/data_faces_from_camera/person_2/img_face_2.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/data_faces_from_camera/person_3/img_face_2.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/data_faces_from_camera/person_3/img_face_1.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/data_faces_from_camera/person_4/img_face_1.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/data_faces_from_camera/person_4/img_face_2.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/data_faces_from_camera/person_4/img_face_3.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/data_faces_from_camera/person_4/img_face_4.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/how_to_use_camera.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.rst">
-      <provider selected="true" editor-type-id="restructured-text-editor" />
-    </entry>
-    <entry file="file://D:/programs/anaconda/Lib/site-packages/pandas/io/parsers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="1847" selection-start-line="1847" selection-end-line="1847" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/face_descriptor_from_camera.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/get_faces_from_camera.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="97" column="10" selection-start-line="97" selection-start-column="10" selection-end-line="97" selection-end-column="10" />
-          <folding>
-            <element signature="e#277#310#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/features_all.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/features_extraction_to_csv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="72" column="67" lean-forward="true" selection-start-line="72" selection-start-column="67" selection-end-line="72" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/face_reco_from_camera.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-143">
-          <caret line="65" column="20" lean-forward="true" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>
