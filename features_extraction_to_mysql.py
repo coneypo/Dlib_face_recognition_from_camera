@@ -78,22 +78,29 @@ def return_features_mean_personX(path_faces_personX):
     return features_mean_personX
 
 
+# 获取已录入的最后一个人脸序号 / get the num of latest person
+person_list = os.listdir("data/data_faces_from_camera/")
+person_num_list = []
+for person in person_list:
+    person_num_list.append(int(person.split('_')[-1]))
+person_cnt = max(person_num_list)
+
 # 0. clear table in mysql
 # cursor.execute("truncate dlib_face_table;")
 
 # 1. check existing people in mysql
 cursor.execute("select count(*) from dlib_face_table;")
-person_cnt = cursor.fetchall()
-person_cnt = int(person_cnt[0][0])
-print(person_cnt)
+person_start = int(cursor.fetchall()[0][0])
 
-for person in range(person_cnt):
+for person in range(person_start, person_cnt):
     # Get the mean/average features of face/personX, it will be a list with a length of 128D
     print(path_images_from_camera + "person_" + str(person + 1))
     features_mean_personX = return_features_mean_personX(path_images_from_camera + "person_" + str(person + 1))
 
     print("特征均值 / The mean of features:", list(features_mean_personX))
     print('\n')
+
+
 
     # 2. Insert person 1 to person X
     cursor.execute("insert into dlib_face_table(person_x) values(\"person_"+str(person+1)+"\");")
