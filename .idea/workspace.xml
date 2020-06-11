@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e58b655a-3a9b-4001-b4da-39e07ab46629" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mysql_insert.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/print_code.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/read_mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Dlib_face_recognition_from_camera.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Dlib_face_recognition_from_camera.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features_extraction_to_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/features_extraction_to_csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_faces_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_faces_from_camera.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/how_to_use_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/how_to_use_camera.py" afterDir="false" />
-    </list>
+    <list default="true" id="e58b655a-3a9b-4001-b4da-39e07ab46629" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
