@@ -12,8 +12,11 @@
 import os
 import dlib
 from skimage import io
-import csv
 import numpy as np
+import pymysql
+
+db = pymysql.connect("localhost", "root", "intel@123", "dlib_database")
+cursor = db.cursor()
 
 # 要读取人脸图像文件的路径
 path_images_from_camera = "data/data_faces_from_camera/"
@@ -75,20 +78,33 @@ def return_features_mean_personX(path_faces_personX):
     return features_mean_personX
 
 
-# 获取已录入的最后一个人脸序号 / get the num of latest person
-person_list = os.listdir("data/data_faces_from_camera/")
-person_num_list = []
-for person in person_list:
-    person_num_list.append(int(person.split('_')[-1]))
-person_cnt = max(person_num_list)
+# 0. clear table in mysql
+# cursor.execute("truncate dlib_face_table;")
+
+# 1. check existing people in mysql
+cursor.execute("select count(*) from dlib_face_table;")
+person_cnt = cursor.fetchall()
+person_cnt = int(person_cnt[0][0])
+print(person_cnt)
 
 for person in range(person_cnt):
     # Get the mean/average features of face/personX, it will be a list with a length of 128D
     print(path_images_from_camera + "person_" + str(person + 1))
     features_mean_personX = return_features_mean_personX(path_images_from_camera + "person_" + str(person + 1))
 
-    print(features_mean_personX.shape)
-    print(features_mean_personX[0])
-
     print("特征均值 / The mean of features:", list(features_mean_personX))
     print('\n')
+
+    # 2. Insert person 1 to person X
+    cursor.execute("insert into dlib_face_table(person_x) values(\"person_"+str(person+1)+"\");")
+
+    # 3. Insert features for person X
+    for i in range(128):
+        # update issue_info set github_status='Open', github_type='bug' where github_id='2222';
+        print("update dlib_face_table set feature_" + str(i + 1) + '=\"' + str(
+            features_mean_personX[i]) + "\" where person_x=\"person_" + str(person + 1) + "\";")
+        cursor.execute("update dlib_face_table set feature_" + str(i + 1) + '=\"' + str(
+            features_mean_personX[i]) + "\" where person_x=\"person_" + str(person + 1) + "\";")
+
+
+db.commit()

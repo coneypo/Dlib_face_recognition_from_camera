@@ -10,6 +10,7 @@ import cv2
 
 cap = cv2.VideoCapture(0)
 
+# cap.set(3, 480)
 # cap.set(propId, value)
 # 设置视频参数: propId - 设置的视频参数, value - 设置的参数值
 """
@@ -26,8 +27,7 @@ cap = cv2.VideoCapture(0)
 10. cv2.CAP_PROP_BRIGHTNESS Brightness of the image (only for cameras).
 11. cv2.CAP_PROP_CONTRAST Contrast of the image (only for cameras).
 12. cv2.CAP_PROP_SATURATION Saturation of the image (only for cameras).
-13. cv2.CAP_PROP_HUE Hue of the image (only for cameras).
-14. cv2.CAP_PROP_GAIN Gain of the image (only for cameras).
+print  14. cv2.CAP_PROP_GAIN Gain of the image (only for cameras).
 15. cv2.CAP_PROP_EXPOSURE Exposure (only for cameras).
 16. cv2.CAP_PROP_CONVERT_RGB Boolean flags indicating whether images should be converted to RGB.
 17. cv2.CAP_PROP_WHITE_BALANCE Currently unsupported
@@ -36,7 +36,9 @@ cap = cv2.VideoCapture(0)
 
 # The default shape of camera will be 640x480 in Windows or Ubuntu
 # So we will not set "cap.set" here, it doesn't work
-# cap.set(propId=cv2.CAP_PROP_FRAME_WIDTH, value=cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+# print(cv2.CAP_PROP_FRAME_WIDTH)
+# print(cv2.CAP_PROP_FRAME_HEIGHT)
+cap.set(3, 640)
 
 # cap.isOpened() 返回 true/false, 检查摄像头初始化是否成功
 print(cap.isOpened())

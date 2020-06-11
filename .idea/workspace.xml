@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e58b655a-3a9b-4001-b4da-39e07ab46629" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/mysql_insert.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/print_code.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/read_mysql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Dlib_face_recognition_from_camera.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Dlib_face_recognition_from_camera.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/face_reco_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/face_reco_from_camera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features_extraction_to_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/features_extraction_to_csv.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/get_faces_from_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_faces_from_camera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/how_to_use_camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/how_to_use_camera.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +37,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Django_MySQL_Table" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -48,8 +52,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.face_descriptor_from_camera">
-    <configuration name="face_descriptor_compute" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.features_extraction_to_mysql">
+    <configuration name="face_reco_from_camera_mysql" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Dlib_face_recognition_from_camera" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -61,7 +65,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/face_descriptor_compute.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/face_reco_from_camera_mysql.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -70,7 +74,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="face_descriptor_from_camera" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="features_extraction_to_mysql" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Dlib_face_recognition_from_camera" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -82,49 +86,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/face_descriptor_from_camera.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="face_reco_from_camera" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Dlib_face_recognition_from_camera" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/face_reco_from_camera.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="features_extraction_to_csv" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Dlib_face_recognition_from_camera" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/features_extraction_to_csv.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/features_extraction_to_mysql.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -154,20 +116,62 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="mysql_insert" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Dlib_face_recognition_from_camera" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysql_insert.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="read_mysql" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Dlib_face_recognition_from_camera" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/read_mysql.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python.face_descriptor_compute" />
-      <item itemvalue="Python.face_descriptor_from_camera" />
-      <item itemvalue="Python.face_reco_from_camera" />
-      <item itemvalue="Python.features_extraction_to_csv" />
+      <item itemvalue="Python.mysql_insert" />
+      <item itemvalue="Python.features_extraction_to_mysql" />
+      <item itemvalue="Python.face_reco_from_camera_mysql" />
+      <item itemvalue="Python.read_mysql" />
       <item itemvalue="Python.get_faces_from_camera" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.face_descriptor_from_camera" />
-        <item itemvalue="Python.face_reco_from_camera" />
-        <item itemvalue="Python.features_extraction_to_csv" />
+        <item itemvalue="Python.features_extraction_to_mysql" />
+        <item itemvalue="Python.face_reco_from_camera_mysql" />
         <item itemvalue="Python.get_faces_from_camera" />
-        <item itemvalue="Python.face_descriptor_compute" />
+        <item itemvalue="Python.read_mysql" />
+        <item itemvalue="Python.mysql_insert" />
       </list>
     </recent_temporary>
   </component>
