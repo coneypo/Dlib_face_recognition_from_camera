@@ -223,7 +223,4 @@ For more details, please refer to my blog (in chinese) or mail to me :
   
 * Mail: coneypo@foxmail.com ( Dlib 相关 repo 问题请联系 @foxmail 而不是 @intel )
 
-
-仅限于交流学习, 商业合作勿扰;
-
 Thanks for your support.
