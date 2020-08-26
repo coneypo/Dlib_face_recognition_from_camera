@@ -11,13 +11,13 @@ Detect and recognize single/multi-faces from camera;
 
 #. 摄像头人脸录入 / Face register
 
-   .. image:: introduction/get_face_from_camera.png
+   .. image:: introduction/face_register.png
       :align: center
 
    请不要离摄像头过近，人脸超出摄像头范围时会有 "OUT OF RANGE" 提醒 /
    Please do not be too close to the camera, or you can't save faces with "OUT OF RANGE" warning;
 
-   .. image:: introduction/get_face_from_camera_out_of_range.png
+   .. image:: introduction/face_register_warning.png
       :align: center
 
 #. 提取特征建立人脸数据库 / Generate database from images captured
@@ -25,25 +25,29 @@ Detect and recognize single/multi-faces from camera;
    
    当单张人脸 / When single-face:
    
-   .. image:: introduction/face_reco_single_person.png
+   .. image:: introduction/face_reco_single.png
+      :align: center
+
+   利用 OT 对于单张人脸追踪/ Use OT to track, which can improve FPS from 1.x to 20.x:
+
+   .. image:: introduction/face_reco_single_ot.png
       :align: center
 
    当多张人脸 / When multi-faces:
 
-   一张已录入人脸 + 未录入 unknown 人脸 / 1x known face + 2x unknown face:
+   .. image:: introduction/face_reco_multi.png
+      :align: center
+   
+   利用 OT 来实现 / When multi-faces with OT:
 
-   .. image:: introduction/face_reco_multi_people.png
+   .. image:: introduction/face_reco_multi_ot.png
       :align: center
 
-   同时识别多张已录入人脸 / Multi-faces recognition at the same time:
+   定制显示名字, 可以写中文 / Customize names:
 
-   .. image:: introduction/face_reco_two_people_in_database.png
+   .. image:: introduction/face_reco_with_name.png
       :align: center
 
-   实时人脸特征描述子计算 / Real-time face descriptor computation:
-
-   .. image:: introduction/face_descriptor_single_person.png
-      :align: center
 
 ** 关于精度 / About accuracy:
 
@@ -58,10 +62,17 @@ Detect and recognize single/multi-faces from camera;
 Overview
 ********
 
-此项目中人脸识别的实现流程 / The design of this repo:
+此项目中人脸识别的实现流程 (no OT, 每一帧都进行检测+识别) / The design of this repo:
 
 .. image:: introduction/overview.png
    :align: center
+
+实现流程(with OT, 初始帧进行检测+识别，后续帧检测+质心跟踪) / The design of this repo:
+
+.. image:: introduction/overview_with_ot.png
+   :align: center
+
+如果利用 OT 来跟踪，可以大大提高 FPS, 因为做识别时候需要提取特征描述子的耗时很多;
 
 Steps
 *****
@@ -98,6 +109,12 @@ Steps
 
       python3 face_reco_from_camera.py
 
+#. 或者利用 OT 算法，调用摄像头进行实时人脸识别/ Real-time face recognition with OT
+
+   .. code-block:: bash
+
+      python3 face_reco_from_camera_ot_single_person.py
+      python3 face_reco_from_camera_ot_multi_people.py
 
 About Source Code
 *****************
@@ -107,34 +124,27 @@ Repo 的 tree / 树状图:
 ::
 
     .
-    ├── get_faces_from_camera.py        # Step1. Face register
-    ├── features_extraction_to_csv.py   # Step2. Feature extraction
-    ├── face_reco_from_camera.py        # Step3. Face recognizer
-    ├── face_descriptor_from_camera.py  # Face descriptor computation
-    ├── how_to_use_camera.py            # Use the default camera by opencv
+    ├── get_faces_from_camera.py        		# Step 1. Face register
+    ├── features_extraction_to_csv.py   		# Step 2. Feature extraction
+    ├── face_reco_from_camera.py        		# Step 3. Face recognizer
+    ├── face_reco_from_camera_ot_single_person.py       # Step 3. Face recognizer with OT for single person
+    ├── face_reco_from_camera_ot_multi_people.py        # Step 3. Face recognizer with OT for multi people
+    ├── face_descriptor_from_camera.py  		# Face descriptor computation
+    ├── how_to_use_camera.py            		# Use the default camera by opencv
     ├── data
-    │   ├── data_dlib                   # Dlib's model
+    │   ├── data_dlib        			        # Dlib's model
     │   │   ├── dlib_face_recognition_resnet_model_v1.dat
     │   │   └── shape_predictor_68_face_landmarks.dat
-    │   ├── data_faces_from_camera      # Face images captured from camera (will generate after step 1)
+    │   ├── data_faces_from_camera      		# Face images captured from camera (will generate after step 1)
     │   │   ├── person_1
     │   │   │   ├── img_face_1.jpg
     │   │   │   └── img_face_2.jpg
     │   │   └── person_2
     │   │       └── img_face_1.jpg
     │   │       └── img_face_2.jpg
-    │   └── features_all.csv            # CSV to save all the features of known faces (will generate after step 2)
-    ├── introduction                    # Some files for readme.rst
-    │   ├── Dlib_Face_recognition_by_coneypo.pptx
-    │   ├── face_reco_single_person_customize_name.png
-    │   ├── face_reco_single_person.png
-    │   ├── face_reco_two_people_in_database.png
-    │   ├── face_reco_two_people.png
-    │   ├── get_face_from_camera_out_of_range.png
-    │   ├── get_face_from_camera.png
-    │   └── overview.png
+    │   └── features_all.csv            		# CSV to save all the features of known faces (will generate after step 2)
     ├── README.rst
-    └── requirements.txt                # Some python packages needed
+    └── requirements.txt                		# Some python packages needed
 
 用到的 Dlib 相关模型函数:
 
@@ -196,6 +206,11 @@ Python 源码介绍如下:
    
    * 将捕获到的人脸数据和之前存的人脸数据进行对比计算欧式距离, 由此判断是否是同一个人;
 
+#. face_reco_from_camera_ot_single_person/multi_people.py:
+	
+   区别于 face_reco_from_camera.py (对每一帧都进行检测+识别)，只会对初始帧做检测+识别，对后续帧做检测+质心跟踪;
+   
+
 #. (optional) face_descriptor_from_camera.py
 
    调用摄像头进行实时特征描述子计算; / Real-time face descriptor computation;
@@ -213,13 +228,14 @@ Tips:
 
 #. 人脸录入的时候先建文件夹再保存图片, 先 ``N`` 再 ``S`` / Press ``N`` before ``S``
 
-#. 关于人脸识别卡顿 FPS 低问题, 不做 compare 的时候, 光跑 face_descriptor_from_camera.py 中 face_reco_model.compute_face_descriptor
-   在 CPU: i7-8700K FPS: 5~6, 所以主要提取特征时候耗资源
+#. 关于人脸识别卡顿 FPS 低问题, 原因是特征描述子提取很费时间, 光跑 face_descriptor_from_camera.py 中 face_reco_model.compute_face_descriptor 在 CPU: i7-8700K 得到的最终 FPS: 5~6 (检测在 0.03s, 特征描述子提取在 0.158s, 和已知人脸进行遍历对比在 0.003s 左右), 所以主要提取特征时候耗资源, 可以用 OT 去做追踪，而不是对每一帧都做检测+识别
 
 可以访问我的博客获取本项目的更详细介绍，如有问题可以邮件联系我 /
 For more details, please refer to my blog (in chinese) or mail to me :
 
 * Blog: https://www.cnblogs.com/AdaminXie/p/9010298.html
+
+* 关于 OT 部分的更新在 Blog: https://www.cnblogs.com/AdaminXie/p/13566269.html
   
 * Mail: coneypo@foxmail.com ( Dlib 相关 repo 问题请联系 @foxmail 而不是 @intel )
 
