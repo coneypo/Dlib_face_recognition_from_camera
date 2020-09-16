@@ -28,17 +28,13 @@ face_reco_model = dlib.face_recognition_model_v1("data/data_dlib/dlib_face_recog
 
 class Face_Recognizer:
     def __init__(self):
-        # 用来存放所有录入人脸特征的数组 / Save the features of faces in the database
-        self.features_known_list = []
+        self.feature_known_list = []                # 用来存放所有录入人脸特征的数组 / Save the features of faces in the database
+        self.name_known_list = []                   # 存储录入人脸名字 / Save the name of faces in the database
 
-        # 存储录入人脸名字 / Save the name of faces known
-        self.name_known_cnt = 0
-        self.name_known_list = []
-
-        self.current_frame_name_list = []           # 存储当前摄像头中捕获到的所有人脸的名字 / Names of faces in current frame
-        self.current_frame_name_position_list = []  # 存储当前摄像头中捕获到的所有人脸的名字坐标 / Positions of faces in current frame
         self.current_frame_face_cnt = 0             # 存储当前摄像头中捕获到的人脸数 / Counter for faces in current frame
         self.current_frame_feature_list = []        # 存储当前摄像头中捕获到的人脸特征 / Features of faces in current frame
+        self.current_frame_name_position_list = []  # 存储当前摄像头中捕获到的所有人脸的名字坐标 / Positions of faces in current frame
+        self.current_frame_name_list = []           # 存储当前摄像头中捕获到的所有人脸的名字 / Names of faces in current frame
 
         # Update FPS
         self.fps = 0
@@ -56,10 +52,9 @@ class Face_Recognizer:
                         features_someone_arr.append('0')
                     else:
                         features_someone_arr.append(csv_rd.iloc[i][j])
-                self.features_known_list.append(features_someone_arr)
+                self.feature_known_list.append(features_someone_arr)
                 self.name_known_list.append("Person_"+str(i+1))
-            self.name_known_cnt = len(self.name_known_list)
-            print("Faces in Database：", len(self.features_known_list))
+            print("Faces in Database：", len(self.feature_known_list))
             return 1
         else:
             print('##### Warning #####', '\n')
@@ -152,12 +147,12 @@ class Face_Recognizer:
                             # 5. 对于某张人脸，遍历所有存储的人脸特征
                             # For every faces detected, compare the faces in the database
                             current_frame_e_distance_list = []
-                            for i in range(len(self.features_known_list)):
+                            for i in range(len(self.feature_known_list)):
                                 # 如果 person_X 数据不为空
-                                if str(self.features_known_list[i][0]) != '0.0':
+                                if str(self.feature_known_list[i][0]) != '0.0':
                                     print("   >>> With person", str(i + 1), ", the e distance: ", end='')
                                     e_distance_tmp = self.return_euclidean_distance(self.current_frame_feature_list[k],
-                                                                                    self.features_known_list[i])
+                                                                                    self.feature_known_list[i])
                                     print(e_distance_tmp)
                                     current_frame_e_distance_list.append(e_distance_tmp)
                                 else:
@@ -202,7 +197,7 @@ class Face_Recognizer:
     def run(self):
         cap = cv2.VideoCapture(0)
         # cap = cv2.VideoCapture("video.mp4")
-        cap.set(3, 480)
+        cap.set(3, 480)     # 640x480
         self.process(cap)
 
         cap.release()
