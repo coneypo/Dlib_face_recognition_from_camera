@@ -6,7 +6,7 @@
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 # Mail:     coneypo@foxmail.com
 
-# 摄像头实时人脸识别 / Real-time face detection and recognition
+# 人脸识别 / Real-time face detection and recognition from images
 
 import dlib
 import numpy as np
@@ -110,103 +110,76 @@ class Face_Recognizer:
         # self.name_known_list[4] ='xx'.encode('utf-8').decode()
 
     # 处理获取的视频流，进行人脸识别 / Face detection and recognition from input video stream
-    def process(self, stream):
+    def process(self):
         # 1. 读取存放所有人脸特征的 csv / Get faces known from "features.all.csv"
         if self.get_face_database():
-            while stream.isOpened():
-                print(">>> Frame start")
-                flag, img_rd = stream.read()
-                faces = detector(img_rd, 0)
-                kk = cv2.waitKey(1)
-                # 按下 q 键退出 / Press 'q' to quit
-                if kk == ord('q'):
-                    break
-                else:
-                    self.draw_note(img_rd)
-                    self.current_frame_feature_list = []
-                    self.current_frame_face_cnt = 0
-                    self.current_frame_name_position_list = []
-                    self.current_frame_name_list = []
 
-                    # 2. 检测到人脸 / Face detected in current frame
-                    if len(faces) != 0:
-                        # 3. 获取当前捕获到的图像的所有人脸的特征 / Compute the face descriptors for faces in current frame
-                        for i in range(len(faces)):
-                            shape = predictor(img_rd, faces[i])
-                            self.current_frame_feature_list.append(face_reco_model.compute_face_descriptor(img_rd, shape))
-                        # 4. 遍历捕获到的图像中所有的人脸 / Traversal all the faces in the database
-                        for k in range(len(faces)):
-                            print(">>>>>> For face", k+1, " in camera")
-                            # 先默认所有人不认识，是 unknown / Set the default names of faces with "unknown"
-                            self.current_frame_name_list.append("unknown")
+            print(">>> Frame start")
+            img_rd = cv2.imread("data/data_faces_for_test/test_faces_1.jpg")
+            faces = detector(img_rd, 1)
+            self.draw_note(img_rd)
 
-                            # 每个捕获人脸的名字坐标 / Positions of faces captured
-                            self.current_frame_name_position_list.append(tuple(
-                                [faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
+            # 2. 检测到人脸 / Face detected in current frame
+            if len(faces) != 0:
+                # 3. 获取当前捕获到的图像的所有人脸的特征 / Compute the face descriptors for faces in current frame
+                for i in range(len(faces)):
+                    shape = predictor(img_rd, faces[i])
+                    self.current_frame_feature_list.append(face_reco_model.compute_face_descriptor(img_rd, shape))
+                # 4. 遍历捕获到的图像中所有的人脸 / Traversal all the faces in the database
+                for k in range(len(faces)):
+                    print(">>>>>> For face", k+1, " in camera")
+                    # 先默认所有人不认识，是 unknown / Set the default names of faces with "unknown"
+                    self.current_frame_name_list.append("unknown")
 
-                            # 5. 对于某张人脸，遍历所有存储的人脸特征
-                            # For every faces detected, compare the faces in the database
-                            current_frame_e_distance_list = []
-                            for i in range(len(self.feature_known_list)):
-                                # 如果 person_X 数据不为空
-                                if str(self.feature_known_list[i][0]) != '0.0':
-                                    print("   >>> With person", str(i + 1), ", the e distance: ", end='')
-                                    e_distance_tmp = self.return_euclidean_distance(self.current_frame_feature_list[k],
-                                                                                    self.feature_known_list[i])
-                                    print(e_distance_tmp)
-                                    current_frame_e_distance_list.append(e_distance_tmp)
-                                else:
-                                    # 空数据 person_X
-                                    current_frame_e_distance_list.append(999999999)
-                            # 6. 寻找出最小的欧式距离匹配 / Find the one with minimum e distance
-                            similar_person_num = current_frame_e_distance_list.index(min(current_frame_e_distance_list))
-                            print("   >>> Minimum e distance with ", self.name_known_list[similar_person_num], ": ", min(current_frame_e_distance_list))
+                    # 每个捕获人脸的名字坐标 / Positions of faces captured
+                    self.current_frame_name_position_list.append(tuple(
+                        [faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
 
-                            if min(current_frame_e_distance_list) < 0.4:
-                                self.current_frame_name_list[k] = self.name_known_list[similar_person_num]
-                                print("   >>> Face recognition result:  " + str(self.name_known_list[similar_person_num]))
-                            else:
-                                print("   >>> Face recognition result: Unknown person")
+                    # 5. 对于某张人脸，遍历所有存储的人脸特征
+                    # For every faces detected, compare the faces in the database
+                    current_frame_e_distance_list = []
+                    for i in range(len(self.feature_known_list)):
+                        # 如果 person_X 数据不为空
+                        if str(self.feature_known_list[i][0]) != '0.0':
+                            print("   >>> With person", str(i + 1), ", the e distance: ", end='')
+                            e_distance_tmp = self.return_euclidean_distance(self.current_frame_feature_list[k],
+                                                                            self.feature_known_list[i])
+                            print(e_distance_tmp)
+                            current_frame_e_distance_list.append(e_distance_tmp)
+                        else:
+                            # 空数据 person_X
+                            current_frame_e_distance_list.append(999999999)
+                    # 6. 寻找出最小的欧式距离匹配 / Find the one with minimum e distance
+                    similar_person_num = current_frame_e_distance_list.index(min(current_frame_e_distance_list))
+                    print("   >>> Minimum e distance with ", self.name_known_list[similar_person_num], ": ", min(current_frame_e_distance_list))
 
-                            # 矩形框 / Draw rectangle
-                            for kk, d in enumerate(faces):
-                                # 绘制矩形框
-                                cv2.rectangle(img_rd, tuple([d.left(), d.top()]), tuple([d.right(), d.bottom()]),
-                                              (0, 255, 255), 2)
-
-                        self.current_frame_face_cnt = len(faces)
-
-                        # 7. 在这里更改显示的人名 / Modify name if needed
-                        # self.show_chinese_name()
-
-                        # 8. 写名字 / Draw name
-                        img_with_name = self.draw_name(img_rd)
-
+                    if min(current_frame_e_distance_list) < 0.4:
+                        self.current_frame_name_list[k] = self.name_known_list[similar_person_num]
+                        print("   >>> Face recognition result:  " + str(self.name_known_list[similar_person_num]))
                     else:
-                        img_with_name = img_rd
+                        print("   >>> Face recognition result: Unknown person")
+
+                    # 矩形框 / Draw rectangle
+                    for kk, d in enumerate(faces):
+                        # 绘制矩形框
+                        cv2.rectangle(img_rd, tuple([d.left(), d.top()]), tuple([d.right(), d.bottom()]),
+                                      (0, 255, 255), 2)
+
+                self.current_frame_face_cnt = len(faces)
+
+                img_rd = self.draw_name(img_rd)
 
                 print(">>>>>> Faces in camera now:", self.current_frame_name_list)
 
-                cv2.imshow("camera", img_with_name)
+                cv2.imshow("camera", img_rd)
+                cv2.waitKey(0)
 
-                # 9. 更新 FPS / Update stream FPS
-                self.update_fps()
                 print(">>> Frame ends\n\n")
-
-    # OpenCV 调用摄像头并进行 process
-    def run(self):
-        cap = cv2.VideoCapture(0)
-        # cap = cv2.VideoCapture("video.mp4")
-        cap.set(3, 480)     # 640x480
-        self.process(cap)
-
-        cap.release()
-        cv2.destroyAllWindows()
 
 
 def main():
     Face_Recognizer_con = Face_Recognizer()
-    Face_Recognizer_con.run()
+    Face_Recognizer_con.process()
 
 
 if __name__ == '__main__':
