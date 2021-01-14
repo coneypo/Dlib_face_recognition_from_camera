@@ -14,11 +14,12 @@ import cv2
 import os
 import pandas as pd
 import time
+from PIL import Image, ImageDraw, ImageFont
 
 # Dlib 正向人脸检测器 (Use frontal face detector of Dlib)
 detector = dlib.get_frontal_face_detector()
 
-# Dlib 人脸 landmark 特征点检测器 (Get face landmarks)
+# Dlib 人脸 landmark 特征点检测器 (Use face landmarks predictor of Dlib)
 predictor = dlib.shape_predictor('data/data_dlib/shape_predictor_68_face_landmarks.dat')
 
 # Dlib Resnet 人脸识别模型，提取 128D 的特征矢量 (Use Dlib resnet50 model to get 128D face descriptor)
@@ -91,16 +92,14 @@ class Face_Recognizer:
             print('##### End Warning #####')
             return 0
 
-        # 计算两个128D向量间的欧式距离 (Compute the e-distance between two 128D features)
-
-    # 更新 FPS (Update FPS of Video stream
+    # 更新 FPS (Update FPS of video stream)
     def update_fps(self):
         now = time.time()
         self.frame_time = now - self.frame_start_time
         self.fps = 1.0 / self.frame_time
         self.frame_start_time = now
-        # 计算两个128D向量间的欧式距离 (Compute the e-distance between two 128D features)
 
+    # 计算两个128D向量间的欧式距离 (Compute the e-distance between two 128D features)
     @staticmethod
     def return_euclidean_distance(feature_1, feature_2):
         feature_1 = np.array(feature_1)
@@ -115,6 +114,20 @@ class Face_Recognizer:
         cv2.putText(img_rd, "FPS:   " + str(self.fps.__round__(2)), (20, 100), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
         cv2.putText(img_rd, "Q: Quit", (20, 450), self.font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
+
+    def draw_name(self, img_rd):
+        # 在人脸框下面写人脸名字 / Write names under ROI
+        font = ImageFont.truetype("simsun.ttc", 30)
+        img = Image.fromarray(cv2.cvtColor(img_rd, cv2.COLOR_BGR2RGB))
+        draw = ImageDraw.Draw(img)
+        draw.text(xy=self.current_frame_face_position_list[0], text=self.current_frame_name_list[0], font=font)
+        img_rd = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        return img_rd
+
+    def show_chinese_name(self):
+        # Default known name: person_1, person_2, person_3
+        if self.current_frame_face_cnt >= 1:
+            self.name_known_list[0] ='张三'.encode('utf-8').decode()
 
     # 处理获取的视频流，进行人脸识别 (Face detection and recognition wit OT from input video stream)
     def process(self, stream):
@@ -135,7 +148,7 @@ class Face_Recognizer:
 
                 # 4.1 当前帧和上一帧相比没有发生人脸数变化 (If cnt not changes, 1->1 or 0->0)
                 if self.current_frame_face_cnt == self.last_frame_faces_cnt:
-                    print("   >>> scene 1: 当前帧和上一帧相比没有发生人脸数变化 (No face cnt changes in this frame!!!")
+                    print("   >>> scene 1: 当前帧和上一帧相比没有发生人脸数变化 (No face cnt changes in this frame!!!)")
                     if "unknown" in self.current_frame_name_list:
                         print("   >>> 有未知人脸, 开始进行 reclassify_interval_cnt 计数")
                         self.reclassify_interval_cnt += 1
@@ -208,15 +221,14 @@ class Face_Recognizer:
                                 self.current_frame_face_position_list[k] = tuple(
                                     [faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)])
 
-                                print("   >>> self.current_frame_name_list[k]:              ",
+                                print("   >>> self.current_frame_name_list:              ",
                                       self.current_frame_name_list[k])
-                                print("   >>> self.current_frame_face_position_list[k]:     ",
+                                print("   >>> self.current_frame_face_position_list:     ",
                                       self.current_frame_face_position_list[k])
 
-                                # 写名字 (Write names under ROI
-                                img_rd = cv2.putText(img_rd, self.current_frame_name_list[k],
-                                            self.current_frame_face_position_list[k], self.font, 0.8, (0, 255, 255), 1,
-                                            cv2.LINE_AA)
+                                # 在这里更改显示的人名 (Modify name if needed)
+                                self.show_chinese_name()
+                                img_rd = self.draw_name(img_rd)
                 
                 # 4.2 当前帧和上一帧相比发生人脸数变化 (If face cnt changes, 1->0 or 0->1)
                 else:
@@ -226,7 +238,7 @@ class Face_Recognizer:
                     self.current_frame_face_feature_list = []
 
                     # 4.2.1 人脸数从 0->1 / Face cnt 0->1
-                    if (self.current_frame_face_cnt == 1):
+                    if self.current_frame_face_cnt == 1:
                         print("   >>> scene 2.1 出现人脸，进行人脸识别 (Get person in this frame and do face recognition)")
                         self.current_frame_name_list = []
 
