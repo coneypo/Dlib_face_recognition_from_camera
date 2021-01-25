@@ -34,7 +34,7 @@ def return_128d_features(path_img):
     img_rd = io.imread(path_img)
     faces = detector(img_rd, 1)
 
-    print("%-40s %-20s" % ("检测到人脸的图像 / Image with faces detected:", path_img), '\n')
+    print("%-40s %-20s" % (" >> 检测到人脸的图像 / Image with faces detected:", path_img), '\n')
 
     # 因为有可能截下来的人脸再去检测，检测不出来人脸了, 所以要确保是 检测到人脸的人脸图像拿去算特征
     # For photos of faces saved, we need to make sure that we can detect faces from the cropped images
@@ -56,7 +56,7 @@ def return_features_mean_personX(path_faces_personX):
     if photos_list:
         for i in range(len(photos_list)):
             # 调用 return_128d_features() 得到 128D 特征 / Get 128D features for single image of personX
-            print("%-40s %-20s" % ("正在读的人脸图像 / Reading image:", path_faces_personX + "/" + photos_list[i]))
+            print("%-40s %-20s" % (" >> 正在读的人脸图像 / Reading image:", path_faces_personX + "/" + photos_list[i]))
             features_128d = return_128d_features(path_faces_personX + "/" + photos_list[i])
             # 遇到没有检测出人脸的图片跳过 / Jump if no face detected from image
             if features_128d == 0:
@@ -64,7 +64,7 @@ def return_features_mean_personX(path_faces_personX):
             else:
                 features_list_personX.append(features_128d)
     else:
-        print("文件夹内图像文件为空 / Warning: No images in " + path_faces_personX + '/', '\n')
+        print(" >> 文件夹内图像文件为空 / Warning: No images in " + path_faces_personX + '/', '\n')
 
     # 计算 128D 特征的均值 / Compute the mean
     # personX 的 N 张图像 x 128D -> 1 x 128D
@@ -72,7 +72,6 @@ def return_features_mean_personX(path_faces_personX):
         features_mean_personX = np.array(features_list_personX).mean(axis=0)
     else:
         features_mean_personX = np.zeros(128, dtype=int, order='C')
-    print(type(features_mean_personX))
     return features_mean_personX
 
 
@@ -90,6 +89,5 @@ with open("data/features_all.csv", "w", newline="") as csvfile:
         print(path_images_from_camera + "person_" + str(person + 1))
         features_mean_personX = return_features_mean_personX(path_images_from_camera + "person_" + str(person + 1))
         writer.writerow(features_mean_personX)
-        print("特征均值 / The mean of features:", list(features_mean_personX))
-        print('\n')
+        print(" >> 特征均值 / The mean of features:", list(features_mean_personX), '\n')
     print("所有录入人脸数据存入 / Save all the features of faces registered into: data/features_all.csv")

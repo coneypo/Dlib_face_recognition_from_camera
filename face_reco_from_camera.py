@@ -103,11 +103,11 @@ class Face_Recognizer:
     def show_chinese_name(self):
         # Default known name: person_1, person_2, person_3
         if self.current_frame_face_cnt >= 1:
-            self.name_known_list[0] ='张三'.encode('utf-8').decode()
-        # self.name_known_list[1] ='李四'.encode('utf-8').decode()
-        # self.name_known_list[2] ='xx'.encode('utf-8').decode()
-        # self.name_known_list[3] ='xx'.encode('utf-8').decode()
-        # self.name_known_list[4] ='xx'.encode('utf-8').decode()
+            self.name_known_list[0] ='张1'.encode('utf-8').decode()
+            self.name_known_list[1] ='张2'.encode('utf-8').decode()
+            self.name_known_list[2] ='张3'.encode('utf-8').decode()
+            self.name_known_list[3] ='张4'.encode('utf-8').decode()
+            self.name_known_list[4] ='张5'.encode('utf-8').decode()
 
     # 处理获取的视频流，进行人脸识别 / Face detection and recognition from input video stream
     def process(self, stream):
@@ -177,7 +177,7 @@ class Face_Recognizer:
                         self.current_frame_face_cnt = len(faces)
 
                         # 7. 在这里更改显示的人名 / Modify name if needed
-                        # self.show_chinese_name()
+                        self.show_chinese_name()
 
                         # 8. 写名字 / Draw name
                         img_with_name = self.draw_name(img_rd)

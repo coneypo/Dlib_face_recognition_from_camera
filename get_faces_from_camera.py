@@ -91,8 +91,8 @@ class Face_Register:
         self.pre_work_mkdir()
 
         # 2. 删除 "/data/data_faces_from_camera" 中已有人脸图像文件 / Uncomment if want to delete the saved faces and start from person_1
-        if os.path.isdir(self.path_photos_from_camera):
-            self.pre_work_del_old_face_folders()
+        # if os.path.isdir(self.path_photos_from_camera):
+        #     self.pre_work_del_old_face_folders()
 
         # 3. 检查 "/data/data_faces_from_camera" 中已有人脸文件
         self.check_existing_faces_cnt()
@@ -173,6 +173,7 @@ class Face_Register:
 
     def run(self):
         cap = cv2.VideoCapture(0)
+        # cap = cv2.VideoCapture("head-pose-face-detection-female-and-male.mp4")
         self.process(cap)
 
         cap.release()
