@@ -1,4 +1,4 @@
-# Copyright (C) 2020 coneypo
+# Copyright (C) 2018-2021 coneypo
 # SPDX-License-Identifier: MIT
 
 # Author:   coneypo
@@ -15,6 +15,7 @@ import os
 import pandas as pd
 import time
 from PIL import Image, ImageDraw, ImageFont
+import logging
 
 # Dlib 正向人脸检测器 / Use frontal face detector of Dlib
 detector = dlib.get_frontal_face_detector()
@@ -81,15 +82,12 @@ class Face_Recognizer:
                         features_someone_arr.append(csv_rd.iloc[i][j])
                 self.features_known_list.append(features_someone_arr)
                 self.name_known_list.append("Person_" + str(i + 1))
-            print("Faces in Database：", len(self.features_known_list))
+            logging.info("Faces in Database： %d", len(self.features_known_list))
             return 1
         else:
-            print('##### Warning #####', '\n')
-            print("'features_all.csv' not found!")
-            print(
-                "Please run 'get_faces_from_camera.py' and 'features_extraction_to_csv.py' before 'face_reco_from_camera.py'",
-                '\n')
-            print('##### End Warning #####')
+            logging.warning("'features_all.csv' not found!")
+            logging.warning("Please run 'get_faces_from_camera.py' "
+                            "and 'features_extraction_to_csv.py' before 'face_reco_from_camera.py'")
             return 0
 
     # 更新 FPS / Update FPS of video stream
@@ -110,14 +108,19 @@ class Face_Recognizer:
     # 生成的 cv2 window 上面添加说明文字 / putText on cv2 window
     def draw_note(self, img_rd):
         # 添加说明 (Add some statements
-        cv2.putText(img_rd, "Face Recognizer with OT (one person)", (20, 40), self.font, 1, (255, 255, 255), 1, cv2.LINE_AA)
-        cv2.putText(img_rd, "FPS:   " + str(self.fps.__round__(2)), (20, 100), self.font, 0.8, (0, 255, 0), 1,
+        cv2.putText(img_rd, "Face Recognizer with OT (one person)", (20, 40), self.font, 1, (255, 255, 255), 1,
+                    cv2.LINE_AA)
+        cv2.putText(img_rd, "Frame:  " + str(self.frame_cnt), (20, 100), self.font, 0.8, (0, 255, 0), 1,
+                    cv2.LINE_AA)
+        cv2.putText(img_rd, "FPS:    " + str(self.fps.__round__(2)), (20, 130), self.font, 0.8, (0, 255, 0), 1,
+                    cv2.LINE_AA)
+        cv2.putText(img_rd, "Faces:  " + str(self.current_frame_face_cnt), (20, 160), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
         cv2.putText(img_rd, "Q: Quit", (20, 450), self.font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
 
     def draw_name(self, img_rd):
         # 在人脸框下面写人脸名字 / Write names under ROI
-        print(self.current_frame_name_list)
+        logging.debug(self.current_frame_name_list)
         font = ImageFont.truetype("simsun.ttc", 30)
         img = Image.fromarray(cv2.cvtColor(img_rd, cv2.COLOR_BGR2RGB))
         draw = ImageDraw.Draw(img)
@@ -128,12 +131,12 @@ class Face_Recognizer:
     def show_chinese_name(self):
         # Default known name: person_1, person_2, person_3
         if self.current_frame_face_cnt >= 1:
-            print(self.name_known_list)
+            logging.debug(self.name_known_list)
             self.name_known_list[0] = '张1'.encode('utf-8').decode()
-            self.name_known_list[1] = '张2'.encode('utf-8').decode()
-            self.name_known_list[2] = '张3'.encode('utf-8').decode()
-            self.name_known_list[3] = '张4'.encode('utf-8').decode()
-            self.name_known_list[4] ='张5'.encode('utf-8').decode()
+            # self.name_known_list[1] = '张2'.encode('utf-8').decode()
+            # self.name_known_list[2] = '张3'.encode('utf-8').decode()
+            # self.name_known_list[3] = '张4'.encode('utf-8').decode()
+            # self.name_known_list[4] ='张5'.encode('utf-8').decode()
 
     # 处理获取的视频流，进行人脸识别 / Face detection and recognition wit OT from input video stream
     def process(self, stream):
@@ -141,7 +144,7 @@ class Face_Recognizer:
         if self.get_face_database():
             while stream.isOpened():
                 self.frame_cnt += 1
-                print(">>> Frame " + str(self.frame_cnt) + " starts")
+                logging.debug("Frame " + str(self.frame_cnt) + " starts")
                 flag, img_rd = stream.read()
                 kk = cv2.waitKey(1)
 
@@ -154,17 +157,18 @@ class Face_Recognizer:
 
                 # 4.1 当前帧和上一帧相比没有发生人脸数变化 / If cnt not changes, 1->1 or 0->0
                 if self.current_frame_face_cnt == self.last_frame_faces_cnt:
-                    print("   >>> scene 1: 当前帧和上一帧相比没有发生人脸数变化 / No face cnt changes in this frame!!!")
+                    logging.debug("scene 1: 当前帧和上一帧相比没有发生人脸数变化 / No face cnt changes in this frame!!!")
+
                     if "unknown" in self.current_frame_name_list:
-                        print("   >>> 有未知人脸, 开始进行 reclassify_interval_cnt 计数")
+                        logging.debug("   >>> 有未知人脸, 开始进行 reclassify_interval_cnt 计数")
                         self.reclassify_interval_cnt += 1
 
                     # 4.1.1 当前帧一张人脸 / One face in this frame
-                    if self.current_frame_face_cnt ==1:
-                        if self.reclassify_interval_cnt==self.reclassify_interval:
-                            print("   >>> scene 1.1 需要对于当前帧重新进行人脸识别 / Re-classify for current frame")
+                    if self.current_frame_face_cnt == 1:
+                        if self.reclassify_interval_cnt == self.reclassify_interval:
+                            logging.debug("  scene 1.1 需要对于当前帧重新进行人脸识别 / Re-classify for current frame")
 
-                            self.reclassify_interval_cnt=0
+                            self.reclassify_interval_cnt = 0
                             self.current_frame_face_feature_list = []
                             self.current_frame_face_X_e_distance_list = []
                             self.current_frame_name_list = []
@@ -187,16 +191,14 @@ class Face_Recognizer:
                                 for i in range(len(self.features_known_list)):
                                     # 如果 person_X 数据不为空 / If the data of person_X is not empty
                                     if str(self.features_known_list[i][0]) != '0.0':
-                                        print("            >>> with person", str(i + 1), "the e distance: ", end='')
                                         e_distance_tmp = self.return_euclidean_distance(
                                             self.current_frame_face_feature_list[k],
                                             self.features_known_list[i])
-                                        print(e_distance_tmp)
+                                        logging.debug("    with person %d, the e-distance: %f", i + 1, e_distance_tmp)
                                         self.current_frame_face_X_e_distance_list.append(e_distance_tmp)
                                     else:
                                         # 空数据 person_X / For empty data
                                         self.current_frame_face_X_e_distance_list.append(999999999)
-                                print("            >>> current_frame_face_X_e_distance_list:", self.current_frame_face_X_e_distance_list)
 
                                 # d. 寻找出最小的欧式距离匹配 / Find the one with minimum e distance
                                 similar_person_num = self.current_frame_face_X_e_distance_list.index(
@@ -206,16 +208,16 @@ class Face_Recognizer:
                                     # 在这里更改显示的人名 / Modify name if needed
                                     self.show_chinese_name()
                                     self.current_frame_name_list[k] = self.name_known_list[similar_person_num]
-                                    print("            >>> recognition result for face " + str(k + 1) + ": " +
-                                          self.name_known_list[similar_person_num])
+                                    logging.debug("    recognition result for face %d: %s", k + 1,
+                                                  self.name_known_list[similar_person_num])
                                 else:
-                                    print(
-                                        "            >>> recognition result for face " + str(k + 1) + ": " + "unknown")
+                                    logging.debug("    recognition result for face %d: %s", k + 1, "unknown")
                         else:
-                            print("   >>> scene 1.2 不需要对于当前帧重新进行人脸识别 / No re-classification for current frame")
+                            logging.debug(
+                                "  scene 1.2 不需要对于当前帧重新进行人脸识别 / No re-classification needed for current frame")
                             # 获取特征框坐标 / Get ROI positions
                             for k, d in enumerate(faces):
-                                # 计算矩形框大小 / Compute the shape of ROI
+                                # 计算矩形框大小 / Get the shape of ROI
                                 height = (d.bottom() - d.top())
                                 width = (d.right() - d.left())
                                 hh = int(height / 2)
@@ -227,25 +229,21 @@ class Face_Recognizer:
                                               (255, 255, 255), 2)
 
                                 self.current_frame_face_position_list[k] = tuple(
-                                    [faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)])
-
-                                print("   >>> self.current_frame_name_list:              ",
-                                      self.current_frame_name_list[k])
-                                print("   >>> self.current_frame_face_position_list:     ",
-                                      self.current_frame_face_position_list[k])
+                                    [faces[k].left(),
+                                     int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)])
 
                                 img_rd = self.draw_name(img_rd)
 
                 # 4.2 当前帧和上一帧相比发生人脸数变化 / If face cnt changes, 1->0 or 0->1
                 else:
-                    print("   >>> scene 2: 当前帧和上一帧相比人脸数发生变化 / Faces cnt changes in this frame")
+                    logging.debug("scene 2: 当前帧和上一帧相比人脸数发生变化 / Faces cnt changes in this frame")
                     self.current_frame_face_position_list = []
                     self.current_frame_face_X_e_distance_list = []
                     self.current_frame_face_feature_list = []
 
                     # 4.2.1 人脸数从 0->1 / Face cnt 0->1
                     if self.current_frame_face_cnt == 1:
-                        print("   >>> scene 2.1 出现人脸，进行人脸识别 / Get person in this frame and do face recognition")
+                        logging.debug("  scene 2.1 出现人脸，进行人脸识别 / Get faces in this frame and do face recognition")
                         self.current_frame_name_list = []
 
                         for i in range(len(faces)):
@@ -265,36 +263,36 @@ class Face_Recognizer:
                             for i in range(len(self.features_known_list)):
                                 # 如果 person_X 数据不为空 / If data of person_X is not empty
                                 if str(self.features_known_list[i][0]) != '0.0':
-                                    print("            >>> with person", str(i + 1), "the e distance: ", end='')
                                     e_distance_tmp = self.return_euclidean_distance(
                                         self.current_frame_face_feature_list[k],
                                         self.features_known_list[i])
-                                    print(e_distance_tmp)
+                                    logging.debug("    with person %d, the e-distance: %f", i + 1, e_distance_tmp)
                                     self.current_frame_face_X_e_distance_list.append(e_distance_tmp)
                                 else:
                                     # 空数据 person_X / Empty data for person_X
                                     self.current_frame_face_X_e_distance_list.append(999999999)
 
                             # d. 寻找出最小的欧式距离匹配 / Find the one with minimum e distance
-                            similar_person_num = self.current_frame_face_X_e_distance_list.index(min(self.current_frame_face_X_e_distance_list))
+                            similar_person_num = self.current_frame_face_X_e_distance_list.index(
+                                min(self.current_frame_face_X_e_distance_list))
 
                             if min(self.current_frame_face_X_e_distance_list) < 0.4:
                                 # 在这里更改显示的人名 / Modify name if needed
                                 self.show_chinese_name()
                                 self.current_frame_name_list[k] = self.name_known_list[similar_person_num]
-                                print("            >>> recognition result for face " + str(k + 1) + ": " +
-                                      self.name_known_list[similar_person_num])
+                                logging.debug("    recognition result for face %d: %s", k + 1,
+                                              self.name_known_list[similar_person_num])
                             else:
-                                print("            >>> recognition result for face " + str(k + 1) + ": " + "unknown")
+                                logging.debug("    recognition result for face %d: %s", k + 1, "unknown")
 
                         if "unknown" in self.current_frame_name_list:
-                            self.reclassify_interval_cnt+=1
+                            self.reclassify_interval_cnt += 1
 
                     # 4.2.1 人脸数从 1->0 / Face cnt 1->0
                     elif self.current_frame_face_cnt == 0:
-                        print("   >>> scene 2.2 人脸消失, 当前帧中没有人脸 / No face in this frame!!!")
+                        logging.debug("  scene 2.2 人脸消失, 当前帧中没有人脸 / No face in this frame!!!")
 
-                        self.reclassify_interval_cnt=0
+                        self.reclassify_interval_cnt = 0
                         self.current_frame_name_list = []
                         self.current_frame_face_feature_list = []
 
@@ -309,10 +307,11 @@ class Face_Recognizer:
                 cv2.namedWindow("camera", 1)
                 cv2.imshow("camera", img_rd)
 
-                print(">>> Frame ends\n\n")
+                logging.debug("Frame ends\n\n")
 
     def run(self):
-        cap = cv2.VideoCapture(0)
+        # cap = cv2.VideoCapture("video.mp4")   # Get video stream from video file
+        cap = cv2.VideoCapture(0)               # Get video stream from camera
         self.process(cap)
 
         cap.release()
@@ -320,6 +319,8 @@ class Face_Recognizer:
 
 
 def main():
+    # logging.basicConfig(level=logging.DEBUG) # Set log level to 'logging.DEBUG' to print debug info of every frame
+    logging.basicConfig(level=logging.INFO)
     Face_Recognizer_con = Face_Recognizer()
     Face_Recognizer_con.run()
 

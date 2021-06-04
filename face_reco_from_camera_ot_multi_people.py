@@ -1,4 +1,4 @@
-# Copyright (C) 2020 coneypo
+# Copyright (C) 2018-2021 coneypo
 # SPDX-License-Identifier: MIT
 
 # Author:   coneypo
@@ -14,6 +14,7 @@ import cv2
 import os
 import pandas as pd
 import time
+import logging
 
 # Dlib 正向人脸检测器 / Use frontal face detector of Dlib
 detector = dlib.get_frontal_face_detector()
@@ -38,16 +39,16 @@ class Face_Recognizer:
         self.frame_cnt = 0
 
         # 用来存放所有录入人脸特征的数组 / Save the features of faces in the database
-        self.features_known_list = []
+        self.face_features_known_list = []
         # 存储录入人脸名字 / Save the name of faces in the database
-        self.name_known_list = []
+        self.face_name_known_list = []
 
         # 用来存储上一帧和当前帧 ROI 的质心坐标 / List to save centroid positions of ROI in frame N-1 and N
-        self.last_frame_centroid_list = []
-        self.current_frame_centroid_list = []
+        self.last_frame_face_centroid_list = []
+        self.current_frame_face_centroid_list = []
 
         # 用来存储上一帧和当前帧检测出目标的名字 / List to save names of objects in frame N-1 and N
-        self.last_frame_names_list = []
+        self.last_frame_face_name_list = []
         self.current_frame_face_name_list = []
 
         # 上一帧和当前帧中人脸数的计数器 / cnt for faces in frame N-1 and N
@@ -60,10 +61,15 @@ class Face_Recognizer:
         # 存储当前摄像头中捕获到的所有人脸的坐标名字 / Save the positions and names of current faces captured
         self.current_frame_face_position_list = []
         # 存储当前摄像头中捕获到的人脸特征 / Save the features of people in current frame
-        self.current_frame_face_features_list = []
+        self.current_frame_face_feature_list = []
 
         # e distance between centroid of ROI in last and current frame
         self.last_current_frame_centroid_e_distance = 0
+
+        # 控制再识别的后续帧数 / Reclassify after 'reclassify_interval' frames
+        # 如果识别出 "unknown" 的脸, 将在 reclassify_interval_cnt 计数到 reclassify_interval 后, 对于人脸进行重新识别
+        self.reclassify_interval_cnt = 0
+        self.reclassify_interval = 10
 
     # 从 "features_all.csv" 读取录入人脸特征 / Get known faces from "features_all.csv"
     def get_face_database(self):
@@ -77,17 +83,14 @@ class Face_Recognizer:
                         features_someone_arr.append('0')
                     else:
                         features_someone_arr.append(csv_rd.iloc[i][j])
-                self.features_known_list.append(features_someone_arr)
-                self.name_known_list.append("Person_" + str(i + 1))
-            print("Faces in Database：", len(self.features_known_list))
+                self.face_features_known_list.append(features_someone_arr)
+                self.face_name_known_list.append("Person_" + str(i + 1))
+            logging.info("Faces in Database： %d", len(self.face_features_known_list))
             return 1
         else:
-            print('##### Warning #####', '\n')
-            print("'features_all.csv' not found!")
-            print(
-                "Please run 'get_faces_from_camera.py' and 'features_extraction_to_csv.py' before 'face_reco_from_camera.py'",
-                '\n')
-            print('##### End Warning #####')
+            logging.warning("'features_all.csv' not found!")
+            logging.warning("Please run 'get_faces_from_camera.py' "
+                            "and 'features_extraction_to_csv.py' before 'face_reco_from_camera.py'")
             return 0
 
     # 获取处理之后 stream 的帧数 / Get the fps of video stream
@@ -96,23 +99,23 @@ class Face_Recognizer:
         self.frame_time = now - self.frame_start_time
         self.fps = 1.0 / self.frame_time
         self.frame_start_time = now
-        # 计算两个128D向量间的欧式距离 / Compute the e-distance between two 128D features
 
     @staticmethod
+    # 计算两个128D向量间的欧式距离 / Compute the e-distance between two 128D features
     def return_euclidean_distance(feature_1, feature_2):
         feature_1 = np.array(feature_1)
         feature_2 = np.array(feature_2)
         dist = np.sqrt(np.sum(np.square(feature_1 - feature_2)))
         return dist
 
-    # / Use centroid tracker to link face_x in current frame with person_x in last frame
+    # Use centroid tracker to link face_x in current frame with person_x in last frame
     def centroid_tracker(self):
-        for i in range(len(self.current_frame_centroid_list)):
+        for i in range(len(self.current_frame_face_centroid_list)):
             e_distance_current_frame_person_x_list = []
             # For object 1 in current_frame, compute e-distance with object 1/2/3/4/... in last frame
-            for j in range(len(self.last_frame_centroid_list)):
+            for j in range(len(self.last_frame_face_centroid_list)):
                 self.last_current_frame_centroid_e_distance = self.return_euclidean_distance(
-                    self.current_frame_centroid_list[i], self.last_frame_centroid_list[j])
+                    self.current_frame_face_centroid_list[i], self.last_frame_face_centroid_list[j])
 
                 e_distance_current_frame_person_x_list.append(
                     self.last_current_frame_centroid_e_distance)
@@ -123,20 +126,23 @@ class Face_Recognizer:
 
     # 生成的 cv2 window 上面添加说明文字 / putText on cv2 window
     def draw_note(self, img_rd):
-        # 添加说明 / Add some statements
+        # 添加说明 / Add some info on windows
         cv2.putText(img_rd, "Face recognizer with OT", (20, 40), self.font, 1, (255, 255, 255), 1, cv2.LINE_AA)
-        cv2.putText(img_rd, "FPS:    " + str(self.fps.__round__(2)), (20, 100), self.font, 0.8, (0, 255, 0), 1,
+        cv2.putText(img_rd, "Frame:  " + str(self.frame_cnt), (20, 100), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
-        cv2.putText(img_rd, "Faces:  " + str(self.current_frame_face_cnt), (20, 130), self.font, 0.8, (0, 255, 0), 1,
+        cv2.putText(img_rd, "FPS:    " + str(self.fps.__round__(2)), (20, 130), self.font, 0.8, (0, 255, 0), 1,
+                    cv2.LINE_AA)
+        cv2.putText(img_rd, "Faces:  " + str(self.current_frame_face_cnt), (20, 160), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
         cv2.putText(img_rd, "Q: Quit", (20, 450), self.font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
 
         for i in range(len(self.current_frame_face_name_list)):
-            cv2.putText(img_rd, "Face " + str(i + 1), tuple(
-                [int(self.current_frame_centroid_list[i][0]), int(self.current_frame_centroid_list[i][1])]), self.font,
-                        0.8, (255, 190, 0),
-                        1,
-                        cv2.LINE_AA)
+            img_rd = cv2.putText(img_rd, "Face " + str(i + 1), tuple(
+                [int(self.current_frame_face_centroid_list[i][0]), int(self.current_frame_face_centroid_list[i][1])]),
+                                 self.font,
+                                 0.8, (255, 190, 0),
+                                 1,
+                                 cv2.LINE_AA)
 
     # 处理获取的视频流，进行人脸识别 / Face detection and recognition wit OT from input video stream
     def process(self, stream):
@@ -144,35 +150,41 @@ class Face_Recognizer:
         if self.get_face_database():
             while stream.isOpened():
                 self.frame_cnt += 1
-                print(">>> Frame " + str(self.frame_cnt) + " starts")
+                logging.debug("Frame " + str(self.frame_cnt) + " starts")
                 flag, img_rd = stream.read()
                 kk = cv2.waitKey(1)
 
                 # 2. 检测人脸 / Detect faces for frame X
                 faces = detector(img_rd, 0)
-                if self.current_frame_face_name_list == ['Person_2', 'Person_2']:
-                    break
 
                 # Update cnt for faces in frames
                 self.last_frame_face_cnt = self.current_frame_face_cnt
                 self.current_frame_face_cnt = len(faces)
+
                 # Update the face name list in last frame
                 self.last_frame_face_name_list = self.current_frame_face_name_list[:]
+
                 # update frame centroid list
-                self.last_frame_centroid_list = self.current_frame_centroid_list
-                self.current_frame_centroid_list = []
-                print("   >>> current_frame_face_cnt: ", self.current_frame_face_cnt)
+                self.last_frame_face_centroid_list = self.current_frame_face_centroid_list
+                self.current_frame_face_centroid_list = []
 
                 # 2.1. if cnt not changes
-                if self.current_frame_face_cnt == self.last_frame_face_cnt:
-                    print("   >>> scene 1: 当前帧和上一帧相比没有发生人脸数变化 / no faces cnt changes in this frame!!!")
+                if (self.current_frame_face_cnt == self.last_frame_face_cnt) and (
+                        self.reclassify_interval_cnt != self.reclassify_interval):
+                    logging.debug("scene 1: 当前帧和上一帧相比没有发生人脸数变化 / No face cnt changes in this frame!!!")
+
                     self.current_frame_face_position_list = []
+
+                    if "unknown" in self.current_frame_face_name_list:
+                        logging.debug("  有未知人脸, 开始进行 reclassify_interval_cnt 计数")
+                        self.reclassify_interval_cnt += 1
+
                     if self.current_frame_face_cnt != 0:
                         # 2.1.1 Get ROI positions
                         for k, d in enumerate(faces):
                             self.current_frame_face_position_list.append(tuple(
                                 [faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
-                            self.current_frame_centroid_list.append(
+                            self.current_frame_face_centroid_list.append(
                                 [int(faces[k].left() + faces[k].right()) / 2,
                                  int(faces[k].top() + faces[k].bottom()) / 2])
 
@@ -181,48 +193,48 @@ class Face_Recognizer:
                             width = (d.right() - d.left())
                             hh = int(height / 2)
                             ww = int(width / 2)
-                            cv2.rectangle(img_rd,
-                                          tuple([d.left() - ww, d.top() - hh]),
-                                          tuple([d.right() + ww, d.bottom() + hh]),
-                                          (255, 255, 255), 2)
+                            img_rd = cv2.rectangle(img_rd,
+                                                   tuple([d.left() - ww, d.top() - hh]),
+                                                   tuple([d.right() + ww, d.bottom() + hh]),
+                                                   (255, 255, 255), 2)
 
-                    # multi-faces in current frames, use centroid tracker to track
+                    # Multi-faces in current frame, use centroid-tracker to track
                     if self.current_frame_face_cnt != 1:
                         self.centroid_tracker()
 
                     for i in range(self.current_frame_face_cnt):
-                        # 6.2 write names under ROI
-                        cv2.putText(img_rd, self.current_frame_face_name_list[i],
-                                    self.current_frame_face_position_list[i], self.font, 0.8, (0, 255, 255), 1,
-                                    cv2.LINE_AA)
-
-                # 2.2 if cnt of faces changes, 0->1 or 1->0 or ...
+                        # 6.2 Write names under ROI
+                        img_rd = cv2.putText(img_rd, self.current_frame_face_name_list[i],
+                                             self.current_frame_face_position_list[i], self.font, 0.8, (0, 255, 255), 1,
+                                             cv2.LINE_AA)
+                    self.draw_note(img_rd)
+                # 2.2 If cnt of faces changes, 0->1 or 1->0 or ...
                 else:
-                    print("   >>> scene 2: 当前帧和上一帧相比人脸数发生变化 / Faces cnt changes in this frame")
+                    logging.debug("scene 2: 当前帧和上一帧相比人脸数发生变化 / Faces cnt changes in this frame")
                     self.current_frame_face_position_list = []
                     self.current_frame_face_X_e_distance_list = []
+                    self.current_frame_face_feature_list = []
+                    self.reclassify_interval_cnt = 0
 
-                    # 2.2.1 face cnt decrease: 1->0, 2->1, ...
+                    # 2.2.1 Face cnt decreases: 1->0, 2->1, ...
                     if self.current_frame_face_cnt == 0:
-                        print("   >>> scene 2.1 人脸消失, 当前帧中没有人脸 / No guy in this frame!!!")
+                        logging.debug("  scene 2.1 人脸消失, 当前帧中没有人脸 / No faces in this frame!!!")
                         # clear list of names and features
                         self.current_frame_face_name_list = []
-                        self.current_frame_face_features_list = []
-
-                    # 2.2.2 face cnt increase: 0->1, 0->2, ..., 1->2, ...
+                    # 2.2.2 Face cnt increase: 0->1, 0->2, ..., 1->2, ...
                     else:
-                        print("   >>> scene 2.2 出现人脸，进行人脸识别 / Do face recognition for people detected in this frame")
+                        logging.debug("  scene 2.2 出现人脸，进行人脸识别 / Get faces in this frame and do face recognition")
                         self.current_frame_face_name_list = []
                         for i in range(len(faces)):
                             shape = predictor(img_rd, faces[i])
-                            self.current_frame_face_features_list.append(
+                            self.current_frame_face_feature_list.append(
                                 face_reco_model.compute_face_descriptor(img_rd, shape))
                             self.current_frame_face_name_list.append("unknown")
 
                         # 2.2.2.1 遍历捕获到的图像中所有的人脸 / Traversal all the faces in the database
                         for k in range(len(faces)):
-                            print("      >>> For face " + str(k+1) + " in current frame:")
-                            self.current_frame_centroid_list.append(
+                            logging.debug("  For face %d in current frame:", k + 1)
+                            self.current_frame_face_centroid_list.append(
                                 [int(faces[k].left() + faces[k].right()) / 2,
                                  int(faces[k].top() + faces[k].bottom()) / 2])
 
@@ -234,14 +246,13 @@ class Face_Recognizer:
 
                             # 2.2.2.3 对于某张人脸，遍历所有存储的人脸特征
                             # For every faces detected, compare the faces in the database
-                            for i in range(len(self.features_known_list)):
-                                # 如果 person_X 数据不为空
-                                if str(self.features_known_list[i][0]) != '0.0':
-                                    print("            >>> with person", str(i + 1), "the e distance: ", end='')
+                            for i in range(len(self.face_features_known_list)):
+                                # 如果 q 数据不为空
+                                if str(self.face_features_known_list[i][0]) != '0.0':
                                     e_distance_tmp = self.return_euclidean_distance(
-                                        self.current_frame_face_features_list[k],
-                                        self.features_known_list[i])
-                                    print(e_distance_tmp)
+                                        self.current_frame_face_feature_list[k],
+                                        self.face_features_known_list[i])
+                                    logging.debug("      with person %d, the e-distance: %f", i + 1, e_distance_tmp)
                                     self.current_frame_face_X_e_distance_list.append(e_distance_tmp)
                                 else:
                                     # 空数据 person_X
@@ -252,12 +263,16 @@ class Face_Recognizer:
                                 min(self.current_frame_face_X_e_distance_list))
 
                             if min(self.current_frame_face_X_e_distance_list) < 0.4:
-                                self.current_frame_face_name_list[k] = self.name_known_list[similar_person_num]
-                                print("            >>> recognition result for face " + str(k+1) +": "+ self.name_known_list[similar_person_num])
+                                self.current_frame_face_name_list[k] = self.face_name_known_list[similar_person_num]
+                                logging.debug("  Face recognition result: %s",
+                                              self.face_name_known_list[similar_person_num])
                             else:
-                                print("            >>> recognition result for face " + str(k + 1) + ": " + "unknown")
-                # 3. 生成的窗口添加说明文字 / Add note on cv2 window
-                self.draw_note(img_rd)
+                                logging.debug("  Face recognition result: Unknown person")
+
+                        # 3. 生成的窗口添加说明文字 / Add note on cv2 window
+                        self.draw_note(img_rd)
+
+                        # cv2.imwrite("debug/debug_" + str(self.frame_cnt) + ".png", img_rd) # Dump current frame image if needed
 
                 # 4. 按下 'q' 键退出 / Press 'q' to exit
                 if kk == ord('q'):
@@ -266,10 +281,12 @@ class Face_Recognizer:
                 self.update_fps()
                 cv2.namedWindow("camera", 1)
                 cv2.imshow("camera", img_rd)
-                print(">>> Frame ends\n\n")
+
+                logging.debug("Frame ends\n\n")
 
     def run(self):
-        cap = cv2.VideoCapture(0)
+        # cap = cv2.VideoCapture("video.mp4")   # Get video stream from video file
+        cap = cv2.VideoCapture(0)               # Get video stream from camera
         self.process(cap)
 
         cap.release()
@@ -277,6 +294,8 @@ class Face_Recognizer:
 
 
 def main():
+    # logging.basicConfig(level=logging.DEBUG) # Set log level to 'logging.DEBUG' to print debug info of every frame
+    logging.basicConfig(level=logging.INFO)
     Face_Recognizer_con = Face_Recognizer()
     Face_Recognizer_con.run()
 

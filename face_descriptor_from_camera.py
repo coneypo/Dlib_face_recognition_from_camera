@@ -1,4 +1,7 @@
-# 摄像头实时人脸特征描述子计算 / Real-time face descriptor compute
+# Copyright (C) 2018-2021 coneypo
+# SPDX-License-Identifier: MIT
+
+# 摄像头实时人脸特征描述子计算 / Real-time face descriptor computing
 
 import dlib         # 人脸识别的库 Dlib
 import cv2          # 图像处理的库 OpenCV

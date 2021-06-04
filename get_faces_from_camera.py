@@ -1,4 +1,4 @@
-# Copyright (C) 2020 coneypo
+# Copyright (C) 2018-2021 coneypo
 # SPDX-License-Identifier: MIT
 
 # Author:   coneypo
@@ -14,6 +14,7 @@ import cv2
 import os
 import shutil
 import time
+import logging
 
 # Dlib 正向人脸检测器 / Use frontal face detector of Dlib
 detector = dlib.get_frontal_face_detector()
@@ -36,7 +37,7 @@ class Face_Register:
         self.frame_start_time = 0
         self.fps = 0
 
-    # 新建保存人脸图像文件和数据CSV文件夹 / Make dir for saving photos and csv
+    # 新建保存人脸图像文件和数据 CSV 文件夹 / Mkdir for saving photos and csv
     def pre_work_mkdir(self):
         # 新建文件夹 / Create folders to save faces images and csv
         if os.path.isdir(self.path_photos_from_camera):
@@ -44,7 +45,7 @@ class Face_Register:
         else:
             os.mkdir(self.path_photos_from_camera)
 
-    # 删除之前存的人脸数据文件夹 / Delete the old data of faces
+    # 删除之前存的人脸数据文件夹 / Delete old face folders
     def pre_work_del_old_face_folders(self):
         # 删除之前存的人脸数据文件夹, 删除 "/data_faces_from_camera/person_x/"...
         folders_rd = os.listdir(self.path_photos_from_camera)
@@ -107,8 +108,7 @@ class Face_Register:
                 self.existing_faces_cnt += 1
                 current_face_dir = self.path_photos_from_camera + "person_" + str(self.existing_faces_cnt)
                 os.makedirs(current_face_dir)
-                print('\n')
-                print("新建的人脸文件夹 / Create folders: ", current_face_dir)
+                logging.info("\n%-40s %s", "新建的人脸文件夹 / Create folders:", current_face_dir)
 
                 self.ss_cnt = 0                 # 将人脸计数器清零 / Clear the cnt of screen shots
                 self.press_n_flag = 1           # 已经按下 'n' / Pressed 'n' already
@@ -129,7 +129,7 @@ class Face_Register:
                         color_rectangle = (0, 0, 255)
                         save_flag = 0
                         if kk == ord('s'):
-                            print("请调整位置 / Please adjust your position")
+                            logging.warning("请调整位置 / Please adjust your position")
                     else:
                         color_rectangle = (255, 255, 255)
                         save_flag = 1
@@ -152,9 +152,9 @@ class Face_Register:
                                     for jj in range(width*2):
                                         img_blank[ii][jj] = img_rd[d.top()-hh + ii][d.left()-ww + jj]
                                 cv2.imwrite(current_face_dir + "/img_face_" + str(self.ss_cnt) + ".jpg", img_blank)
-                                print("写入本地 / Save into：", str(current_face_dir) + "/img_face_" + str(self.ss_cnt) + ".jpg")
+                                logging.info("%-40s %s/img_face_%s.jpg", "写入本地 / Save into：", str(current_face_dir), str(self.ss_cnt))
                             else:
-                                print("请先按 'N' 来建文件夹, 按 'S' / Please press 'N' and press 'S'")
+                                logging.warning("请先按 'N' 来建文件夹, 按 'S' / Please press 'N' and press 'S'")
 
             self.current_frame_faces_cnt = len(faces)
 
@@ -172,8 +172,8 @@ class Face_Register:
             cv2.imshow("camera", img_rd)
 
     def run(self):
-        cap = cv2.VideoCapture(0)
-        # cap = cv2.VideoCapture("head-pose-face-detection-female-and-male.mp4")
+        # cap = cv2.VideoCapture("video.mp4")   # Get video stream from video file
+        cap = cv2.VideoCapture(0)               # Get video stream from camera
         self.process(cap)
 
         cap.release()
@@ -181,6 +181,7 @@ class Face_Register:
 
 
 def main():
+    logging.basicConfig(level=logging.INFO)
     Face_Register_con = Face_Register()
     Face_Register_con.run()
 
