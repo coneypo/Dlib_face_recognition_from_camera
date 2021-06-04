@@ -77,7 +77,7 @@ Overview
 Steps
 *****
 
-#. 安装依赖库 / Install some python packages if needed
+#. 安装依赖库 / Install some python packages needed
 
    .. code-block:: bash
 
@@ -222,6 +222,8 @@ Tips:
 
 #. 如果希望详细了解 dlib 的用法，请参考 Dlib 官方 Python api 的网站 / You can refer to this link for more information of how to use dlib: http://dlib.net/python/index.html
 
+#. Modify log level to ``logging.basicConfig(level=logging.DEBUG)`` to print info for every frame if needed (Default is ``logging.INFO``)
+
 #. Windows下建议不要把代码放到 ``C:\``, 可能会出现权限读取问题 / In windows, we will not recommend that running this repo in dir ``C:\``
 
 #. 代码最好不要有中文路径 / No chinese characters in your code directory
@@ -238,5 +240,7 @@ For more details, please refer to my blog (in chinese) or mail to me :
 * 关于 OT 部分的更新在 Blog: https://www.cnblogs.com/AdaminXie/p/13566269.html
   
 * Mail: coneypo@foxmail.com ( Dlib 相关 repo 问题请联系 @foxmail 而不是 @intel )
+
+* Feel free to creatE issue or PR for this repo :)
 
 Thanks for your support.
