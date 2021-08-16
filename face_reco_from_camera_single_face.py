@@ -6,7 +6,9 @@
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 # Mail:     coneypo@foxmail.com
 
-# 利用 OT 对于单张人脸追踪, 实时人脸识别 (Real-time face detection and recognition via Object-tracking for single face)
+# 单张人脸实时识别 / Real-time face detection and recognition for single face
+# 检测 -> 识别人脸, 新人脸出现 -> 再识别, 不会对于每一帧都进行识别 / Do detection -> recognize face, new face -> do re-recognition
+# 其实对于单张人脸, 不需要 OT 进行跟踪, 对于新出现的人脸, 再识别一次就好了 / No OT here, OT will be used only for multi faces
 
 import dlib
 import numpy as np
@@ -23,13 +25,14 @@ detector = dlib.get_frontal_face_detector()
 # Dlib 人脸 landmark 特征点检测器 / Get face landmarks
 predictor = dlib.shape_predictor('data/data_dlib/shape_predictor_68_face_landmarks.dat')
 
-# Dlib Resnet 人脸识别模型，提取 128D 的特征矢量 / Use Dlib resnet50 model to get 128D face descriptor
+# Dlib Resnet 人脸识别模型, 提取 128D 的特征矢量 / Use Dlib resnet50 model to get 128D face descriptor
 face_reco_model = dlib.face_recognition_model_v1("data/data_dlib/dlib_face_recognition_resnet_model_v1.dat")
 
 
 class Face_Recognizer:
     def __init__(self):
         self.font = cv2.FONT_ITALIC
+        self.font_chinese = ImageFont.truetype("simsun.ttc", 30)
 
         # 统计 FPS / For FPS
         self.frame_time = 0
@@ -42,7 +45,7 @@ class Face_Recognizer:
         # 用来存储所有录入人脸特征的数组 / Save the features of faces in the database
         self.features_known_list = []
         # 用来存储录入人脸名字 / Save the name of faces in the database
-        self.name_known_list = []
+        self.face_name_known_list = []
 
         # 用来存储上一帧和当前帧 ROI 的质心坐标 / List to save centroid positions of ROI in frame N-1 and N
         self.last_frame_centroid_list = []
@@ -81,7 +84,7 @@ class Face_Recognizer:
                     else:
                         features_someone_arr.append(csv_rd.iloc[i][j])
                 self.features_known_list.append(features_someone_arr)
-                self.name_known_list.append("Person_" + str(i + 1))
+                self.face_name_known_list.append("Person_" + str(i + 1))
             logging.info("Faces in Database： %d", len(self.features_known_list))
             return 1
         else:
@@ -108,7 +111,7 @@ class Face_Recognizer:
     # 生成的 cv2 window 上面添加说明文字 / putText on cv2 window
     def draw_note(self, img_rd):
         # 添加说明 (Add some statements
-        cv2.putText(img_rd, "Face Recognizer with OT (one person)", (20, 40), self.font, 1, (255, 255, 255), 1,
+        cv2.putText(img_rd, "Face Recognizer for single face", (20, 40), self.font, 1, (255, 255, 255), 1,
                     cv2.LINE_AA)
         cv2.putText(img_rd, "Frame:  " + str(self.frame_cnt), (20, 100), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
@@ -121,24 +124,21 @@ class Face_Recognizer:
     def draw_name(self, img_rd):
         # 在人脸框下面写人脸名字 / Write names under ROI
         logging.debug(self.current_frame_name_list)
-        font = ImageFont.truetype("simsun.ttc", 30)
         img = Image.fromarray(cv2.cvtColor(img_rd, cv2.COLOR_BGR2RGB))
         draw = ImageDraw.Draw(img)
-        draw.text(xy=self.current_frame_face_position_list[0], text=self.current_frame_name_list[0], font=font)
+        draw.text(xy=self.current_frame_face_position_list[0], text=self.current_frame_name_list[0], font=self.font_chinese,
+                  fill=(255, 255, 0))
         img_rd = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
         return img_rd
 
     def show_chinese_name(self):
-        # Default known name: person_1, person_2, person_3
         if self.current_frame_face_cnt >= 1:
-            logging.debug(self.name_known_list)
-            self.name_known_list[0] = '张1'.encode('utf-8').decode()
-            # self.name_known_list[1] = '张2'.encode('utf-8').decode()
-            # self.name_known_list[2] = '张3'.encode('utf-8').decode()
-            # self.name_known_list[3] = '张4'.encode('utf-8').decode()
-            # self.name_known_list[4] ='张5'.encode('utf-8').decode()
+            logging.debug(self.face_name_known_list)
+            # 修改录入的人脸姓名 / Modify names in face_name_known_list to chinese name
+            self.face_name_known_list[0] = '张三'.encode('utf-8').decode()
+            # self.face_name_known_list[1] = '张四'.encode('utf-8').decode()
 
-    # 处理获取的视频流，进行人脸识别 / Face detection and recognition wit OT from input video stream
+    # 处理获取的视频流, 进行人脸识别 / Face detection and recognition wit OT from input video stream
     def process(self, stream):
         # 1. 读取存放所有人脸特征的 csv / Get faces known from "features.all.csv"
         if self.get_face_database():
@@ -187,7 +187,7 @@ class Face_Recognizer:
                                     [faces[k].left(),
                                      int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
 
-                                # c. 对于某张人脸，遍历所有存储的人脸特征 / For every face detected, compare it with all the faces in the database
+                                # c. 对于某张人脸, 遍历所有存储的人脸特征 / For every face detected, compare it with all the faces in the database
                                 for i in range(len(self.features_known_list)):
                                     # 如果 person_X 数据不为空 / If the data of person_X is not empty
                                     if str(self.features_known_list[i][0]) != '0.0':
@@ -207,9 +207,9 @@ class Face_Recognizer:
                                 if min(self.current_frame_face_X_e_distance_list) < 0.4:
                                     # 在这里更改显示的人名 / Modify name if needed
                                     self.show_chinese_name()
-                                    self.current_frame_name_list[k] = self.name_known_list[similar_person_num]
+                                    self.current_frame_name_list[k] = self.face_name_known_list[similar_person_num]
                                     logging.debug("    recognition result for face %d: %s", k + 1,
-                                                  self.name_known_list[similar_person_num])
+                                                  self.face_name_known_list[similar_person_num])
                                 else:
                                     logging.debug("    recognition result for face %d: %s", k + 1, "unknown")
                         else:
@@ -217,15 +217,9 @@ class Face_Recognizer:
                                 "  scene 1.2 不需要对于当前帧重新进行人脸识别 / No re-classification needed for current frame")
                             # 获取特征框坐标 / Get ROI positions
                             for k, d in enumerate(faces):
-                                # 计算矩形框大小 / Get the shape of ROI
-                                height = (d.bottom() - d.top())
-                                width = (d.right() - d.left())
-                                hh = int(height / 2)
-                                ww = int(width / 2)
-
                                 cv2.rectangle(img_rd,
-                                              tuple([d.left() - ww, d.top() - hh]),
-                                              tuple([d.right() + ww, d.bottom() + hh]),
+                                              tuple([d.left(), d.top()]),
+                                              tuple([d.right(), d.bottom()]),
                                               (255, 255, 255), 2)
 
                                 self.current_frame_face_position_list[k] = tuple(
@@ -243,7 +237,7 @@ class Face_Recognizer:
 
                     # 4.2.1 人脸数从 0->1 / Face cnt 0->1
                     if self.current_frame_face_cnt == 1:
-                        logging.debug("  scene 2.1 出现人脸，进行人脸识别 / Get faces in this frame and do face recognition")
+                        logging.debug("  scene 2.1 出现人脸, 进行人脸识别 / Get faces in this frame and do face recognition")
                         self.current_frame_name_list = []
 
                         for i in range(len(faces)):
@@ -259,7 +253,7 @@ class Face_Recognizer:
                             self.current_frame_face_position_list.append(tuple(
                                 [faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
 
-                            # c. 对于某张人脸，遍历所有存储的人脸特征 / For every face detected, compare it with all the faces in database
+                            # c. 对于某张人脸, 遍历所有存储的人脸特征 / For every face detected, compare it with all the faces in database
                             for i in range(len(self.features_known_list)):
                                 # 如果 person_X 数据不为空 / If data of person_X is not empty
                                 if str(self.features_known_list[i][0]) != '0.0':
@@ -279,9 +273,9 @@ class Face_Recognizer:
                             if min(self.current_frame_face_X_e_distance_list) < 0.4:
                                 # 在这里更改显示的人名 / Modify name if needed
                                 self.show_chinese_name()
-                                self.current_frame_name_list[k] = self.name_known_list[similar_person_num]
+                                self.current_frame_name_list[k] = self.face_name_known_list[similar_person_num]
                                 logging.debug("    recognition result for face %d: %s", k + 1,
-                                              self.name_known_list[similar_person_num])
+                                              self.face_name_known_list[similar_person_num])
                             else:
                                 logging.debug("    recognition result for face %d: %s", k + 1, "unknown")
 
@@ -310,8 +304,8 @@ class Face_Recognizer:
                 logging.debug("Frame ends\n\n")
 
     def run(self):
-        # cap = cv2.VideoCapture("video.mp4")   # Get video stream from video file
-        cap = cv2.VideoCapture(0)               # Get video stream from camera
+        # cap = cv2.VideoCapture("video.mp4")  # Get video stream from video file
+        cap = cv2.VideoCapture(0)              # Get video stream from camera
         self.process(cap)
 
         cap.release()

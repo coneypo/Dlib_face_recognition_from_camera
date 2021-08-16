@@ -6,7 +6,9 @@
 # GitHub:   https://github.com/coneypo/Dlib_face_recognition_from_camera
 # Mail:     coneypo@foxmail.com
 
-# 利用 OT 人脸追踪, 实时人脸识别 / Real-time face detection and recognition via OT for single face
+# 利用 OT 人脸追踪, 进行人脸实时识别 / Real-time face detection and recognition via OT for multi faces
+# 检测 -> 识别人脸, 新人脸出现 -> 不需要识别, 而是利用质心追踪来判断识别结果 / Do detection -> recognize face, new face -> not do re-recognition
+# 人脸进行再识别需要花费大量时间, 这里用 OT 做跟踪 / Do re-recognition for multi faces will cost much time, OT will be used to instead it
 
 import dlib
 import numpy as np
@@ -22,7 +24,7 @@ detector = dlib.get_frontal_face_detector()
 # Dlib 人脸 landmark 特征点检测器 / Get face landmarks
 predictor = dlib.shape_predictor('data/data_dlib/shape_predictor_68_face_landmarks.dat')
 
-# Dlib Resnet 人脸识别模型，提取 128D 的特征矢量 / Use Dlib resnet50 model to get 128D face descriptor
+# Dlib Resnet 人脸识别模型, 提取 128D 的特征矢量 / Use Dlib resnet50 model to get 128D face descriptor
 face_reco_model = dlib.face_recognition_model_v1("data/data_dlib/dlib_face_recognition_resnet_model_v1.dat")
 
 
@@ -108,11 +110,11 @@ class Face_Recognizer:
         dist = np.sqrt(np.sum(np.square(feature_1 - feature_2)))
         return dist
 
-    # Use centroid tracker to link face_x in current frame with person_x in last frame
+    # 使用质心追踪来识别人脸 / Use centroid tracker to link face_x in current frame with person_x in last frame
     def centroid_tracker(self):
         for i in range(len(self.current_frame_face_centroid_list)):
             e_distance_current_frame_person_x_list = []
-            # For object 1 in current_frame, compute e-distance with object 1/2/3/4/... in last frame
+            # 对于当前帧中的人脸1, 和上一帧中的 人脸1/2/3/4/.. 进行欧氏距离计算 / For object 1 in current_frame, compute e-distance with object 1/2/3/4/... in last frame
             for j in range(len(self.last_frame_face_centroid_list)):
                 self.last_current_frame_centroid_e_distance = self.return_euclidean_distance(
                     self.current_frame_face_centroid_list[i], self.last_frame_face_centroid_list[j])
@@ -127,7 +129,7 @@ class Face_Recognizer:
     # 生成的 cv2 window 上面添加说明文字 / putText on cv2 window
     def draw_note(self, img_rd):
         # 添加说明 / Add some info on windows
-        cv2.putText(img_rd, "Face recognizer with OT", (20, 40), self.font, 1, (255, 255, 255), 1, cv2.LINE_AA)
+        cv2.putText(img_rd, "Face Recognizer with OT", (20, 40), self.font, 1, (255, 255, 255), 1, cv2.LINE_AA)
         cv2.putText(img_rd, "Frame:  " + str(self.frame_cnt), (20, 100), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
         cv2.putText(img_rd, "FPS:    " + str(self.fps.__round__(2)), (20, 130), self.font, 0.8, (0, 255, 0), 1,
@@ -137,14 +139,14 @@ class Face_Recognizer:
         cv2.putText(img_rd, "Q: Quit", (20, 450), self.font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
 
         for i in range(len(self.current_frame_face_name_list)):
-            img_rd = cv2.putText(img_rd, "Face " + str(i + 1), tuple(
+            img_rd = cv2.putText(img_rd, "Face_" + str(i + 1), tuple(
                 [int(self.current_frame_face_centroid_list[i][0]), int(self.current_frame_face_centroid_list[i][1])]),
                                  self.font,
                                  0.8, (255, 190, 0),
                                  1,
                                  cv2.LINE_AA)
 
-    # 处理获取的视频流，进行人脸识别 / Face detection and recognition wit OT from input video stream
+    # 处理获取的视频流, 进行人脸识别 / Face detection and recognition wit OT from input video stream
     def process(self, stream):
         # 1. 读取存放所有人脸特征的 csv / Get faces known from "features.all.csv"
         if self.get_face_database():
@@ -157,18 +159,18 @@ class Face_Recognizer:
                 # 2. 检测人脸 / Detect faces for frame X
                 faces = detector(img_rd, 0)
 
-                # Update cnt for faces in frames
+                # 3. 更新人脸计数器 / Update cnt for faces in frames
                 self.last_frame_face_cnt = self.current_frame_face_cnt
                 self.current_frame_face_cnt = len(faces)
 
-                # Update the face name list in last frame
+                # 4. 更新上一帧中的人脸列表 / Update the face name list in last frame
                 self.last_frame_face_name_list = self.current_frame_face_name_list[:]
 
-                # update frame centroid list
+                # 5. 更新上一帧和当前帧的质心列表 / update frame centroid list
                 self.last_frame_face_centroid_list = self.current_frame_face_centroid_list
                 self.current_frame_face_centroid_list = []
 
-                # 2.1. if cnt not changes
+                # 6.1 如果当前帧和上一帧人脸数没有变化 / if cnt not changes
                 if (self.current_frame_face_cnt == self.last_frame_face_cnt) and (
                         self.reclassify_interval_cnt != self.reclassify_interval):
                     logging.debug("scene 1: 当前帧和上一帧相比没有发生人脸数变化 / No face cnt changes in this frame!!!")
@@ -180,7 +182,6 @@ class Face_Recognizer:
                         self.reclassify_interval_cnt += 1
 
                     if self.current_frame_face_cnt != 0:
-                        # 2.1.1 Get ROI positions
                         for k, d in enumerate(faces):
                             self.current_frame_face_position_list.append(tuple(
                                 [faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
@@ -188,17 +189,12 @@ class Face_Recognizer:
                                 [int(faces[k].left() + faces[k].right()) / 2,
                                  int(faces[k].top() + faces[k].bottom()) / 2])
 
-                            # 计算矩形框大小 / Compute the size of rectangle box
-                            height = (d.bottom() - d.top())
-                            width = (d.right() - d.left())
-                            hh = int(height / 2)
-                            ww = int(width / 2)
                             img_rd = cv2.rectangle(img_rd,
-                                                   tuple([d.left() - ww, d.top() - hh]),
-                                                   tuple([d.right() + ww, d.bottom() + hh]),
+                                                   tuple([d.left(), d.top()]),
+                                                   tuple([d.right(), d.bottom()]),
                                                    (255, 255, 255), 2)
 
-                    # Multi-faces in current frame, use centroid-tracker to track
+                    # 如果当前帧中有多个人脸, 使用质心追踪 / Multi-faces in current frame, use centroid-tracker to track
                     if self.current_frame_face_cnt != 1:
                         self.centroid_tracker()
 
@@ -208,7 +204,8 @@ class Face_Recognizer:
                                              self.current_frame_face_position_list[i], self.font, 0.8, (0, 255, 255), 1,
                                              cv2.LINE_AA)
                     self.draw_note(img_rd)
-                # 2.2 If cnt of faces changes, 0->1 or 1->0 or ...
+
+                # 6.2 如果当前帧和上一帧人脸数发生变化 / If cnt of faces changes, 0->1 or 1->0 or ...
                 else:
                     logging.debug("scene 2: 当前帧和上一帧相比人脸数发生变化 / Faces cnt changes in this frame")
                     self.current_frame_face_position_list = []
@@ -216,14 +213,14 @@ class Face_Recognizer:
                     self.current_frame_face_feature_list = []
                     self.reclassify_interval_cnt = 0
 
-                    # 2.2.1 Face cnt decreases: 1->0, 2->1, ...
+                    # 6.2.1 人脸数减少 / Face cnt decreases: 1->0, 2->1, ...
                     if self.current_frame_face_cnt == 0:
                         logging.debug("  scene 2.1 人脸消失, 当前帧中没有人脸 / No faces in this frame!!!")
                         # clear list of names and features
                         self.current_frame_face_name_list = []
-                    # 2.2.2 Face cnt increase: 0->1, 0->2, ..., 1->2, ...
+                    # 6.2.2 人脸数增加 / Face cnt increase: 0->1, 0->2, ..., 1->2, ...
                     else:
-                        logging.debug("  scene 2.2 出现人脸，进行人脸识别 / Get faces in this frame and do face recognition")
+                        logging.debug("  scene 2.2 出现人脸, 进行人脸识别 / Get faces in this frame and do face recognition")
                         self.current_frame_face_name_list = []
                         for i in range(len(faces)):
                             shape = predictor(img_rd, faces[i])
@@ -231,7 +228,7 @@ class Face_Recognizer:
                                 face_reco_model.compute_face_descriptor(img_rd, shape))
                             self.current_frame_face_name_list.append("unknown")
 
-                        # 2.2.2.1 遍历捕获到的图像中所有的人脸 / Traversal all the faces in the database
+                        # 6.2.2.1 遍历捕获到的图像中所有的人脸 / Traversal all the faces in the database
                         for k in range(len(faces)):
                             logging.debug("  For face %d in current frame:", k + 1)
                             self.current_frame_face_centroid_list.append(
@@ -240,11 +237,11 @@ class Face_Recognizer:
 
                             self.current_frame_face_X_e_distance_list = []
 
-                            # 2.2.2.2 每个捕获人脸的名字坐标 / Positions of faces captured
+                            # 6.2.2.2 每个捕获人脸的名字坐标 / Positions of faces captured
                             self.current_frame_face_position_list.append(tuple(
                                 [faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
 
-                            # 2.2.2.3 对于某张人脸，遍历所有存储的人脸特征
+                            # 6.2.2.3 对于某张人脸, 遍历所有存储的人脸特征
                             # For every faces detected, compare the faces in the database
                             for i in range(len(self.face_features_known_list)):
                                 # 如果 q 数据不为空
@@ -258,7 +255,7 @@ class Face_Recognizer:
                                     # 空数据 person_X
                                     self.current_frame_face_X_e_distance_list.append(999999999)
 
-                            # 2.2.2.4 寻找出最小的欧式距离匹配 / Find the one with minimum e distance
+                            # 6.2.2.4 寻找出最小的欧式距离匹配 / Find the one with minimum e distance
                             similar_person_num = self.current_frame_face_X_e_distance_list.index(
                                 min(self.current_frame_face_X_e_distance_list))
 
@@ -269,12 +266,12 @@ class Face_Recognizer:
                             else:
                                 logging.debug("  Face recognition result: Unknown person")
 
-                        # 3. 生成的窗口添加说明文字 / Add note on cv2 window
+                        # 7. 生成的窗口添加说明文字 / Add note on cv2 window
                         self.draw_note(img_rd)
 
                         # cv2.imwrite("debug/debug_" + str(self.frame_cnt) + ".png", img_rd) # Dump current frame image if needed
 
-                # 4. 按下 'q' 键退出 / Press 'q' to exit
+                # 8. 按下 'q' 键退出 / Press 'q' to exit
                 if kk == ord('q'):
                     break
 
@@ -285,8 +282,8 @@ class Face_Recognizer:
                 logging.debug("Frame ends\n\n")
 
     def run(self):
-        # cap = cv2.VideoCapture("video.mp4")   # Get video stream from video file
-        cap = cv2.VideoCapture(0)               # Get video stream from camera
+        # cap = cv2.VideoCapture("video.mp4")  # Get video stream from video file
+        cap = cv2.VideoCapture(0)              # Get video stream from camera
         self.process(cap)
 
         cap.release()

@@ -98,19 +98,18 @@ class Face_Recognizer:
         draw = ImageDraw.Draw(img)
         for i in range(self.current_frame_face_cnt):
             # cv2.putText(img_rd, self.current_frame_face_name_list[i], self.current_frame_face_name_position_list[i], self.font, 0.8, (0, 255, 255), 1, cv2.LINE_AA)
-            draw.text(xy=self.current_frame_face_name_position_list[i], text=self.current_frame_face_name_list[i], font=self.font_chinese)
-            img_with_name = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        return img_with_name
+            draw.text(xy=self.current_frame_face_name_position_list[i], text=self.current_frame_face_name_list[i], font=self.font_chinese,
+                  fill=(255, 255, 0))
+            img_rd = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        return img_rd
 
     # 修改显示人名 / Show names in chinese
     def show_chinese_name(self):
         # Default known name: person_1, person_2, person_3
         if self.current_frame_face_cnt >= 1:
-            self.face_name_known_list[0] ='张1'.encode('utf-8').decode()
-            # self.face_name_known_list[1] ='张2'.encode('utf-8').decode()
-            # self.face_name_known_list[2] ='张3'.encode('utf-8').decode()
-            # self.face_name_known_list[3] ='张4'.encode('utf-8').decode()
-            # self.face_name_known_list[4] ='张5'.encode('utf-8').decode()
+            # 修改录入的人脸姓名 / Modify names in face_name_known_list to chinese name
+            self.face_name_known_list[0] = '张三'.encode('utf-8').decode()
+            # self.face_name_known_list[1] = '张四'.encode('utf-8').decode()
 
     # 处理获取的视频流，进行人脸识别 / Face detection and recognition from input video stream
     def process(self, stream):
@@ -176,7 +175,7 @@ class Face_Recognizer:
                             for kk, d in enumerate(faces):
                                 # 绘制矩形框
                                 cv2.rectangle(img_rd, tuple([d.left(), d.top()]), tuple([d.right(), d.bottom()]),
-                                              (0, 255, 255), 2)
+                                              (255, 255, 255), 2)
 
                         self.current_frame_face_cnt = len(faces)
 
@@ -199,8 +198,8 @@ class Face_Recognizer:
 
     # OpenCV 调用摄像头并进行 process
     def run(self):
-        # cap = cv2.VideoCapture("video.mp4")   # Get video stream from video file
-        cap = cv2.VideoCapture(0)               # Get video stream from camera
+        # cap = cv2.VideoCapture("video.mp4")  # Get video stream from video file
+        cap = cv2.VideoCapture(0)              # Get video stream from camera
         cap.set(3, 480)                         # 640x480
         self.process(cap)
 

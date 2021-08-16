@@ -1,3 +1,4 @@
 dlib==19.17.0
 numpy==1.15.1
 scikit-image==0.14.0
+pandas==0.25.3
