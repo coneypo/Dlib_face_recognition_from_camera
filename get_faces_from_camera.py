@@ -36,10 +36,12 @@ class Face_Register:
         self.frame_time = 0
         self.frame_start_time = 0
         self.fps = 0
+        self.fps_show = 0
+        self.start_time = time.time()
 
     # 新建保存人脸图像文件和数据 CSV 文件夹 / Mkdir for saving photos and csv
     def pre_work_mkdir(self):
-        # 新建文件夹 / Create folders to save faces images and csv
+        # 新建文件夹 / Create folders to save face images and csv
         if os.path.isdir(self.path_photos_from_camera):
             pass
         else:
@@ -68,9 +70,13 @@ class Face_Register:
         else:
             self.existing_faces_cnt = 0
 
-    # 获取处理之后 stream 的帧数 / Update FPS of video stream
+    # 更新 FPS / Update FPS of Video stream
     def update_fps(self):
         now = time.time()
+        # 每秒刷新 fps / Refresh fps per second
+        if str(self.start_time).split(".")[0] != str(now).split(".")[0]:
+            self.fps_show = self.fps
+        self.start_time = now
         self.frame_time = now - self.frame_start_time
         self.fps = 1.0 / self.frame_time
         self.frame_start_time = now
@@ -79,7 +85,7 @@ class Face_Register:
     def draw_note(self, img_rd):
         # 添加说明 / Add some notes
         cv2.putText(img_rd, "Face Register", (20, 40), self.font, 1, (255, 255, 255), 1, cv2.LINE_AA)
-        cv2.putText(img_rd, "FPS:   " + str(self.fps.__round__(2)), (20, 100), self.font, 0.8, (0, 255, 0), 1,
+        cv2.putText(img_rd, "FPS:   " + str(self.fps_show.__round__(2)), (20, 100), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
         cv2.putText(img_rd, "Faces: " + str(self.current_frame_faces_cnt), (20, 140), self.font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
         cv2.putText(img_rd, "N: Create face folder", (20, 350), self.font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
@@ -91,7 +97,8 @@ class Face_Register:
         # 1. 新建储存人脸图像文件目录 / Create folders to save photos
         self.pre_work_mkdir()
 
-        # 2. 删除 "/data/data_faces_from_camera" 中已有人脸图像文件 / Uncomment if want to delete the saved faces and start from person_1
+        # 2. 删除 "/data/data_faces_from_camera" 中已有人脸图像文件
+        # / Uncomment if want to delete the saved faces and start from person_1
         # if os.path.isdir(self.path_photos_from_camera):
         #     self.pre_work_del_old_face_folders()
 
@@ -152,7 +159,8 @@ class Face_Register:
                                     for jj in range(width*2):
                                         img_blank[ii][jj] = img_rd[d.top()-hh + ii][d.left()-ww + jj]
                                 cv2.imwrite(current_face_dir + "/img_face_" + str(self.ss_cnt) + ".jpg", img_blank)
-                                logging.info("%-40s %s/img_face_%s.jpg", "写入本地 / Save into：", str(current_face_dir), str(self.ss_cnt))
+                                logging.info("%-40s %s/img_face_%s.jpg", "写入本地 / Save into：",
+                                             str(current_face_dir), str(self.ss_cnt))
                             else:
                                 logging.warning("请先按 'N' 来建文件夹, 按 'S' / Please press 'N' and press 'S'")
 

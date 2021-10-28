@@ -32,10 +32,12 @@ class Face_Recognizer:
     def __init__(self):
         self.font = cv2.FONT_ITALIC
 
-        # For FPS
+        # FPS
         self.frame_time = 0
         self.frame_start_time = 0
         self.fps = 0
+        self.fps_show = 0
+        self.start_time = time.time()
 
         # cnt for frame
         self.frame_cnt = 0
@@ -95,9 +97,12 @@ class Face_Recognizer:
                             "and 'features_extraction_to_csv.py' before 'face_reco_from_camera.py'")
             return 0
 
-    # 获取处理之后 stream 的帧数 / Get the fps of video stream
     def update_fps(self):
         now = time.time()
+        # 每秒刷新 fps / Refresh fps per second
+        if str(self.start_time).split(".")[0] != str(now).split(".")[0]:
+            self.fps_show = self.fps
+        self.start_time = now
         self.frame_time = now - self.frame_start_time
         self.fps = 1.0 / self.frame_time
         self.frame_start_time = now

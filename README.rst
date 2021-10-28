@@ -76,9 +76,7 @@ Steps
 
    .. code-block:: bash
 
-      pip3 install opencv-python
-      pip3 install scikit-image
-      pip3 install dlib
+      pip install -r requirements.txt
 
 #. 下载源码 / Download zip from website or via GitHub Desktop in windows, or git clone repo in Ubuntu
 

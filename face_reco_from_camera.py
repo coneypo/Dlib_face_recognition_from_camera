@@ -38,9 +38,11 @@ class Face_Recognizer:
         self.current_frame_face_name_position_list = []     # 存储当前摄像头中捕获到的所有人脸的名字坐标 / Positions of faces in current frame
 
         # Update FPS
-        self.fps = 0
+        self.fps = 0                    # FPS of current frame
+        self.fps_show = 0               # FPS per second
         self.frame_start_time = 0
         self.frame_cnt = 0
+        self.start_time = time.time()
 
         self.font = cv2.FONT_ITALIC
         self.font_chinese = ImageFont.truetype("simsun.ttc", 30)
@@ -78,15 +80,20 @@ class Face_Recognizer:
     # 更新 FPS / Update FPS of Video stream
     def update_fps(self):
         now = time.time()
+        # 每秒刷新 fps / Refresh fps per second
+        if str(self.start_time).split(".")[0] != str(now).split(".")[0]:
+            self.fps_show = self.fps
+        self.start_time = now
         self.frame_time = now - self.frame_start_time
         self.fps = 1.0 / self.frame_time
         self.frame_start_time = now
 
+    # 生成的 cv2 window 上面添加说明文字 / PutText on cv2 window
     def draw_note(self, img_rd):
         cv2.putText(img_rd, "Face Recognizer", (20, 40), self.font, 1, (255, 255, 255), 1, cv2.LINE_AA)
         cv2.putText(img_rd, "Frame:  " + str(self.frame_cnt), (20, 100), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
-        cv2.putText(img_rd, "FPS:    " + str(self.fps.__round__(2)), (20, 130), self.font, 0.8, (0, 255, 0), 1,
+        cv2.putText(img_rd, "FPS:    " + str(self.fps_show.__round__(2)), (20, 130), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
         cv2.putText(img_rd, "Faces:  " + str(self.current_frame_face_cnt), (20, 160), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
