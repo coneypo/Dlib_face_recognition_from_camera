@@ -8,8 +8,12 @@ Detect and recognize single/multi-faces from camera;
 
 调用摄像头进行人脸识别, 支持多张人脸同时识别;
 
+#. Tkinter 人脸录入界面, 支持录入时设置姓名 / Face register GUI with Tkinter, support setting name when registering
 
-#. 摄像头人脸录入 / Face register
+   .. image:: introduction/face_register_tkinter_GUI.png
+      :align: center
+
+#. 简单的 OpenCV 摄像头人脸录入界面 / Simple face register GUI with OpenCV
 
    .. image:: introduction/face_register.png
       :align: center
@@ -18,11 +22,6 @@ Detect and recognize single/multi-faces from camera;
    Please do not be too close to the camera, or you can't save faces with "OUT OF RANGE" warning;
 
    .. image:: introduction/face_register_warning.png
-      :align: center
-
-#. 摄像头人脸录入 / Face register with Tkinter GUI
-
-   .. image:: introduction/face_register_tkinter_GUI.png
       :align: center
 
 #. 提取特征建立人脸数据库 / Generate face database from images captured
@@ -89,7 +88,13 @@ Steps
 
       git clone https://github.com/coneypo/Dlib_face_recognition_from_camera
 
-#. 进行人脸信息采集录入 / Register faces 
+#. 进行人脸信息采集录入, Tkinter GUI / Register faces with Tkinter GUI
+
+   .. code-block:: bash
+
+      python3 get_faces_from_camera_tkinter.py
+
+#. 进行人脸信息采集录入, OpenCV GUI / Register faces with OpenCV GUI
 
    .. code-block:: bash
 
@@ -127,7 +132,8 @@ Repo 的 tree / 树状图:
 ::
 
     .
-    ├── get_faces_from_camera.py        		# Step 1. Face register
+    ├── get_faces_from_camera.py        		# Step 1. Face register GUI with OpenCV
+    ├── get_faces_from_camera_tkinter.py        	# Step 1. Face register GUI with Tkinter
     ├── features_extraction_to_csv.py   		# Step 2. Feature extraction
     ├── face_reco_from_camera.py        		# Step 3. Face recognizer
     ├── face_reco_from_camera_single_face.py    # Step 3. Face recognizer for single person
