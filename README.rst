@@ -20,6 +20,11 @@ Detect and recognize single/multi-faces from camera;
    .. image:: introduction/face_register_warning.png
       :align: center
 
+#. 摄像头人脸录入 / Face register with Tkinter GUI
+
+   .. image:: introduction/face_register_tkinter_GUI.png
+      :align: center
+
 #. 提取特征建立人脸数据库 / Generate face database from images captured
 #. 利用摄像头进行人脸识别 / Face recognizer
    

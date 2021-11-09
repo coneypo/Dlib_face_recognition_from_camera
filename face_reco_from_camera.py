@@ -54,13 +54,13 @@ class Face_Recognizer:
             csv_rd = pd.read_csv(path_features_known_csv, header=None)
             for i in range(csv_rd.shape[0]):
                 features_someone_arr = []
-                for j in range(0, 128):
+                self.face_name_known_list.append(csv_rd.iloc[i][0])
+                for j in range(1, 129):
                     if csv_rd.iloc[i][j] == '':
                         features_someone_arr.append('0')
                     else:
                         features_someone_arr.append(csv_rd.iloc[i][j])
                 self.face_feature_known_list.append(features_someone_arr)
-                self.face_name_known_list.append("Person_"+str(i+1))
             logging.info("Faces in Database：%d", len(self.face_feature_known_list))
             return 1
         else:
@@ -187,7 +187,7 @@ class Face_Recognizer:
                         self.current_frame_face_cnt = len(faces)
 
                         # 7. 在这里更改显示的人名 / Modify name if needed
-                        self.show_chinese_name()
+                        # self.show_chinese_name()
 
                         # 8. 写名字 / Draw name
                         img_with_name = self.draw_name(img_rd)
@@ -206,7 +206,7 @@ class Face_Recognizer:
     # OpenCV 调用摄像头并进行 process
     def run(self):
         # cap = cv2.VideoCapture("video.mp4")  # Get video stream from video file
-        cap = cv2.VideoCapture(0)              # Get video stream from camera
+        cap = cv2.VideoCapture("../sample-videos/head-pose-face-detection-female-and-male.mp4")              # Get video stream from camera
         cap.set(3, 480)                         # 640x480
         self.process(cap)
 

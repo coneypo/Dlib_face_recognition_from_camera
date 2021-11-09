@@ -70,7 +70,7 @@ def return_features_mean_personX(path_face_personX):
     # 计算 128D 特征的均值 / Compute the mean
     # personX 的 N 张图像 x 128D -> 1 x 128D
     if features_list_personX:
-        features_mean_personX = np.array(features_list_personX).mean(axis=0)
+        features_mean_personX = np.array(features_list_personX, dtype=object).mean(axis=0)
     else:
         features_mean_personX = np.zeros(128, dtype=int, order='C')
     return features_mean_personX
@@ -80,17 +80,23 @@ def main():
     logging.basicConfig(level=logging.INFO)
     # 获取已录入的最后一个人脸序号 / Get the order of latest person
     person_list = os.listdir("data/data_faces_from_camera/")
-    person_num_list = []
-    for person in person_list:
-        person_num_list.append(int(person.split('_')[-1]))
-    person_cnt = max(person_num_list)
+    person_list.sort()
 
     with open("data/features_all.csv", "w", newline="") as csvfile:
         writer = csv.writer(csvfile)
-        for person in range(person_cnt):
+        for person in person_list:
             # Get the mean/average features of face/personX, it will be a list with a length of 128D
-            logging.info("%sperson_%s", path_images_from_camera, str(person + 1))
-            features_mean_personX = return_features_mean_personX(path_images_from_camera + "person_" + str(person + 1))
+            logging.info("%sperson_%s", path_images_from_camera, person)
+            features_mean_personX = return_features_mean_personX(path_images_from_camera + person)
+
+            if len(person.split('_', 2)) == 2:
+                # "person_x"
+                person_name = person
+            else:
+                # "person_x_tom"
+                person_name = person.split('_', 2)[-1]
+            features_mean_personX = np.insert(features_mean_personX, 0, person_name, axis=0)
+            # features_mean_personX will be 129D, person name + 128 features
             writer.writerow(features_mean_personX)
             logging.info('\n')
         logging.info("所有录入人脸数据存入 / Save all the features of faces registered into: data/features_all.csv")
