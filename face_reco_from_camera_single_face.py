@@ -80,13 +80,13 @@ class Face_Recognizer:
             csv_rd = pd.read_csv(path_features_known_csv, header=None)
             for i in range(csv_rd.shape[0]):
                 features_someone_arr = []
-                for j in range(0, 128):
+                self.face_name_known_list.append(csv_rd.iloc[i][0])
+                for j in range(1, 129):
                     if csv_rd.iloc[i][j] == '':
                         features_someone_arr.append('0')
                     else:
                         features_someone_arr.append(csv_rd.iloc[i][j])
                 self.features_known_list.append(features_someone_arr)
-                self.face_name_known_list.append("Person_" + str(i + 1))
             logging.info("Faces in Database： %d", len(self.features_known_list))
             return 1
         else:

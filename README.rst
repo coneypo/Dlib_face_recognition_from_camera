@@ -8,8 +8,12 @@ Detect and recognize single/multi-faces from camera;
 
 调用摄像头进行人脸识别, 支持多张人脸同时识别;
 
+#. Tkinter 人脸录入界面, 支持录入时设置姓名 / Face register GUI with Tkinter, support setting name when registering
 
-#. 摄像头人脸录入 / Face register
+   .. image:: introduction/face_register_tkinter_GUI.png
+      :align: center
+
+#. 简单的 OpenCV 摄像头人脸录入界面 / Simple face register GUI with OpenCV
 
    .. image:: introduction/face_register.png
       :align: center
@@ -84,7 +88,13 @@ Steps
 
       git clone https://github.com/coneypo/Dlib_face_recognition_from_camera
 
-#. 进行人脸信息采集录入 / Register faces 
+#. 进行人脸信息采集录入, Tkinter GUI / Register faces with Tkinter GUI
+
+   .. code-block:: bash
+
+      python3 get_faces_from_camera_tkinter.py
+
+#. 进行人脸信息采集录入, OpenCV GUI / Register faces with OpenCV GUI
 
    .. code-block:: bash
 
@@ -122,11 +132,12 @@ Repo 的 tree / 树状图:
 ::
 
     .
-    ├── get_faces_from_camera.py        		# Step 1. Face register
+    ├── get_faces_from_camera.py        		# Step 1. Face register GUI with OpenCV
+    ├── get_faces_from_camera_tkinter.py        	# Step 1. Face register GUI with Tkinter
     ├── features_extraction_to_csv.py   		# Step 2. Feature extraction
     ├── face_reco_from_camera.py        		# Step 3. Face recognizer
-    ├── face_reco_from_camera_single_face.py    # Step 3. Face recognizer for single person
-    ├── face_reco_from_camera_ot.py             # Step 3. Face recognizer with OT
+    ├── face_reco_from_camera_single_face.py            # Step 3. Face recognizer for single person
+    ├── face_reco_from_camera_ot.py                     # Step 3. Face recognizer with OT
     ├── face_descriptor_from_camera.py  		# Face descriptor computation
     ├── how_to_use_camera.py            		# Use the default camera by opencv
     ├── data
@@ -193,7 +204,7 @@ Python 源码介绍如下:
    从上一步存下来的图像文件中, 提取人脸数据存入CSV;
   
    * 会生成一个存储所有特征人脸数据的 "features_all.csv"；
-   * size: n*128 , n means n people you registered and 128 means 128D features of the face
+   * size: n*129 , n means nx faces you registered and 129 means face name + 128D features of this face
 
 
 #. face_reco_from_camera.py: 
