@@ -136,8 +136,8 @@ Repo 的 tree / 树状图:
     ├── get_faces_from_camera_tkinter.py        	# Step 1. Face register GUI with Tkinter
     ├── features_extraction_to_csv.py   		# Step 2. Feature extraction
     ├── face_reco_from_camera.py        		# Step 3. Face recognizer
-    ├── face_reco_from_camera_single_face.py    # Step 3. Face recognizer for single person
-    ├── face_reco_from_camera_ot.py             # Step 3. Face recognizer with OT
+    ├── face_reco_from_camera_single_face.py            # Step 3. Face recognizer for single person
+    ├── face_reco_from_camera_ot.py                     # Step 3. Face recognizer with OT
     ├── face_descriptor_from_camera.py  		# Face descriptor computation
     ├── how_to_use_camera.py            		# Use the default camera by opencv
     ├── data
@@ -204,7 +204,7 @@ Python 源码介绍如下:
    从上一步存下来的图像文件中, 提取人脸数据存入CSV;
   
    * 会生成一个存储所有特征人脸数据的 "features_all.csv"；
-   * size: n*128 , n means n people you registered and 128 means 128D features of the face
+   * size: n*129 , n means nx faces you registered and 129 means face name + 128D features of this face
 
 
 #. face_reco_from_camera.py: 

@@ -16,9 +16,9 @@ detector = dlib.get_frontal_face_detector()
 class Face_Register:
     def __init__(self):
 
-        self.existing_faces_cnt = 0  # 已录入的人脸计数器 / cnt for counting saved faces
-        self.ss_cnt = 0  # 录入 personX 人脸时图片计数器 / cnt for screen shots
-        self.current_frame_faces_cnt = 0  # 录入人脸计数器 / cnt for counting faces in current frame
+        self.existing_faces_cnt = 0         # 已录入的人脸计数器 / cnt for counting saved faces
+        self.ss_cnt = 0                     # 录入 person_n 人脸时图片计数器 / cnt for screen shots
+        self.current_frame_faces_cnt = 0    # 当前帧中人脸计数器 / cnt for counting faces in current frame
 
         # Tkinter GUI
         self.win = Tk()

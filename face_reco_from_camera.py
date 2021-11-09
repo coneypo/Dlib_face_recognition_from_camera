@@ -206,8 +206,8 @@ class Face_Recognizer:
     # OpenCV 调用摄像头并进行 process
     def run(self):
         # cap = cv2.VideoCapture("video.mp4")  # Get video stream from video file
-        cap = cv2.VideoCapture("../sample-videos/head-pose-face-detection-female-and-male.mp4")              # Get video stream from camera
-        cap.set(3, 480)                         # 640x480
+        cap = cv2.VideoCapture("0")            # Get video stream from camera
+        cap.set(3, 480)                        # 640x480
         self.process(cap)
 
         cap.release()
