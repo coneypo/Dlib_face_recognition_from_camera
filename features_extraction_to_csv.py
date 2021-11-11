@@ -72,7 +72,7 @@ def return_features_mean_personX(path_face_personX):
     if features_list_personX:
         features_mean_personX = np.array(features_list_personX, dtype=object).mean(axis=0)
     else:
-        features_mean_personX = np.zeros(128, dtype=int, order='C')
+        features_mean_personX = np.zeros(128, dtype=object, order='C')
     return features_mean_personX
 
 

@@ -4,7 +4,7 @@ Face recognition from camera with Dlib
 Introduction
 ************
 
-Detect and recognize single/multi-faces from camera;
+Detect and recognize single or multi faces from camera;
 
 调用摄像头进行人脸识别, 支持多张人脸同时识别;
 
@@ -13,13 +13,13 @@ Detect and recognize single/multi-faces from camera;
    .. image:: introduction/face_register_tkinter_GUI.png
       :align: center
 
-#. 简单的 OpenCV 摄像头人脸录入界面 / Simple face register GUI with OpenCV
+#. 简单的 OpenCV 摄像头人脸录入界面 / Simple face register GUI with OpenCV, tkinter not needed
 
    .. image:: introduction/face_register.png
       :align: center
 
-   请不要离摄像头过近, 人脸超出摄像头范围时会有 "OUT OF RANGE" 提醒 /
-   Please do not be too close to the camera, or you can't save faces with "OUT OF RANGE" warning;
+   离摄像头过近, 人脸超出摄像头范围时, 会有 "OUT OF RANGE" 提醒 /
+   Too close to the camera, or face ROI out of camera area, will have "OUT OF RANGE" warning;
 
    .. image:: introduction/face_register_warning.png
       :align: center
@@ -92,6 +92,9 @@ Steps
 
    .. code-block:: bash
 
+      # Install Tkinter
+      sudo apt-get install python3-tk python3-pil python3-pil.imagetk
+
       python3 get_faces_from_camera_tkinter.py
 
 #. 进行人脸信息采集录入, OpenCV GUI / Register faces with OpenCV GUI
@@ -133,11 +136,11 @@ Repo 的 tree / 树状图:
 
     .
     ├── get_faces_from_camera.py        		# Step 1. Face register GUI with OpenCV
-    ├── get_faces_from_camera_tkinter.py        	# Step 1. Face register GUI with Tkinter
+    ├── get_faces_from_camera_tkinter.py        # Step 1. Face register GUI with Tkinter
     ├── features_extraction_to_csv.py   		# Step 2. Feature extraction
     ├── face_reco_from_camera.py        		# Step 3. Face recognizer
-    ├── face_reco_from_camera_single_face.py            # Step 3. Face recognizer for single person
-    ├── face_reco_from_camera_ot.py                     # Step 3. Face recognizer with OT
+    ├── face_reco_from_camera_single_face.py    # Step 3. Face recognizer for single person
+    ├── face_reco_from_camera_ot.py             # Step 3. Face recognizer with OT
     ├── face_descriptor_from_camera.py  		# Face descriptor computation
     ├── how_to_use_camera.py            		# Use the default camera by opencv
     ├── data
