@@ -56,8 +56,7 @@ Introduction
 
 ** 关于精度 / About accuracy:
 
-* When using a distance threshold of ``0.6``, the dlib model obtains an accuracy of ``99.38%``
-on the standard LFW face recognition benchmark.
+* When using a distance threshold of ``0.6``, the dlib model obtains an accuracy of ``99.38%`` on the standard LFW face recognition benchmark.
 
 ** 关于算法 / About algorithm
 
