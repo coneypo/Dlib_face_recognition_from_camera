@@ -8,7 +8,8 @@ Detect and recognize single or multi faces from camera;
 
 调用摄像头进行人脸识别, 支持多张人脸同时识别;
 
-#. Tkinter 人脸录入界面, 支持录入时设置姓名 / Face register GUI with Tkinter, support setting name when registering
+#. Tkinter 人脸录入界面, 支持录入时设置 (中文) 姓名 /
+Face register GUI with Tkinter, support setting (chinese) name when registering
 
    .. image:: introduction/face_register_tkinter_GUI.png
       :align: center
@@ -32,7 +33,8 @@ Detect and recognize single or multi faces from camera;
    .. image:: introduction/face_reco.png
       :align: center
 
-   face_reco_from_camera_single_face.py, 对于人脸<=1, 只有新人脸出现才进行再识别来提高 FPS / Do re-reco only for new single face:
+   face_reco_from_camera_single_face.py, 对于人脸<=1, 只有新人脸出现才进行再识别来提高 FPS /
+   Do re-reco only for new single face:
 
    .. image:: introduction/face_reco_single.png
       :align: center
@@ -50,13 +52,16 @@ Detect and recognize single or multi faces from camera;
 
 ** 关于精度 / About accuracy:
 
-* When using a distance threshold of ``0.6``, the dlib model obtains an accuracy of ``99.38%`` on the standard LFW face recognition benchmark.
+* When using a distance threshold of ``0.6``, the dlib model obtains an accuracy of ``99.38%``
+on the standard LFW face recognition benchmark.
 
 ** 关于算法 / About algorithm
 
 * 基于 Residual Neural Network / 残差网络的 CNN 模型;
 
-* This model is a ResNet network with 29 conv layers. It's essentially a version of the ResNet-34 network from the paper Deep Residual Learning for Image Recognition by He, Zhang, Ren, and Sun with a few layers removed and the number of filters per layer reduced by half.
+* This model is a ResNet network with 29 conv layers.
+It's essentially a version of the ResNet-34 network from the paper Deep Residual Learning for Image Recognition
+by He, Zhang, Ren, and Sun with a few layers removed and the number of filters per layer reduced by half.
 
 Overview
 ********
@@ -76,17 +81,17 @@ Overview
 Steps
 *****
 
+#. 下载源码 / Git clone source code
+
+   .. code-block:: bash
+
+      git clone https://github.com/coneypo/Dlib_face_recognition_from_camera
+
 #. 安装依赖库 / Install some python packages needed
 
    .. code-block:: bash
 
       pip install -r requirements.txt
-
-#. 下载源码 / Download zip from website or via GitHub Desktop in windows, or git clone repo in Ubuntu
-
-   .. code-block:: bash
-
-      git clone https://github.com/coneypo/Dlib_face_recognition_from_camera
 
 #. 进行人脸信息采集录入, Tkinter GUI / Register faces with Tkinter GUI
 
@@ -97,7 +102,7 @@ Steps
 
       python3 get_faces_from_camera_tkinter.py
 
-#. 进行人脸信息采集录入, OpenCV GUI / Register faces with OpenCV GUI
+#. 进行人脸信息采集录入, OpenCV GUI / Register faces with OpenCV GUI, same with above step
 
    .. code-block:: bash
 
@@ -115,13 +120,13 @@ Steps
 
       python3 face_reco_from_camera.py
 
-#. 对于人脸数<=1, 调用摄像头进行实时人脸识别 / Real-time face recognition (FPS improved)
+#. 对于人脸数<=1, 调用摄像头进行实时人脸识别 / Real-time face recognition (Better FPS compared with `face_reco_from_camera.py`)
 
    .. code-block:: bash
 
       python3 face_reco_from_camera_single_face.py
 
-#. 利用 OT 算法, 调用摄像头进行实时人脸识别 / Real-time face recognition with OT (FPS improved)
+#. 利用 OT 算法, 调用摄像头进行实时人脸识别 / Real-time face recognition with OT (Better FPS)
 
    .. code-block:: bash
 
@@ -130,7 +135,7 @@ Steps
 About Source Code
 *****************
 
-Repo 的 tree / 树状图:
+代码结构:
 
 ::
 
@@ -176,7 +181,8 @@ Repo 的 tree / 树状图:
 
       # This is trained on the ibug 300-W dataset (https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/)
       # Also note that this model file is designed for use with dlib's HOG face detector.
-      # That is, it expects the bounding boxes from the face detector to be aligned a certain way, the way dlib's HOG face detector does it.
+      # That is, it expects the bounding boxes from the face detector to be aligned a certain way,
+      the way dlib's HOG face detector does it.
       # It won't work as well when used with a face detector that produces differently aligned boxes,
       # such as the CNN based mmod_human_face_detector.dat face detector.
 
@@ -196,11 +202,15 @@ Python 源码介绍如下:
 
 #. get_face_from_camera.py: 
 
-   进行 Face register / 人脸信息采集录入
+   人脸信息采集录入 / Face register with OpenCV GUI
 
    * 请注意存储人脸图片时, 矩形框不要超出摄像头范围, 要不然无法保存到本地;
    * 超出会有 "out of range" 的提醒;
 
+
+#. get_faces_from_camera_tkinter.py:
+
+   进行人脸信息采集录入 Tkinter GUI / Face register with Tkinter GUI
 
 #. features_extraction_to_csv.py:
      
@@ -208,7 +218,6 @@ Python 源码介绍如下:
   
    * 会生成一个存储所有特征人脸数据的 "features_all.csv"；
    * size: n*129 , n means nx faces you registered and 129 means face name + 128D features of this face
-
 
 #. face_reco_from_camera.py: 
 
@@ -235,27 +244,29 @@ More
 
 Tips:
 
-#. 如果希望详细了解 dlib 的用法, 请参考 Dlib 官方 Python api 的网站 / You can refer to this link for more information of how to use dlib: http://dlib.net/python/index.html
+#. 如果希望详细了解 dlib 的用法, 请参考 Dlib 官方 Python api 的网站 /
+You can refer to this link for more information of how to use dlib: http://dlib.net/python/index.html
 
-#. Modify log level to ``logging.basicConfig(level=logging.DEBUG)`` to print info for every frame if needed (Default is ``logging.INFO``)
+#. Modify log level to ``logging.basicConfig(level=logging.DEBUG)`` to print info for every frame if needed
+(Default is ``logging.INFO``)
 
 #. 代码最好不要有中文路径 / No chinese characters in your code directory
 
 #. 人脸录入的时候先建文件夹再保存图片, 先 ``N`` 再 ``S`` / Press ``N`` before ``S``
 
 #. 关于 `face_reco_from_camera.py` 人脸识别卡顿 FPS 低问题, 原因是特征描述子提取很费时间, 光跑 face_descriptor_from_camera.py 中 
-face_reco_model.compute_face_descriptor 在我的机器上得到的平均 FPS 在 5 左右 (检测在 0.03s, 特征描述子提取在 0.158s, 和已知人脸进行遍历对比在 0.003s 左右),
-所以主要提取特征时候耗资源, 可以用 OT 去做追踪 (使用`face_reco_from_camera_ot.py`), 而不是对每一帧都做检测+识别, 识别的性能从 20 FPS -> 200 FPS
+face_reco_model.compute_face_descriptor 在我的机器上得到的平均 FPS 在 5 左右 (检测在 0.03s, 特征描述子提取在 0.158s,
+和已知人脸进行遍历对比在 0.003s 左右),
+所以主要提取特征时候耗资源, 可以用 OT 去做追踪 (使用`face_reco_from_camera_ot.py`), 而不是对每一帧都做检测+识别,
+识别的性能从 20 FPS -> 200 FPS
 
 可以访问我的博客获取本项目的更详细介绍, 如有问题可以邮件联系我 /
-For more details, please refer to my blog (in chinese) or mail to me :
+For more details, please visit my blog (in chinese) or send mail to coneypo@foxmail.com:
 
 * Blog: https://www.cnblogs.com/AdaminXie/p/9010298.html
 
 * 关于 OT 部分的更新在 Blog: https://www.cnblogs.com/AdaminXie/p/13566269.html
-  
-* Mail: coneypo@foxmail.com ( Dlib 相关 repo 问题请联系 @foxmail 而不是 @intel )
 
-* Feel free to creatE issue or PR for this repo :)
+* Feel free to create issue or contribute PR for it:)
 
 Thanks for your support.
