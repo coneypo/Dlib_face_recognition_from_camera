@@ -180,9 +180,7 @@ About Source Code
       detector = dlib.get_frontal_face_detector()
       faces = detector(img_gray, 0)
 
-	  
-#. Dlib 人脸 landmark 特征点检测器, output: <class 'dlib.dlib.full_object_detection'> / 
-Dlib face landmark predictor, will use `shape_predictor_68_face_landmarks.dat`
+#. Dlib 人脸 landmark 特征点检测器, output: <class 'dlib.dlib.full_object_detection'> / Dlib face landmark predictor, will use `shape_predictor_68_face_landmarks.dat`
 
    .. code-block:: python
 
