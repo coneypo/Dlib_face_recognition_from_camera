@@ -115,7 +115,7 @@ Steps
 
       python3 get_face_from_camera.py
 
-#. 提取所有录入人脸数据存入 "features_all.csv" / Features extraction and save into "features_all.csv"
+#. 提取所有录入人脸数据存入 ``features_all.csv`` / Features extraction and save into ``features_all.csv``
 
    .. code-block:: bash
 
@@ -127,7 +127,7 @@ Steps
 
       python3 face_reco_from_camera.py
 
-#. 对于人脸数<=1, 调用摄像头进行实时人脸识别 / Real-time face recognition (Better FPS compared with `face_reco_from_camera.py`)
+#. 对于人脸数<=1, 调用摄像头进行实时人脸识别 / Real-time face recognition (Better FPS compared with ``face_reco_from_camera.py``)
 
    .. code-block:: bash
 
@@ -172,7 +172,7 @@ About Source Code
 
 用到的 Dlib 相关模型函数 / Dlib related functions used in this repo:
 
-#. Dlib 正向人脸检测器 (based on HOG), output: <class 'dlib.dlib.rectangles'> / Dlib frontal face detector
+#. Dlib 正向人脸检测器 (based on HOG), output: ``<class 'dlib.dlib.rectangles'>`` / Dlib frontal face detector
 
 
    .. code-block:: python
@@ -180,7 +180,7 @@ About Source Code
       detector = dlib.get_frontal_face_detector()
       faces = detector(img_gray, 0)
 
-#. Dlib 人脸 landmark 特征点检测器, output: <class 'dlib.dlib.full_object_detection'> / Dlib face landmark predictor, will use `shape_predictor_68_face_landmarks.dat`
+#. Dlib 人脸 landmark 特征点检测器, output: ``<class 'dlib.dlib.full_object_detection'>`` / Dlib face landmark predictor, will use ``shape_predictor_68_face_landmarks.dat``
 
    .. code-block:: python
 
@@ -205,7 +205,7 @@ About Source Code
 
 Python 源码介绍如下 / Source code:
 
-#. get_face_from_camera.py: 
+#. ``get_face_from_camera.py``: 
 
    人脸信息采集录入 / Face register with OpenCV GUI
 
@@ -213,57 +213,49 @@ Python 源码介绍如下 / Source code:
    * 超出会有 "out of range" 的提醒;
 
 
-#. get_faces_from_camera_tkinter.py:
+#. ``get_faces_from_camera_tkinter.py``:
 
    进行人脸信息采集录入 Tkinter GUI / Face register with Tkinter GUI
 
-#. features_extraction_to_csv.py:
+#. ``features_extraction_to_csv.py``:
      
    从上一步存下来的图像文件中, 提取人脸数据存入 CSV / Extract features from face images saved in step 1;
   
-   * 会生成一个存储所有特征人脸数据的 "features_all.csv"
-   * Size: n*129 , n means nx faces you registered and 129 means face name + 128D features of this face
+   * 会生成一个存储所有特征人脸数据的 ``features_all.csv``
+   * Size: ``n*129`` , n means n faces you registered and 129 means face name + 128D features of this face
 
-#. face_reco_from_camera.py: 
+#. ``face_reco_from_camera.py``: 
 
    这一步将调用摄像头进行实时人脸识别; / This part will implement real-time face recognition;
-  
-   * Compare the faces captured from camera with the faces you have registered which are saved in "features_all.csv"
    
    * 将捕获到的人脸数据和之前存的人脸数据进行对比计算欧式距离, 由此判断是否是同一个人;
+  
+   * Compare the faces captured from camera with the faces you have registered which are saved in ``features_all.csv``;
 
-#. face_reco_from_camera_single_face.py:
+#. ``face_reco_from_camera_single_face.py``:
 	
-   针对于人脸数 <=1 的场景, 区别于 face_reco_from_camera.py (对每一帧都进行检测+识别), 只有人脸出现的时候进行识别;
+   针对于人脸数 <=1 的场景, 区别于 ``face_reco_from_camera.py`` (对每一帧都进行检测+识别), 只有人脸出现的时候进行识别;
 
-#. face_reco_from_camera_ot.py:
+#. ``face_reco_from_camera_ot.py``:
 
    只会对初始帧做检测+识别, 对后续帧做检测+质心跟踪;
 
-#. (optional) face_descriptor_from_camera.py
+#. (optional) ``face_descriptor_from_camera.py``
 
    调用摄像头进行实时特征描述子计算; / Real-time face descriptor computation;
 
 More
 ****
 
-Tips:
+#. 如果希望详细了解 dlib 的用法, 请参考 Dlib 官方 Python api 的网站 / You can refer to this link for more information of how to use dlib: http://dlib.net/python/index.html
 
-#. 如果希望详细了解 dlib 的用法, 请参考 Dlib 官方 Python api 的网站 /
-You can refer to this link for more information of how to use dlib: http://dlib.net/python/index.html
-
-#. Modify log level to ``logging.basicConfig(level=logging.DEBUG)`` to print info for every frame if needed
-(Default is ``logging.INFO``)
+#. Modify log level to ``logging.basicConfig(level=logging.DEBUG)`` to print info for every frame if needed (Default is ``logging.INFO``)
 
 #. 代码最好不要有中文路径 / No chinese characters in your code directory
 
 #. 人脸录入的时候先建文件夹再保存图片, 先 ``N`` 再 ``S`` / Press ``N`` before ``S``
 
-#. 关于 `face_reco_from_camera.py` 人脸识别卡顿 FPS 低问题, 原因是特征描述子提取很费时间, 光跑 face_descriptor_from_camera.py 中 
-face_reco_model.compute_face_descriptor 在我的机器上得到的平均 FPS 在 5 左右 (检测在 0.03s, 特征描述子提取在 0.158s,
-和已知人脸进行遍历对比在 0.003s 左右),
-所以主要提取特征时候耗资源, 可以用 OT 去做追踪 (使用`face_reco_from_camera_ot.py`), 而不是对每一帧都做检测+识别,
-识别的性能从 20 FPS -> 200 FPS
+#. 关于 ``face_reco_from_camera.py`` 人脸识别卡顿 FPS 低问题, 原因是特征描述子提取很费时间; 光跑 ``face_descriptor_from_camera.py`` 中 ``face_reco_model.compute_face_descriptor`` 在我的机器上得到的平均 FPS 在 5 左右 (检测在 ``0.03s`` , 特征描述子提取在 ``0.158s`` , 和已知人脸进行遍历对比在 ``0.003s`` 左右); 所以主要提取特征时候耗资源, 可以用 OT 去做追踪 (使用 ``face_reco_from_camera_ot.py`` ), 而不是对每一帧都做检测+识别, 识别的性能从 20 FPS -> 200 FPS
 
 可以访问我的博客获取本项目的更详细介绍, 如有问题可以邮件联系我 /
 For more details, please visit my blog (in chinese) or send mail to coneypo@foxmail.com:
