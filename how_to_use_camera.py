@@ -56,3 +56,4 @@ cap.release()
 
 # 删除建立的所有窗口
 cv2.destroyAllWindows()
+2333
