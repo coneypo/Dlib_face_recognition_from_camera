@@ -82,7 +82,7 @@ def main():
     person_list = os.listdir("data/data_faces_from_camera/")
     person_list.sort()
 
-    with open("data/features_all.csv", "w", newline="") as csvfile:
+    with open("data/features_all.csv", "w", newline="", encoding="uft-8") as csvfile:
         writer = csv.writer(csvfile)
         for person in person_list:
             # Get the mean/average features of face/personX, it will be a list with a length of 128D
@@ -91,7 +91,7 @@ def main():
 
             if len(person.split('_', 2)) == 2:
                 # "person_x"
-                person_name = person
+                person_name = person.split('_', 2)[-1]
             else:
                 # "person_x_tom"
                 person_name = person.split('_', 2)[-1]
