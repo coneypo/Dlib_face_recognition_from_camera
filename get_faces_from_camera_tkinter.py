@@ -17,6 +17,7 @@ import time
 import logging
 import tkinter as tk
 from tkinter import font as tkFont
+from tkinter import messagebox
 from PIL import Image, ImageTk
 
 # Dlib 正向人脸检测器 / Use frontal face detector of Dlib
@@ -27,12 +28,20 @@ class Face_Register:
     def __init__(self):
 
         self.current_frame_faces_cnt = 0  # 当前帧中人脸计数器 / cnt for counting faces in current frame
-        self.existing_faces_cnt = 0  # 已录入的人脸计数器 / cnt for counting saved faces
+        self.existing_faces = 0  # 已录入的人脸数 / cnt for counting saved faces
         self.ss_cnt = 0  # 录入 person_n 人脸时图片计数器 / cnt for screen shots
+        self.registered_names = []  # 已录入的人脸名字 / names of registered faces
+        
+        self.path_photos_from_camera = "data/data_faces_from_camera/"
+        self.current_face_dir = ""
+        self.font = cv2.FONT_ITALIC
+
+        if os.listdir(self.path_photos_from_camera):
+            self.existing_faces = len(os.listdir(self.path_photos_from_camera))
 
         # Tkinter GUI
         self.win = tk.Tk()
-        self.win.title("Face Register @coneypo")
+        self.win.title("人脸录入")
 
         # PLease modify window size here if needed
         self.win.geometry("1300x550")
@@ -45,9 +54,9 @@ class Face_Register:
 
         # GUI right part
         self.frame_right_info = tk.Frame(self.win)
-        self.label_cnt_face_in_database = tk.Label(self.frame_right_info, text=str(self.existing_faces_cnt))
+        self.label_cnt_face_in_database = tk.Label(self.frame_right_info, text=str(self.existing_faces))
         self.label_fps_info = tk.Label(self.frame_right_info, text="")
-        self.input_name = tk.Entry(self.frame_right_info)
+        self.input_name = tk.Entry(self.frame_right_info, width=25)
         self.input_name_char = ""
         self.label_warning = tk.Label(self.frame_right_info)
         self.label_face_cnt = tk.Label(self.frame_right_info, text="Faces in current frame: ")
@@ -56,10 +65,6 @@ class Face_Register:
         self.font_title = tkFont.Font(family='Helvetica', size=20, weight='bold')
         self.font_step_title = tkFont.Font(family='Helvetica', size=15, weight='bold')
         self.font_warning = tkFont.Font(family='Helvetica', size=15, weight='bold')
-
-        self.path_photos_from_camera = "data/data_faces_from_camera/"
-        self.current_face_dir = ""
-        self.font = cv2.FONT_ITALIC
 
         # Current frame and face ROI position
         self.current_frame = np.ndarray
@@ -90,16 +95,63 @@ class Face_Register:
         folders_rd = os.listdir(self.path_photos_from_camera)
         for i in range(len(folders_rd)):
             shutil.rmtree(self.path_photos_from_camera + folders_rd[i])
-        if os.path.isfile("data/features_all.csv"):
-            os.remove("data/features_all.csv")
+        if os.path.isfile("./data/features_all.csv"):
+            os.remove("./data/features_all.csv")
         self.label_cnt_face_in_database['text'] = "0"
-        self.existing_faces_cnt = 0
-        self.log_all["text"] = "Face images and `features_all.csv` removed!"
+        self.registered_names.clear()
+        self.log_all["text"] = "全部图片和`features_all.csv`已全部移除!"
+        self.log_all["fg"] = "green"
 
     def GUI_get_input_name(self):
         self.input_name_char = self.input_name.get()
-        self.create_face_folder()
-        self.label_cnt_face_in_database['text'] = str(self.existing_faces_cnt)
+        if self.input_name_char:
+            if self.input_name_char not in self.registered_names:
+
+                self.create_face_folder()
+                self.registered_names.append(self.input_name_char)
+                self.label_cnt_face_in_database['text'] = str(self.registered_names.__len__())
+            else:
+                self.log_all["text"] = "此名字已被录入，请输入新的名字!"
+                self.log_all["fg"] = "red"
+        else:
+            self.log_all["text"] = "请输入姓名"
+            self.log_all["fg"] = "red"
+
+    def delete_name(self):
+        self.input_name_char = self.input_name.get()
+        if self.input_name_char:
+            if self.input_name_char in self.registered_names:
+                self.remove_face_dir(self.path_photos_from_camera + "person_" + self.input_name_char)
+                self.log_all["text"] = "'" + self.input_name_char + "'" + "已移除!"
+                self.log_all["fg"] = "green"
+                self.registered_names.remove(self.input_name_char)
+                self.label_cnt_face_in_database['text'] = str(self.registered_names.__len__())
+            else:
+                self.log_all["text"] = "此名字不存在，请输入正确的名字!"
+                self.log_all["fg"] = "red"
+        else:
+            self.log_all["text"] = "请先输入要删除的姓名"
+            self.log_all["fg"] = "red"
+
+    def change_name(self):
+        self.input_name_char = self.input_name.get()
+        if self.input_name_char:
+            if self.input_name_char in self.registered_names:
+                self.current_face_dir = self.path_photos_from_camera + \
+                                    "person_" + \
+                                    self.input_name_char
+                pecturt_list = os.listdir(self.current_face_dir)
+                self.ss_cnt = len(pecturt_list)  # 将人脸计数器置为原来的 / Clear the cnt of screen shots
+                self.face_folder_created_flag = True  # Face folder already created
+                self.label_cnt_face_in_database['text'] = str(self.registered_names.__len__())
+                self.log_all["text"] = "可以添加新照片了!"
+                self.log_all["fg"] = "green"
+            else:
+                self.log_all["text"] = "此名字不存在，请输入正确的名字!"
+                self.log_all["fg"] = "red"
+        else:
+            self.log_all["text"] = "请先输入要更改的姓名"
+            self.log_all["fg"] = "red"      
 
     def GUI_info(self):
         tk.Label(self.frame_right_info,
@@ -111,11 +163,11 @@ class Face_Register:
         self.label_fps_info.grid(row=1, column=2, sticky=tk.W, padx=5, pady=2)
 
         tk.Label(self.frame_right_info,
-                 text="Faces in database: ").grid(row=2, column=0, columnspan=2, sticky=tk.W, padx=5, pady=2)
+                 text="数据库中已有的人脸: ").grid(row=2, column=0, columnspan=2, sticky=tk.W, padx=5, pady=2)
         self.label_cnt_face_in_database.grid(row=2, column=2, columnspan=3, sticky=tk.W, padx=5, pady=2)
 
         tk.Label(self.frame_right_info,
-                 text="Faces in current frame: ").grid(row=3, column=0, columnspan=2, sticky=tk.W, padx=5, pady=2)
+                 text="当前帧中的人脸: ").grid(row=3, column=0, columnspan=2, sticky=tk.W, padx=5, pady=2)
         self.label_face_cnt.grid(row=3, column=2, columnspan=3, sticky=tk.W, padx=5, pady=2)
 
         self.label_warning.grid(row=4, column=0, columnspan=3, sticky=tk.W, padx=5, pady=2)
@@ -123,30 +175,38 @@ class Face_Register:
         # Step 1: Clear old data
         tk.Label(self.frame_right_info,
                  font=self.font_step_title,
-                 text="Step 1: Clear face photos").grid(row=5, column=0, columnspan=2, sticky=tk.W, padx=5, pady=20)
+                 text="删除之前存的人脸数据文件夹").grid(row=5, column=0, columnspan=2, sticky=tk.W, padx=5, pady=20)
         tk.Button(self.frame_right_info,
-                  text='Clear',
+                  text='删除全部',
                   command=self.GUI_clear_data).grid(row=6, column=0, columnspan=3, sticky=tk.W, padx=5, pady=2)
 
         # Step 2: Input name and create folders for face
         tk.Label(self.frame_right_info,
                  font=self.font_step_title,
-                 text="Step 2: Input name").grid(row=7, column=0, columnspan=2, sticky=tk.W, padx=5, pady=20)
+                 text="Step 1: 输入姓名").grid(row=7, column=0, columnspan=2, sticky=tk.W, padx=5, pady=20)
 
-        tk.Label(self.frame_right_info, text="Name: ").grid(row=8, column=0, sticky=tk.W, padx=5, pady=0)
+        tk.Label(self.frame_right_info, text="姓名: ").grid(row=8, column=0, sticky=tk.W, padx=5, pady=0)
         self.input_name.grid(row=8, column=1, sticky=tk.W, padx=0, pady=2)
 
         tk.Button(self.frame_right_info,
-                  text='Input',
+                  text='录入',
                   command=self.GUI_get_input_name).grid(row=8, column=2, padx=5)
+        
+        tk.Button(self.frame_right_info,
+                  text='更改',
+                  command=self.change_name).grid(row=8, column=3, padx=5)
+        
+        tk.Button(self.frame_right_info,
+                  text='删除',
+                  command=self.delete_name).grid(row=8, column=4, padx=5)
 
         # Step 3: Save current face in frame
         tk.Label(self.frame_right_info,
                  font=self.font_step_title,
-                 text="Step 3: Save face image").grid(row=9, column=0, columnspan=2, sticky=tk.W, padx=5, pady=20)
+                 text="Step 2: 保存当前人脸图片").grid(row=9, column=0, columnspan=2, sticky=tk.W, padx=5, pady=20)
 
         tk.Button(self.frame_right_info,
-                  text='Save current face',
+                  text='保存',
                   command=self.save_current_face).grid(row=10, column=0, columnspan=3, sticky=tk.W)
 
         # Show log in GUI
@@ -160,22 +220,22 @@ class Face_Register:
         if os.path.isdir(self.path_photos_from_camera):
             pass
         else:
-            os.mkdir(self.path_photos_from_camera)
+            os.makedirs(self.path_photos_from_camera)
 
     # 如果有之前录入的人脸, 在之前 person_x 的序号按照 person_x+1 开始录入 / Start from person_x+1
-    def check_existing_faces_cnt(self):
-        if os.listdir("data/data_faces_from_camera/"):
+    def check_existing_faces(self):
+        if os.listdir(self.path_photos_from_camera):
             # 获取已录入的最后一个人脸序号 / Get the order of latest person
-            person_list = os.listdir("data/data_faces_from_camera/")
-            person_num_list = []
+            person_list = os.listdir(self.path_photos_from_camera)
             for person in person_list:
-                person_order = person.split('_')[1].split('_')[0]
-                person_num_list.append(int(person_order))
-            self.existing_faces_cnt = max(person_num_list)
+                name = person.split('_')[1]
+                self.registered_names.append(name)
+            self.existing_faces = len(person_list)
 
         # 如果第一次存储或者没有之前录入的人脸, 按照 person_1 开始录入 / Start from person_1
         else:
-            self.existing_faces_cnt = 0
+            self.registered_names.clear()
+            print("No previous data.")
 
     # 更新 FPS / Update FPS of Video stream
     def update_fps(self):
@@ -187,25 +247,28 @@ class Face_Register:
         self.frame_time = now - self.frame_start_time
         self.fps = 1.0 / self.frame_time
         self.frame_start_time = now
-
-        self.label_fps_info["text"] = str(self.fps.__round__(2))
+        formatted_fps = "{:.2f}".format(self.fps)
+        self.label_fps_info["text"] = str(formatted_fps)
 
     def create_face_folder(self):
         # 新建存储人脸的文件夹 / Create the folders for saving faces
-        self.existing_faces_cnt += 1
-        if self.input_name_char:
-            self.current_face_dir = self.path_photos_from_camera + \
-                                    "person_" + str(self.existing_faces_cnt) + "_" + \
+        self.current_face_dir = self.path_photos_from_camera + \
+                                    "person_" + \
                                     self.input_name_char
-        else:
-            self.current_face_dir = self.path_photos_from_camera + \
-                                    "person_" + str(self.existing_faces_cnt)
         os.makedirs(self.current_face_dir)
         self.log_all["text"] = "\"" + self.current_face_dir + "/\" created!"
+        self.log_all["fg"] = "green"
         logging.info("\n%-40s %s", "新建的人脸文件夹 / Create folders:", self.current_face_dir)
 
         self.ss_cnt = 0  # 将人脸计数器清零 / Clear the cnt of screen shots
         self.face_folder_created_flag = True  # Face folder already created
+
+    def remove_face_dir(self, folder_path):
+        try:
+            shutil.rmtree(folder_path)
+            print(f"Folder '{folder_path}' has been deleted successfully.")
+        except Exception as e:
+            print(f"Failed to delete folder '{folder_path}'. Error: {e}")
 
     def save_current_face(self):
         if self.face_folder_created_flag:
@@ -220,26 +283,36 @@ class Face_Register:
                             self.face_ROI_image[ii][jj] = self.current_frame[self.face_ROI_height_start - self.hh + ii][
                                 self.face_ROI_width_start - self.ww + jj]
                     self.log_all["text"] = "\"" + self.current_face_dir + "/img_face_" + str(
-                        self.ss_cnt) + ".jpg\"" + " saved!"
+                        self.ss_cnt) + ".jpg\"" + " 保存成功!"
+                    self.log_all["fg"] = "green"
                     self.face_ROI_image = cv2.cvtColor(self.face_ROI_image, cv2.COLOR_BGR2RGB)
 
-                    cv2.imwrite(self.current_face_dir + "/img_face_" + str(self.ss_cnt) + ".jpg", self.face_ROI_image)
+                    # 使用Pillow保存图像
+                    img_pil = Image.fromarray(self.face_ROI_image)
+                    img_pil.save(self.current_face_dir + "/img_face_" + str(self.ss_cnt) + ".jpg")
                     logging.info("%-40s %s/img_face_%s.jpg", "写入本地 / Save into：",
                                  str(self.current_face_dir), str(self.ss_cnt) + ".jpg")
                 else:
-                    self.log_all["text"] = "Please do not out of range!"
+                    self.log_all["text"] = "人脸不在范围内（人脸框白色才能保存）!"
+                    self.log_all["fg"] = "red"
             else:
-                self.log_all["text"] = "No face in current frame!"
+                self.log_all["text"] = "没找到人脸或者找到多个人脸"
+                self.log_all["fg"] = "red"
         else:
-            self.log_all["text"] = "Please run step 2!"
+            self.log_all["text"] = "请先执行step 1"
+            self.log_all["fg"] = "red"
 
     def get_frame(self):
         try:
             if self.cap.isOpened():
                 ret, frame = self.cap.read()
-                return ret, cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        except:
-            print("Error: No video input!!!")
+                if ret:
+                    return ret, cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                else:
+                    raise Exception("Unable to open the camera")
+        except Exception as e:
+            messagebox.showerror("Error", f"没有找到摄像头!!!{e}\n")
+            print("Error: No video input!!!{e}")
 
     # 获取人脸 / Main process of face detection and saving
     def process(self):
@@ -289,7 +362,7 @@ class Face_Register:
 
     def run(self):
         self.pre_work_mkdir()
-        self.check_existing_faces_cnt()
+        self.check_existing_faces()
         self.GUI_info()
         self.process()
         self.win.mainloop()
