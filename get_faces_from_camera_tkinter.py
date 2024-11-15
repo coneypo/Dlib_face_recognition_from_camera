@@ -285,11 +285,11 @@ class Face_Register:
                     self.log_all["text"] = "\"" + self.current_face_dir + "/img_face_" + str(
                         self.ss_cnt) + ".jpg\"" + " 保存成功!"
                     self.log_all["fg"] = "green"
-                    self.face_ROI_image = cv2.cvtColor(self.face_ROI_image, cv2.COLOR_BGR2RGB)
 
                     # 使用Pillow保存图像
                     img_pil = Image.fromarray(self.face_ROI_image)
                     img_pil.save(self.current_face_dir + "/img_face_" + str(self.ss_cnt) + ".jpg")
+                    
                     logging.info("%-40s %s/img_face_%s.jpg", "写入本地 / Save into：",
                                  str(self.current_face_dir), str(self.ss_cnt) + ".jpg")
                 else:
