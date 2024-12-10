@@ -14,6 +14,7 @@ import csv
 import numpy as np
 import logging
 import cv2
+from PIL import Image
 
 # 要读取人脸图像文件的路径 / Path of cropped faces
 path_images_from_camera = "data/data_faces_from_camera/"
@@ -32,7 +33,9 @@ face_reco_model = dlib.face_recognition_model_v1("data/data_dlib/dlib_face_recog
 # Input:    path_img           <class 'str'>
 # Output:   face_descriptor    <class 'dlib.vector'>
 def return_128d_features(path_img):
-    img_rd = cv2.imread(path_img)
+    img_pil = Image.open(path_img)
+    img_np = np.array(img_pil)
+    img_rd = cv2.cvtColor(img_np, cv2.COLOR_RGB2BGR)
     faces = detector(img_rd, 1)
 
     logging.info("%-40s %-20s", "检测到人脸的图像 / Image with faces detected:", path_img)
@@ -82,19 +85,13 @@ def main():
     person_list = os.listdir("data/data_faces_from_camera/")
     person_list.sort()
 
-    with open("data/features_all.csv", "w", newline="") as csvfile:
+    with open("data/features_all.csv", "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
         for person in person_list:
             # Get the mean/average features of face/personX, it will be a list with a length of 128D
             logging.info("%sperson_%s", path_images_from_camera, person)
             features_mean_personX = return_features_mean_personX(path_images_from_camera + person)
-
-            if len(person.split('_', 2)) == 2:
-                # "person_x"
-                person_name = person
-            else:
-                # "person_x_tom"
-                person_name = person.split('_', 2)[-1]
+            person_name = person.split('_', 2)[-1]
             features_mean_personX = np.insert(features_mean_personX, 0, person_name, axis=0)
             # features_mean_personX will be 129D, person name + 128 features
             writer.writerow(features_mean_personX)
